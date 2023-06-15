@@ -1,0 +1,13 @@
+footer {
+    background-color: gray;
+}
+
+footer:not(:first-child){
+    border-top: 1px solid rgb(15, 14, 14)
+}
+
+footer .input-group-text {
+    background-color: darkgray;
+    color: rgb(15, 15, 15);
+    padding: 8px 17px;
+}
