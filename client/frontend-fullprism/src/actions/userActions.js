@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, GET_MODELS } from "./types";
+import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -75,3 +75,30 @@ export const getModels= ()=> {
 
 
 
+export const modifyItemCart = (payload) => {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    
+    try { 
+        return async function(dispatch){
+            let addToCart = await axios.put("http://localhost:3001/cart/modifyCart" ,{product: payload},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            
+            console.log("console.log" ,addToCart)
+
+            return dispatch({
+                type: MODIFY_ITEM_CART,
+                payload: addToCart.data,
+            })
+        }
+
+    } catch (error) {
+        console.log("Error Modifying Item in Cart", error)
+
+    }
+
+}

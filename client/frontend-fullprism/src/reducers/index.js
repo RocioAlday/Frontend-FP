@@ -1,6 +1,7 @@
 import {
     GET_MODELS,
-    LOGIN_USER
+    LOGIN_USER,
+    MODIFY_ITEM_CART
 } from '../actions/types';
 
 
@@ -9,6 +10,7 @@ const initialState= {
     allUsers: [],
     userLogin: [],
     modelsByCompany: [],
+    modelsInCart: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -16,7 +18,7 @@ const rootReducer= (state= initialState, action)=> {
         case LOGIN_USER:
             return {
                 ...state,
-                userLogin: [...state.userLogin, action.payload]
+                userLogin: [action.payload]
             }
 
         case GET_MODELS: 
@@ -26,7 +28,12 @@ const rootReducer= (state= initialState, action)=> {
                 modelsByCompany: action.payload
             }
         
-    
+        case MODIFY_ITEM_CART:
+            return {
+                ...state,
+                modelsInCart: [action.payload]
+            }
+
         default:
             return state;
       }
