@@ -25,7 +25,7 @@ const Pedidos = ()=> {
 
 
     return (
-        <div className='grid grid-cols-4 '>
+        <div >
             <Pagination models= {allModels} />
         </div>
     
