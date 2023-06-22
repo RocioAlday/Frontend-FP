@@ -1,4 +1,4 @@
-import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART } from "./types";
+import { LOGIN_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -15,19 +15,6 @@ export const registerUser= (user)=> {
 };
 
 
-// export const logOutUser= (user) => {
-//     let cookie= new Cookies();
-//     try {
-//         return async function(){
-//             let dataLogout= await axios.post("http://localhost:3001/user/logout" , user, cookie); //falta mandarle acá x headers las cookies, lo espera el back
-//             console.log(dataLogout.data.refreshToken);
-//             cookie.set("refreshToken", "");
-           
-//         }
-//     } catch(error) {
-//         console.log('Error in user Logout')
-//     }
-// };
 
 export const loginUser = (user) => {
    let cookie = new Cookies();
@@ -92,7 +79,7 @@ export const modifyItemCart = (payload) => {
 
             return dispatch({
                 type: MODIFY_ITEM_CART,
-                payload: addToCart.data,
+                payload: addToCart,
             })
         }
 
@@ -101,4 +88,54 @@ export const modifyItemCart = (payload) => {
 
     }
 
+};
+
+export const searchByName= (payload)=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/model/modelByName?name=${payload}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(response);
+            dispatch({
+                type: GET_MODEL_BY_NAME,
+                payload: response.data,
+            })
+        } catch (error) {
+            console.log("Error in Search Model By Name", error);
+        }
+    }
+};
+
+export const clearFilter= ()=> {
+    return {
+        type: CLEAR_FILTER
+    }
+};
+
+export const generateOrder= ()=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function (dispatch) {
+        try {
+            const response = await axios.get(`http://localhost:3001/order/newOrder`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(response);
+            dispatch({
+                type: GENERATE_ORDER,
+                payload: response.data,
+            })
+        } catch (error) {
+            console.log("Error in Search Model By Name", error);
+        }
+    }
 }

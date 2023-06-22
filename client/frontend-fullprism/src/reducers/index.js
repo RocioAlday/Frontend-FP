@@ -1,7 +1,10 @@
 import {
     GET_MODELS,
     LOGIN_USER,
-    MODIFY_ITEM_CART
+    MODIFY_ITEM_CART,
+    GET_MODEL_BY_NAME,
+    CLEAR_FILTER,
+    GENERATE_ORDER
 } from '../actions/types';
 
 
@@ -10,7 +13,9 @@ const initialState= {
     allUsers: [],
     userLogin: [],
     modelsByCompany: [],
-    modelsInCart: []
+    modelsInCart: {},
+    searchModelsByName: [],
+    userOrder: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -29,9 +34,28 @@ const rootReducer= (state= initialState, action)=> {
             }
         
         case MODIFY_ITEM_CART:
+            console.log(action.payload.data);
             return {
                 ...state,
-                modelsInCart: [action.payload]
+                modelsInCart: action.payload.data
+            }
+        
+        case GET_MODEL_BY_NAME:
+            return {
+                ...state,
+                searchModelsByName: action.payload
+            }    
+
+        case CLEAR_FILTER:
+            return {
+                ...state,
+                searchModelsByName: []
+            }
+        
+        case GENERATE_ORDER:
+            return {
+                ...state,
+                userOrder: action.payload
             }
 
         default:

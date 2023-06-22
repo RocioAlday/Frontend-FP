@@ -1,15 +1,8 @@
 import React from "react";
 import  Card from '../Card-STL/Card';
+import { useState } from "react";
 
-export const Pagination= ({models})=> {
-    console.log(models);
-    return (
-    
-        <div>{rederMapeo(models)}</div>
-        
-       
-    )
-};
+
 
 export const rederMapeo= (models)=> {
    
@@ -29,10 +22,54 @@ export const rederMapeo= (models)=> {
                 })}
                 
             </div> 
-            <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Continuar con el Pedido</button>
         </div>
     )
 };
+
+
+export const Pagination= ({models})=> {
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [modelPerPage, setModelsPerPage]= useState(8);
+    const indexOfLastModel= currentPage * modelPerPage;
+    const indexOfFirstModel= indexOfLastModel - modelPerPage;
+    const currentModels= models.slice(indexOfFirstModel, indexOfLastModel);    
+
+
+    const pages = [];
+    for (let i = 1; i <= Math.ceil(models.length / modelPerPage); i++) {
+        pages.push(i);
+    };
+    console.log(pages);
+
+    const handleClick= (e)=> {
+        setCurrentPage(Number(e.target.id));
+    }
+
+        
+    return (
+        <div>
+        <div>{rederMapeo(currentModels)}</div>
+        <div className="flex flex-row justify-center p-2 mb-10">
+            <ul>
+                {pages.map((number) => {
+                    return (
+                        <button
+                            className=" text-xs bg-gray-200 border-2 py-2 px-3 mx-1 rounded-xl "
+                            key={number}
+                            onClick={handleClick}
+                            id={number}>
+                            {number}
+                        </button>
+                    );
+                })}
+            </ul>
+        </div>
+        </div>
+       
+    )
+};
+
 
 
 
