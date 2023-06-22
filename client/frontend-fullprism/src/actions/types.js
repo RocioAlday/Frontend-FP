@@ -2,3 +2,6 @@ export const LOGIN_USER = 'LOGIN_USER';
 export const LOGOUT_USER = 'LOGOUT_USER';
 export const GET_MODELS= 'GET_MODELS';
 export const MODIFY_ITEM_CART= 'MODIFY_ITEM_CART';
+export const GET_MODEL_BY_NAME= 'GET_MODEL_BY_NAME';
+export const CLEAR_FILTER= 'CLEAR_FILTER';
+export const GENERATE_ORDER= 'GENERATE_ORDER';
