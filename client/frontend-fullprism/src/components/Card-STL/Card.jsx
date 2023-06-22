@@ -49,14 +49,15 @@ const Card= ({name, material, price, image})=> {
 
     return (
 
-    <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+    <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row sm:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <img class="object-cover w-full rounded-t-lg h-40 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={image} alt="" />
-        <div class="flex flex-col justify-between p-4 leading-normal">
+        <div class="flex flex-col justify-between p-4 leading-normal w-2/3">
             <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
-            <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Material: {material}</p>
+            <p class="mb-3 font-normal  text-gray-700 dark:text-gray-400">Material: {material}</p>
             <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Precio: {price}</p>
         </div>
-        <div className="mb-3 justify-end">
+        <div className="flex flex-row items-center">
+        <div className="flex flex-col items-center ">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="cantidad">
                 Cantidad
             </label>
@@ -72,8 +73,10 @@ const Card= ({name, material, price, image})=> {
                     <span class="sr-only">Quantity button</span>
                     <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                 </button>
-                <button className=" bg-lime-200 rounded-full p-2  font-light fot" type="button" onClick={handleConfirm}>Agregar</button>
-                </div>
+            </div>
+            </div>
+            <button className="mx-4 bg-lime-200 rounded-full p-2  font-light fot" type="button" onClick={handleConfirm}>Agregar</button>
+       
         </div>
     
     </div>
