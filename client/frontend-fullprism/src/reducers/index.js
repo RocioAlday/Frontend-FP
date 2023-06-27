@@ -4,7 +4,9 @@ import {
     MODIFY_ITEM_CART,
     GET_MODEL_BY_NAME,
     CLEAR_FILTER,
-    GENERATE_ORDER
+    GENERATE_ORDER,
+    MODIFY_ORDER,
+    GET_CART
 } from '../actions/types';
 
 
@@ -15,7 +17,8 @@ const initialState= {
     modelsByCompany: [],
     modelsInCart: {},
     searchModelsByName: [],
-    userOrder: []
+    userOrder: {},
+    cartUser: {}
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -33,6 +36,12 @@ const rootReducer= (state= initialState, action)=> {
                 modelsByCompany: action.payload
             }
         
+        case GET_CART:
+            return {
+                ...state,
+                cartUser: action.payload
+            }
+
         case MODIFY_ITEM_CART:
             console.log(action.payload.data);
             return {
@@ -51,8 +60,15 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 searchModelsByName: []
             }
-        
+
         case GENERATE_ORDER:
+            console.log('REDUCER:', action.payload);
+            return {
+                ...state,
+                userOrder: action.payload
+            }
+
+        case MODIFY_ORDER:
             return {
                 ...state,
                 userOrder: action.payload

@@ -1,25 +1,30 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getModels, searchByName, clearFilter } from '../../actions/userActions';
+import { getModels, searchByName, clearFilter, generateOrder } from '../../actions/userActions';
 import { Pagination } from '../../components/Pagination/Pagination';
+import Order from '../../components/Order-Detail/Order';
 
 const Pedidos = ()=> {
-
+    let history= useNavigate();
     let [input, setInput]= useState("");
+    let [goToOrder, setGoToOrder]= useState(false);
+    let order= useSelector((state)=> state.userOrder);
     let allModels= useSelector((state)=> state.modelsByCompany); 
     const dispatch= useDispatch();
-
+console.log(order);
     let searchModels= useSelector((state)=> state.searchModelsByName);
     console.log(allModels);
 
+   
     useEffect(()=> {
        
         dispatch(getModels());
 
     }, [dispatch]);
+
 
     function handleChange(e){
         setInput(e.target.value)
@@ -40,8 +45,11 @@ const Pedidos = ()=> {
     function handleContinueToOrder(e) {
         e.preventDefault();
         dispatch(generateOrder());
+        setGoToOrder(true)
+        // PONER UNA BANDERA PARA CONTROLAR SI SE CLICKEO--> POR FUERA DE LA FUNCION MANDA AL COMPONENTE DETAILORDER
     }
 
+   if (order && order.hasOwnProperty('models') && goToOrder) history('/orderDetail');
 
     return (
         
@@ -69,14 +77,6 @@ const Pedidos = ()=> {
                 <Pagination models= {searchModels.length>0 ? searchModels : allModels  }/>
                
             </div>
-            
-        
-        
-    
-        
-
-      
-     
 
     )
 
