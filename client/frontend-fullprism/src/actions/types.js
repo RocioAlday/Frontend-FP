@@ -5,3 +5,6 @@ export const MODIFY_ITEM_CART= 'MODIFY_ITEM_CART';
 export const GET_MODEL_BY_NAME= 'GET_MODEL_BY_NAME';
 export const CLEAR_FILTER= 'CLEAR_FILTER';
 export const GENERATE_ORDER= 'GENERATE_ORDER';
+export const GET_ORDER= 'GET_ORDER';
+export const MODIFY_ORDER= 'MODIFY_ORDER';
+export const GET_CART= 'GET_CART';

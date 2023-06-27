@@ -7,6 +7,7 @@ import Login from './pages/Login/Login';
 import Register from './pages/SignUp/Register';
 import Pedidos from './pages/Pedidos/Pedidos';
 import Logout from './components/Logout/Logout';
+import Order from './components/Order-Detail/Order';
 
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
          <Route path='/logout' element= {<Logout />} />
          <Route path='/register' element= {<Register />} />
          <Route path='/pedidos' element= {<Pedidos />} />
+         <Route path= '/orderDetail' element= {<Order />} />
         </Route>
         </Routes>
       </BrowserRouter>
