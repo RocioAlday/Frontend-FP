@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import  Card from '../Card-STL/Card';
 import { useState } from "react";
-
+import { getModels } from "../../actions/userActions";
+import { useDispatch } from "react-redux";
 
 
 export const rederMapeo= (models)=> {
@@ -34,7 +35,11 @@ export const Pagination= ({models})=> {
     const indexOfLastModel= currentPage * modelPerPage;
     const indexOfFirstModel= indexOfLastModel - modelPerPage;
     const currentModels= models.slice(indexOfFirstModel, indexOfLastModel);    
+    let dispatch= useDispatch();
 
+    useEffect(()=> {
+        dispatch(getModels());
+    }, [])
 
     const pages = [];
     for (let i = 1; i <= Math.ceil(models.length / modelPerPage); i++) {

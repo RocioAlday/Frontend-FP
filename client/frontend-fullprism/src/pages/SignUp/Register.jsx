@@ -1,13 +1,16 @@
 import { useState, useEffect, React } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../actions/userActions";
 
 const Register= ()=> {
+    let history= useNavigate();
     const [user, setUser] = useState({
         email: "", 
         password: "", 
         companyName: "", 
+        companyCUIT: "",
+        taxCondition: "",
         phone: "", 
         firstname: "",
         lastname: ""
@@ -24,9 +27,13 @@ const Register= ()=> {
         email: "", 
         password: "", 
         companyName: "", 
+        companyCUIT: "",
+        taxCondition: "",
         phone: "", 
         firstname: "",
         lastname: ""});
+
+        history('/login');
     };
 
     const handleInputChange = function (event) {
@@ -61,6 +68,22 @@ const Register= ()=> {
                     Nombre de su Empresa
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="companyName" name='companyName' type="text" placeholder="Empresa" onChange={handleInputChange}/>
+                </div>
+                <div className="">
+                <label className=" text-gray-700 text-sm font-bold mb-2" htmlFor="cuit">
+                    CUIT de la Empresa
+                </label>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="companyCUIT" name='companyCUIT' type="text" placeholder="CUIT de la Empresa" onChange={handleInputChange}/>
+                </div>
+                <div className="">
+                <label className=" text-gray-700 text-sm font-bold mb-2" htmlFor="taxCondition">
+                    Condición Impositiva
+                </label>
+                <select name='taxCondition' id='taxCondition' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline overflow-visible" defaultValue='Seleccione una opción' onChange={handleInputChange}>
+                    <option disabled value='Seleccione una opción'>Condición impositiva</option>
+                    <option value='Responsable Inscripto'>Responsable Inscripto</option>
+                    <option value='IVA Exento'>IVA Exento</option>
+                </select>
                 </div>
                 <div className="">
                 <label className=" text-gray-700 text-sm font-bold mb-2" htmlFor="email">

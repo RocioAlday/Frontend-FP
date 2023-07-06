@@ -6,7 +6,14 @@ import {
     CLEAR_FILTER,
     GENERATE_ORDER,
     MODIFY_ORDER,
-    GET_CART
+    GET_CART,
+    DELETE_ITEM_ORDER,
+    ERROR_CART_EMPTY,
+    CLEAR_ERROR,
+    CHANGE_STATUS,
+    GET_ALL_MODELS,
+    GET_ALL_ORDERS,
+    GET_ORDERS_FOR_BILLING
 } from '../actions/types';
 
 
@@ -18,7 +25,11 @@ const initialState= {
     modelsInCart: {},
     searchModelsByName: [],
     userOrder: {},
-    cartUser: {}
+    cartUser: {},
+    error: '',
+    orderStatus: {},
+    allOrders: [],
+    ordersForBilling: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -73,10 +84,53 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 userOrder: action.payload
             }
+        
+        case DELETE_ITEM_ORDER:
+            return {
+                ...state,
+                userOrder: action.payload
+            }
+        
+        case ERROR_CART_EMPTY:
+            return {
+                ...state,
+                error: action.payload
+            }
+        
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: ''
+            }
+        
+        case CHANGE_STATUS:
+            return {
+                ...state,
+                orderStatus: action.payload
+            }
+        
+        case GET_ALL_MODELS:
+            return {
+                ...state,
+                allModels: action.payload
+            }
+        
+        case GET_ALL_ORDERS:
+            return {
+                ...state,
+                allOrders: action.payload
+            }
+
+        case GET_ORDERS_FOR_BILLING:
+            return {
+                ...state,
+                ordersForBilling: action.payload
+            }
 
         default:
             return state;
       }
+    
   
 };
 

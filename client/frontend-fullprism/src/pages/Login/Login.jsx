@@ -1,18 +1,18 @@
 import { useState, useEffect, React } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser } from "../../actions/userActions";
 
 const Login= ()=> {
     const [user, setUser] = useState({email: "", password: ""});
     const dispatch = useDispatch();
+    let history= useNavigate();
 
     const handleSubmit= (e)=> {
         e.preventDefault();
-        
-        
         dispatch(loginUser(user));
         setUser({email: "", password: ""});
+        history('/pedidos');
     };
 
     const handleInputChange = function (event) {
