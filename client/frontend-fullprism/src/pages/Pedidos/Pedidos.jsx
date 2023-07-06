@@ -3,7 +3,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { getModels, searchByName, clearFilter, generateOrder } from '../../actions/userActions';
+import { getModels, searchByName, clearFilter, generateOrder, clearError } from '../../actions/userActions';
 import { Pagination } from '../../components/Pagination/Pagination';
 import Order from '../../components/Order-Detail/Order';
 
@@ -13,6 +13,7 @@ const Pedidos = ()=> {
     let [goToOrder, setGoToOrder]= useState(false);
     let order= useSelector((state)=> state.userOrder);
     let allModels= useSelector((state)=> state.modelsByCompany); 
+    let error= useSelector((state)=> state.error);
     const dispatch= useDispatch();
 console.log(order);
     let searchModels= useSelector((state)=> state.searchModelsByName);
@@ -46,15 +47,17 @@ console.log(order);
         e.preventDefault();
         dispatch(generateOrder());
         setGoToOrder(true)
-        // PONER UNA BANDERA PARA CONTROLAR SI SE CLICKEO--> POR FUERA DE LA FUNCION MANDA AL COMPONENTE DETAILORDER
     }
 
-   if (order && order.hasOwnProperty('models') && goToOrder) history('/orderDetail');
+   if (order && order.hasOwnProperty('models') && goToOrder) {
+    dispatch(clearError());
+    history('/orderDetail');
+   } 
 
     return (
         
-            <div className='flex flex-col items-center '>
-                <div class=" flex items-center mt-6 p-6 space-x-6">
+            <div className='md:flex md:flex-row md:justify-center sm:flex sm:flex-col sm:items-center'>
+                <div class=" flex flex-col items-center m-6 gap-6 space-x-6">
                     <div className=' bg-white rounded-xl shadow-lg p-4 pt-8'>
                     <div className='flex gap-2 '>
                         <div class="bg-gray-100 flex w-full md:w-72 py-1 px-3 space-x-4 rounded-lg items-center">
@@ -74,7 +77,7 @@ console.log(order);
                     </div>
                     <button className=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type='button' onClick={handleContinueToOrder}>Continuar con el Pedido</button>
                 </div>
-                <Pagination models= {searchModels.length>0 ? searchModels : allModels  }/>
+                <Pagination models= {searchModels.length>0 ? searchModels : allModels }/>
                
             </div>
 
