@@ -3,32 +3,15 @@ import axios from 'axios';
 import Cookies from "universal-cookie";
 import Home from "../../pages/Home/Home";
 import { useEffect } from "react";
-
-export const logout= async ()=> {
-    try{
-        let cookies= new Cookies();
-        const token= cookies.get("refreshToken");
-
-     
-        let dataLogout= await axios.get("http://localhost:3001/user/logout" ,{
-            headers: {
-                Authorization: `Bearer ${token}`
-              }
-        }); //falta mandarle acá x headers las cookies, lo espera el back
-        console.log(dataLogout.data.refreshToken);
-        cookies.set("refreshToken", "");
-    } catch(error){
-        console.log('Error in user Logout', error)
-    }
-};
-
-
+import { logOut } from "../../actions/userActions";
+import { useDispatch } from "react-redux";
 
 
 const Logout = ()=> {
+    const dispatch = useDispatch();
     //dar un alert
     useEffect (()=> {
-       logout();
+       dispatch(logOut());
       }, []);
 
     

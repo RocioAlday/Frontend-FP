@@ -15,7 +15,7 @@ const Pedidos = ()=> {
     let allModels= useSelector((state)=> state.modelsByCompany); 
     let error= useSelector((state)=> state.error);
     const dispatch= useDispatch();
-console.log(order);
+    // console.log(order);
     let searchModels= useSelector((state)=> state.searchModelsByName);
     console.log(allModels);
 
@@ -54,8 +54,9 @@ console.log(order);
     history('/orderDetail');
    } 
 
+   
     return (
-        
+        allModels ?
             <div className='md:flex md:flex-row md:justify-center sm:flex sm:flex-col sm:items-center'>
                 <div class=" flex flex-col items-center m-6 gap-6 space-x-6">
                     <div className=' bg-white rounded-xl shadow-lg p-4 pt-8'>
@@ -80,6 +81,7 @@ console.log(order);
                 <Pagination models= {searchModels.length>0 ? searchModels : allModels }/>
                
             </div>
+        : 'Cargando'
 
     )
 

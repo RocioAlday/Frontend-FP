@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteItemOrder, changeStatus} from "../../actions/userActions";
+import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder } from "../../actions/userActions";
 import OrderDetail from "./OrderDetail";
 import {GiConfirmed} from "react-icons/gi";
 import './order.css';
@@ -27,8 +27,9 @@ const Order= ()=> {
 
     function handleConfirm(e) {
         e.preventDefault();
-        dispatch(changeStatus("Confirmado"));
-        //ir a otro lado para detalle de estado del pedido
+        dispatch(addToOrderConfirmed({orderId: order.id, status: "Confirmado"}));
+        dispatch(deleteOrder({orderId: order.id}))
+        history('/orderStatus');
     }
 return (
     error ? <h1>CARRITO VACIO</h1> :
