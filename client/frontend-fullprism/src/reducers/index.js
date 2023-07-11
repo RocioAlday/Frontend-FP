@@ -1,6 +1,7 @@
 import {
     GET_MODELS,
     LOGIN_USER,
+    LOGOUT_USER,
     MODIFY_ITEM_CART,
     GET_MODEL_BY_NAME,
     CLEAR_FILTER,
@@ -13,7 +14,8 @@ import {
     CHANGE_STATUS,
     GET_ALL_MODELS,
     GET_ALL_ORDERS,
-    GET_ORDERS_FOR_BILLING
+    GET_ORDERS_FOR_BILLING,
+    GET_USER_ORDERS
 } from '../actions/types';
 
 
@@ -29,7 +31,9 @@ const initialState= {
     error: '',
     orderStatus: {},
     allOrders: [],
-    ordersForBilling: []
+    ordersForBilling: [],
+    ordersConfirmed: [],
+    userOrdersOpen: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -47,6 +51,12 @@ const rootReducer= (state= initialState, action)=> {
                 modelsByCompany: action.payload
             }
         
+        case LOGOUT_USER:
+            return {
+                ...state,
+                userLogin: []
+            }
+        
         case GET_CART:
             return {
                 ...state,
@@ -59,7 +69,6 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 modelsInCart: action.payload.data
             }
-        
         case GET_MODEL_BY_NAME:
             return {
                 ...state,
@@ -109,6 +118,7 @@ const rootReducer= (state= initialState, action)=> {
                 orderStatus: action.payload
             }
         
+        
         case GET_ALL_MODELS:
             return {
                 ...state,
@@ -125,6 +135,12 @@ const rootReducer= (state= initialState, action)=> {
             return {
                 ...state,
                 ordersForBilling: action.payload
+            }
+        
+        case GET_USER_ORDERS:
+            return {
+                ...state,
+                userOrdersOpen: action.payload
             }
 
         default:

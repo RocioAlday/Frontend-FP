@@ -1,5 +1,5 @@
-import { LOGIN_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
-        DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING } from "./types";
+import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
+        DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, GET_USER_ORDERS} from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -14,7 +14,27 @@ export const registerUser= (user)=> {
     }
 };
 
-
+export const logOut= ()=> {
+  
+    let cookies= new Cookies();
+    const token= cookies.get("refreshToken");
+    try{
+        return async function(dispatch){
+            let dataLogout= await axios.get("http://localhost:3001/user/logout" ,{
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+            }); 
+            console.log(dataLogout.data.refreshToken);
+            cookies.set("refreshToken", "");
+            return dispatch({
+                type: LOGOUT_USER
+            })
+        }
+    } catch(error){
+        console.log('Error in user Logout', error)
+    }
+};
 
 export const loginUser = (user) => {
    let cookie = new Cookies();
@@ -133,6 +153,7 @@ export const modifyItemCart = (payload) => {
 
 };
 
+
 export const searchByName= (payload)=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
@@ -211,6 +232,28 @@ export const modifyOrder= ()=> {
     }
 }
 
+export const addToOrderConfirmed= (payload)=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function () {
+        try {
+            const response = await axios.post('http://localhost:3001/order/orderConfirmed', payload, 
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            
+            console.log(response);
+           
+            return response.data;
+            
+        } catch (error) {
+            console.log("Error adding to Order Confirmed", error);
+        }
+    }
+}
+
 export const deleteItemOrder= ()=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
@@ -235,10 +278,32 @@ export const deleteItemOrder= ()=> {
                     payload: error.response.data.message
                 })
             }
-            console.log("Error deleting Order", error);
+            console.log("Error deleting Item in Order", error);
         }
     }
 
+}
+
+export const deleteOrder= (payload)=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    
+    return async function () {
+        try {
+            const response = await axios.put('http://localhost:3001/order/deleteOrder', payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(response);
+            return response.data;
+        
+        } catch (error) {
+            console.log("Error deleting Order", error);
+        }
+       
+    }
 }
 
 export const clearError= ()=> {
@@ -269,6 +334,26 @@ export const changeStatus= (payload)=> {
     }
 }
 
+export const changeStatusItemOrder= (payload)=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function () {
+        try {
+            const response = await axios.put('http://localhost:3001/admin/modifyStatusOrderDetail', payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(response.data);
+            
+        } catch (error) {
+            console.log("Error Changing item in Order", error);
+        }
+    }
+   
+}
+
 export const getAllOrders= ()=> {
     return async function(dispatch) {
         try{
@@ -297,21 +382,24 @@ export const getOrdersForBilling= ()=> {
     }
 }
 
-// export const getOrder= ()=> {
-//     const cookie= new Cookies();
-//     const token= cookie.get("refreshToken");
-//     return async function () {
-//         try {
-//             const response = await axios.get('http://localhost:3001/order/userOrder', {orderId},
-//             {
-//                 headers: {
-//                     Authorization: `Bearer ${token}`
-//                   }
-//             });
-//             console.log(response);
-          
-//         } catch (error) {
-//             console.log("Error Geting Order", error);
-//         }
-//     }
-// }
+ export const getUserOrders= ()=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+     return async function (dispatch) {
+         try {
+             const response = await axios.get('http://localhost:3001/order/openOrders',
+             {
+                 headers: {
+                     Authorization: `Bearer ${token}`
+                   }
+             });
+             console.log(response);
+             return dispatch({
+                type: GET_USER_ORDERS,
+                payload: response.data
+            })
+         } catch (error) {
+             console.log("Error Geting Order", error);
+         }
+     }
+}

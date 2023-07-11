@@ -97,7 +97,7 @@ const Card= ({name, material, price, image})=> {
                         </div>
                     </div>
                 
-                    <button className="mx-4 bg-lime-200 rounded-full p-2  font-light fot" type="button" onClick={handleConfirm}>Agregar</button>
+                    <button className="mx-4 bg-lime-200 rounded-full p-2  font-light  hover:bg-lime-500" type="button" onClick={handleConfirm}>Agregar</button>
             
                 </div>
             </div>
