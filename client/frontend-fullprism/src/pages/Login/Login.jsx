@@ -7,12 +7,12 @@ const Login= ()=> {
     const [user, setUser] = useState({email: "", password: ""});
     const dispatch = useDispatch();
     let history= useNavigate();
+    const dataLogin= useSelector((state)=> state.userLogin);
 
     const handleSubmit= (e)=> {
         e.preventDefault();
         dispatch(loginUser(user));
         setUser({email: "", password: ""});
-        history('/pedidos');
     };
 
     const handleInputChange = function (event) {
@@ -23,7 +23,7 @@ const Login= ()=> {
         console.log(user);
       };
   
-
+    if (dataLogin.length>0) history('/pedidos');
 
     return (
         <div className="flex items-center justify-center">
