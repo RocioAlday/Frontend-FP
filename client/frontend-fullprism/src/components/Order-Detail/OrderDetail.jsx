@@ -76,7 +76,7 @@ return (
         </td>
         <td class="p-2">
         <div class="font-medium text-center text-gray-800">
-            <input type="number" id="quantity" class="bg-gray-50 w-12 text-center border border-gray-300 text-gray-900 text-sm rounded-lg"  defaultValue= {input.hasOwnProperty(id)? input[id] : orderDetail.quantity} onChange={(e)=> handleChangeInput(e, id)} onBlur={()=>handleBlur()}/>
+            <input type="number" id="quantity" class="bg-gray-50 w-14 text-center border border-gray-300 text-gray-900 text-sm rounded-lg"  defaultValue= {input.hasOwnProperty(id)? input[id] : orderDetail.quantity} onChange={(e)=> handleChangeInput(e, id)} onBlur={()=>handleBlur()}/>
         </div>
         </td>
         <td class="p-2">

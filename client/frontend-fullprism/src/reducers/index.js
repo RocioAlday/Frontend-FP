@@ -15,7 +15,8 @@ import {
     GET_ALL_MODELS,
     GET_ALL_ORDERS,
     GET_ORDERS_FOR_BILLING,
-    GET_USER_ORDERS
+    GET_USER_ORDERS,
+    GET_DOLARVALUE
 } from '../actions/types';
 
 
@@ -33,7 +34,8 @@ const initialState= {
     allOrders: [],
     ordersForBilling: [],
     ordersConfirmed: [],
-    userOrdersOpen: []
+    userOrdersOpen: [],
+    dolarValue: 0
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -143,6 +145,12 @@ const rootReducer= (state= initialState, action)=> {
                 userOrdersOpen: action.payload
             }
 
+        case GET_DOLARVALUE:
+            return {
+                ...state,
+                dolarValue: action.payload
+            }
+            
         default:
             return state;
       }

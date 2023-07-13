@@ -6,16 +6,16 @@ import { useDispatch, useSelector } from "react-redux";
 import { modifyItemCart, getModels } from "../../actions/userActions";
 
 
-const Card= ({name, material, price, image})=> {
-    
-    // let [quantity, setQuantity] = useState(0);
+const Card= ({name, material, price, image, dolar})=> {
+    //TENGO QUE TRAER DESDE UNA ACTION EL VALOR DEL DOLAR Y A PRICE RENDERIZADO MULTIPLICARLE ESE VALOR
     let [input, setInput] = useState(0);
     let [color, setColor]= useState(0);
 
     const dispatch= useDispatch();
     let allModels= useSelector ((state)=> state.modelsByCompany); 
     let model= allModels.find(m=> m.name === name); 
-    
+
+   
     function handleClickDelete(e) {
         e.preventDefault();
         if(input>0) {
@@ -60,7 +60,7 @@ const Card= ({name, material, price, image})=> {
             <div class="flex flex-col justify-between p-4 leading-normal w-2/3">
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
                 <p class="mb-3 font-normal  text-gray-700 dark:text-gray-400">Material: {material}</p>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Precio: {price}</p>
+                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Precio: {price*dolar}</p>
             </div>
             <div className="flex flex-row items-center">
                 <div className="flex flex-col items-center ">
