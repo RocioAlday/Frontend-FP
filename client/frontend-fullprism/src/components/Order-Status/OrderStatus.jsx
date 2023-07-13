@@ -31,15 +31,15 @@ const OrderStatus= ()=> {
                 </div>
                 <div className="order-tracking completed">
                   <span className="is-complete"></span>
-                  <p>Impresión Finalizada<br /><span> GUARDAR FECHA EN DB</span></p>
+                  <p>Impresión Finalizada<br /><span> mier, 24 de julio</span></p>
                 </div>
                 <div className="order-tracking">
                   <span className="is-complete"></span>
-                  <p>Entregado<br /><span>Fri, June 28</span></p>
+                  <p>Entregado<br /><span></span></p>
                 </div>
                 <div className="order-tracking">
                   <span className="is-complete"></span>
-                  <p>Facturado<br /><span>Fri, June 28</span></p>
+                  <p>Facturado<br /><span></span></p>
                 </div>
               </div>
       

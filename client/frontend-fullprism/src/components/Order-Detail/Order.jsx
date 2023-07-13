@@ -16,7 +16,7 @@ const Order= ()=> {
     let error= useSelector((state)=> state.error);
     let history= useNavigate();
 
-    // console.log( 'ORDER' , order);
+ console.log( 'ORDER' , order);
     // console.log('CART', cartUser);
     // console.log('ERROR', error);
 
