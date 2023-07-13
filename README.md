@@ -1,6 +1,6 @@
 # Frontend-FP
 
-The purpose of this Project is the creation of a order management app for a 3d printing service company.
+The purpose of this Project is the creation of an order management app for a 3d printing service company.
 
 
 ![image](https://github.com/RocioAlday/Frontend-FP/assets/75266013/c8cc4f98-dec4-46ac-9864-ea8c0a7565e9)
