@@ -1,5 +1,6 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
-        DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, GET_USER_ORDERS} from "./types";
+        DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, 
+        GET_USER_ORDERS, GET_DOLARVALUE} from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -402,4 +403,20 @@ export const getOrdersForBilling= ()=> {
              console.log("Error Geting Order", error);
          }
      }
+}
+
+export const getDolarValue= ()=> {
+    return async function (dispatch) {  
+        try{
+            const dolar= await axios.get('http://localhost:3001/model/dolarValue');
+            console.log(dolar.data);
+            return dispatch({
+                type: GET_DOLARVALUE,
+                payload: dolar.data
+            })
+
+        } catch(error) {
+            console.log('Error geting dolar value', error)
+        }
+    }
 }

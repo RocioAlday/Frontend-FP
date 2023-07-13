@@ -2,6 +2,7 @@ import React from "react";
 
 const RowTableOrdersForBilling= ({id, models, totalBudget})=> {
     console.log(models);
+    //traer la action que me de el valor del dolar y multiplicarlo en totalBudget y subtotales
     return (
   
         <tr class=" bg-gray-50 dark:bg-gray-700">

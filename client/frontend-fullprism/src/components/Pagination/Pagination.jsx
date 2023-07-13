@@ -1,21 +1,22 @@
 import React, { useEffect } from "react";
 import  Card from '../Card-STL/Card';
 import { useState } from "react";
-import { getModels } from "../../actions/userActions";
-import { useDispatch } from "react-redux";
+import { getDolarValue, getModels } from "../../actions/userActions";
+import { useDispatch, useSelector } from "react-redux";
 
 
-export const rederMapeo= (models)=> {
+
+export const rederMapeo= (currentModels, dolarValue)=> {
    
     return (
         <div className="flex flex-col items-center m-4">
             <div className="grid grid-flow-row justify-center p-6">
-                {models.map((m)=> {
+                {currentModels.map((m)=> {
                     
                     return (
                         
                         <div key={m.id} className="pb-8">
-                            <Card name= {m.name} material= {m.material} image= {m.image} price= {m.price} />
+                            <Card name= {m.name} material= {m.material} image= {m.image} price= {m.price} dolar= {dolarValue.valor}/>
                         </div>
                         
                 
@@ -35,10 +36,13 @@ export const Pagination= ({models})=> {
     const indexOfLastModel= currentPage * modelPerPage;
     const indexOfFirstModel= indexOfLastModel - modelPerPage;
     const currentModels= models.slice(indexOfFirstModel, indexOfLastModel);    
+    let dolarValue= useSelector((state)=> state.dolarValue);
+    console.log(dolarValue);
     let dispatch= useDispatch();
 
     useEffect(()=> {
         dispatch(getModels());
+        dispatch(getDolarValue());
     }, [])
 
     const pages = [];
@@ -54,7 +58,7 @@ export const Pagination= ({models})=> {
         
     return (
         <div>
-        <div>{rederMapeo(currentModels)}</div>
+        <div>{rederMapeo(currentModels, dolarValue)}</div>
         <div className="flex flex-row justify-center p-2 mb-10">
             <ul>
                 {pages.map((number) => {
