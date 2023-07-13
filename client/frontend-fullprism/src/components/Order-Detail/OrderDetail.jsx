@@ -1,26 +1,21 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { modifyOrder, modifyItemCart, getCartUser, deleteItemOrder } from "../../actions/userActions";
+import { modifyOrder, modifyItemCart, deleteItemOrder } from "../../actions/userActions";
+import { formateNumber } from "../../utils/functions";
 
 
 
-
-const OrderDetail= ({name, image, orderDetail, id, price})=> {
+const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
 
   console.log(orderDetail);
     let [input, setInput]= useState({});
-    let [flag, setFlag]= useState(false);
     const dispatch= useDispatch();
     let [value, setValue]= useState({});
     let order= useSelector((state)=> state.userOrder); 
     let cartUser= useSelector((state)=> state.modelsInCart);
-    // let error= useSelector((state)=> state.error);
-//     console.log(id);
-    console.log(input);
-//     console.log( 'ORDER' , order);
-//     console.log('CART', cartUser);
-    // console.log(value);
+
+
 
     useEffect(() => {
         dispatch(modifyOrder());
@@ -52,9 +47,6 @@ const OrderDetail= ({name, image, orderDetail, id, price})=> {
     function handleClick(e) {
         e.preventDefault();
         dispatch(modifyItemCart({id: id, quantity: 0}));
-        // setTimeout(()=> {
-        //     console.log('demora')
-        // }, 5000);
         dispatch(deleteItemOrder());
     }
 
@@ -81,8 +73,8 @@ return (
         </td>
         <td class="p-2">
             <div class="text-center font-medium text-green-500">
-                {input.hasOwnProperty(id) ? price*(input[id])
-                : orderDetail.subtotal}
+                {input.hasOwnProperty(id) ? formateNumber(price*dolarValue*(input[id]))
+                : formateNumber(orderDetail.subtotal*dolarValue)}
             </div>
         </td>
         <td class="p-2">

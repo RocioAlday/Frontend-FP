@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder } from "../../actions/userActions";
+import { formateNumber } from '../../utils/functions';
 import OrderDetail from "./OrderDetail";
 import {GiConfirmed} from "react-icons/gi";
 import './order.css';
@@ -15,10 +16,9 @@ const Order= ()=> {
     let cartUser= useSelector((state)=> state.modelsInCart);
     let error= useSelector((state)=> state.error);
     let history= useNavigate();
+    let dolarValue= useSelector((state)=> state.dolarValue.valor);
 
  console.log( 'ORDER' , order);
-    // console.log('CART', cartUser);
-    // console.log('ERROR', error);
 
     useEffect(() => {
         dispatch(deleteItemOrder());
@@ -31,6 +31,8 @@ const Order= ()=> {
         dispatch(deleteOrder({orderId: order.id}))
         history('/orderStatus');
     }
+
+   
 return (
     error ? <h1>CARRITO VACIO</h1> :
    (order && order.models.length>0? (
@@ -63,13 +65,13 @@ return (
                     </thead>
 
                     <tbody class="text-sm divide-y divide-gray-100">
-                       {order.models.map(m => <OrderDetail key={m.id} id= {m.id} name= {m.name} image= {m.image} orderDetail= {m.OrderDetail} price= {m.price} /> )}
+                       {order.models.map(m => <OrderDetail key={m.id} id= {m.id} name= {m.name} image= {m.image} orderDetail= {m.OrderDetail} price= {m.price} dolarValue={dolarValue} /> )}
                     </tbody>
                 </table>
             </div>
            
             <div class="flex items-center justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
-             <p className="px-4 font-semibold text-xl">TOTAL:</p>$ {order.totalBudget}
+             <p className="px-4 font-semibold text-xl">TOTAL:</p>$ {formateNumber(order.totalBudget*dolarValue)}
             </div>
 
             <div class="flex justify-end">
