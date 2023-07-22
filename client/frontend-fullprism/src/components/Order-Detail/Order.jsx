@@ -27,7 +27,7 @@ const Order= ()=> {
 
     function handleConfirm(e) {
         e.preventDefault();
-        dispatch(addToOrderConfirmed({orderId: order.id, status: "Confirmado"}));
+        dispatch(addToOrderConfirmed({orderId: order.id, status: "Confirmado", dolarValue: dolarValue}));
         dispatch(deleteOrder({orderId: order.id}))
         history('/orderStatus');
     }

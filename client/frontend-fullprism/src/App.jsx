@@ -8,10 +8,11 @@ import Register from './pages/SignUp/Register';
 import Pedidos from './pages/Pedidos/Pedidos';
 import Logout from './components/Logout/Logout';
 import Order from './components/Order-Detail/Order';
-import ClientOrders from './pages/Dashboard-Admin/ClientOrders';
 import EditModels from './pages/Dashboard-Admin/EditModels';
 import OrderForFact from './components/OrdersForFact/OrderForFac';
 import OrderStatus from './components/Order-Status/OrderStatus';
+import ProductionDash from './pages/Dashboard-Admin/ProductionDash';
+import AdminDash from './pages/Dashboard-Admin/AdminDash';
 
 
 function App() {
@@ -27,10 +28,11 @@ function App() {
          <Route path='/register' element= {<Register />} />
          <Route path='/pedidos' element= {<Pedidos />} />
          <Route path= '/orderDetail' element= {<Order />} />
-         <Route path= '/clientOrders' element= {<ClientOrders />} />
+         <Route path= '/productionDash' element= {<ProductionDash />} />
          <Route path= '/editModels' element= {<EditModels />} />
          <Route path='/ordersForBilling' element= {<OrderForFact />} />
          <Route path= '/orderStatus' element= {<OrderStatus/>} />
+         <Route path= '/adminDash' element= {<AdminDash/>} />
         </Route>
         </Routes>
       </BrowserRouter>

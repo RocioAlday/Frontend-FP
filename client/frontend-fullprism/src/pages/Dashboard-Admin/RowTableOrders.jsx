@@ -3,12 +3,13 @@ import { useDispatch } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { changeStatusItemOrder, getAllOrders } from "../../actions/userActions";
 
-const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, status, name, material, link })=> {
+const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, status, name, material, link, priority })=> {
 
 	const dispatch= useDispatch();
     const [editing, setEditing]= useState(false);
     const [statusChange, setStatus]= useState('');
     const [colorBg, setColorBg]= useState('');
+    const [bgPriority, setBgPriority]= useState('');
 
     function handleEdit() {
 		setEditing(true);
@@ -19,6 +20,7 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
         if(status === 'Entregado') setColorBg("bg-orange-200");
         if(status === 'Facturado') setColorBg("bg-yellow-200");
         if(status === 'Cobrado') setColorBg("bg-gray-200");
+        priority === false ? setBgPriority("bg-gray-200") : setBgPriority("bg-red-200")
     }, [])
 
     function handleChange(e) {
@@ -69,10 +71,13 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
                 <td className="p-4 text-center text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
 				{fechaSolicitud}
                 </td>
-
                 <td class="p-4 text-sm text-center font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-                    prioridad
-                </td>
+                <div className={`py-1 px-0 mr-5 rounded-full ${bgPriority}`}>
+                        {priority === true? <span>Prioritario</span>  :
+                       null }
+                    
+               </div>
+               </td>
                 <td className="text-center text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
 				<div className={`py-1 px-0 rounded-full ${colorBg}`}>
                 {editing?
@@ -80,8 +85,6 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
                     <option disabled value='Seleccione un estado'>Seleccione Estado</option>
                     <option value='Impresión Finalizada' className="bg-green-200">Impresión Finalizada</option>
                     <option value='Entregado' className="bg-orange-200">Entregado</option>
-                    <option value='Facturado' className="bg-yellow-200">Facturado</option>
-                    <option value='Cobrado' className="bg-gray-200">Cobrado</option>
                     </select>
 				    : statusChange? statusChange : status
 				}

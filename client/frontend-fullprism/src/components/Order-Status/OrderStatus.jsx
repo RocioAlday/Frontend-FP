@@ -8,7 +8,7 @@ import { changeData } from "../../utils/functions";
 const OrderStatus= ()=> {
   const userOrders= useSelector((state)=> state.userOrdersOpen);
   const dispatch= useDispatch();
-  
+  let printDate= 
   useEffect(()=> {
     dispatch(getUserOrders());
   }, [])
@@ -19,7 +19,7 @@ const OrderStatus= ()=> {
       <p className="px-12 py-10 pb-1 font-semibold">ESTADO DE SUS PEDIDOS</p>
       {userOrders.map(o => {
         return (
-        <div className="flex md:flex-row sm:flex-col items-center justify-center">
+        <div key={o.id} className="flex md:flex-row sm:flex-col items-center justify-center">
         <div className=" flex flex-col w-full">
   
           <div className="m-5 p-6 my-3 gap-4 border-y-2 bg-gray-100 flex flex-col md:flex-row sm:flex-col items-center justify-evenly ">
@@ -29,17 +29,17 @@ const OrderStatus= ()=> {
                   <span className="is-complete"></span>
                   <p>Pedido Confirmado<br /><span>{changeData(o.fechaSolicitud)}</span></p>
                 </div>
-                <div className="order-tracking completed">
-                  <span className="is-complete"></span>
-                  <p>Impresión Finalizada<br /><span> mier, 24 de julio</span></p>
+                <div className= {o.fechaImpresionFinalizada !== null? "order-tracking completed" : "order-tracking" }>
+                  <span className= "is-complete"></span>
+                  <p>Impresión Finalizada<br /><span> {o.fechaImpresionFinalizada !== null? changeData(o.fechaImpresionFinalizada) : null}</span></p>
                 </div>
-                <div className="order-tracking">
+                <div className= {o.fechaRetirado !== null? "order-tracking completed" : "order-tracking"}>
                   <span className="is-complete"></span>
-                  <p>Entregado<br /><span></span></p>
+                  <p>Entregado<br /><span>{o.fechaRetirado !== null? changeData(o.fechaRetirado) : null}</span></p>
                 </div>
-                <div className="order-tracking">
+                <div className={o.fechaFacturado !== null? "order-tracking completed" : "order-tracking"}>
                   <span className="is-complete"></span>
-                  <p>Facturado<br /><span></span></p>
+                  <p>Facturado<br /><span>{o.fechaFacturado !== null? changeData(o.fechaFacturado) : null}</span></p>
                 </div>
               </div>
       
