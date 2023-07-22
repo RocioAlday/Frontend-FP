@@ -1,43 +1,86 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getDataForBill, ordersList } from "../../actions/userActions";
 
-const RowTableOrdersForBilling= ({id, models, totalBudget})=> {
+
+
+const RowTableOrdersForBilling= ({id, userId, index, models, dolar})=> {
     console.log(models);
-    //traer la action que me de el valor del dolar y multiplicarlo en totalBudget y subtotales
+    console.log(id);
+    const dispatch= useDispatch();
+    let dataUserCompany= useSelector((state)=> state.userDataForBilling)
+    const [checked, setChecked] = useState(false);
+    console.log(checked);
+    
+
+    function handleCheck(e) {
+        dispatch(ordersList({checked: !checked, orderId: id, status: 'Facturado'}));
+        setChecked(!checked);
+        //dispatch(checkedOrdersForBilling())  guardo todas las seleccionadas en un state global   USAR EL GLOBAL!!!!
+        //si se desselecciona--> eliminarla del state a traves de reducer
+        // if(checked) {
+        // setOrderList(
+        //     [orderList, {id: e.id, status: 'Facturado'}]
+        // )} else {
+        // let eliminateOrder= orderList.filter(o=> o.id !== e.id);
+        // setOrderList(eliminateOrder);
+        // setChecked(!checked);
+      
+    }
+
+    useEffect(()=> {
+        dispatch(getDataForBill(userId));
+    }, [])
+    
     return (
-  
-        <tr class=" bg-gray-50 dark:bg-gray-700">
-        {models.map((m)=> {
-         return(
-            <div className="flex flex-row items-center justify-center">
-            <div className= 'mx-4 pr-14'>
-            <td class="p-4 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-            {m.companyName}
+        <tr className= {!checked? " bg-gray-50 dark:bg-gray-700 border-y-2 border-stone-300" :  "bg-green-100 dark:bg-green-300 border-y-2 border-stone-300"}>
+            <td className="p-4 pl-4 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                {index}
             </td>
-            </div>
-          
-           <div className=" w-full">
-            <td class="p-4 gap-52 flex flex-row text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                <p>{m.name}</p> 
-                <p>{m.OrderDetail.quantity}</p>
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                {dataUserCompany.name}
             </td>
-            </div>
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                {dataUserCompany.cuit}
+            </td>
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                {dataUserCompany.condicionImpositiva}
+            </td>
+            {models.map((m)=> {
+            return(
+                <div className="flex flex-row ">
+                    <div className="w-full items-center justify-center">
+                        <td className="p-4 pl-7 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                            {m.name}
+                    
+                        </td>
+                    </div>
+                    <div className="w-full items-center justify-center">
+                        <td className="p-4 pl-12 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                            {m.quantity}
+                        </td>
+                    </div>
+                    <div className="w-full items-center justify-center">
+                        <td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                            {m.price*dolar} 
+                        
+                        </td>
+                    </div>
+                </div>
+            )
+            })}
             
-            </div>
-         )
-         })}
-        
-
-        <td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-            {totalBudget}
-        </td>
-
-        <td className="p-4 font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-       
-            <button> FACT</button>
-            
-            
-        </td>
-    </tr>
+            <td className="p-4 font-normal text-center text-gray-500 whitespace-nowrap dark:text-gray-400">
+                <input
+                    type="checkbox"
+                    id= {id}
+                    name='billed'
+                    checked= {checked}
+                    onChange={(e)=> handleCheck(e)}
+                >
+                </input> 
+            </td>
+        </tr>
     )
 };
 

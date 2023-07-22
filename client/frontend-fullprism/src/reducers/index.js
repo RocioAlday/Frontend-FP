@@ -16,7 +16,10 @@ import {
     GET_ALL_ORDERS,
     GET_ORDERS_FOR_BILLING,
     GET_USER_ORDERS,
-    GET_DOLARVALUE
+    GET_DOLARVALUE,
+    GET_DATA_USER_FOR_BILL,
+    ORDERS_FOR_CHANGE_STATUS,
+    ORDERS_LIST
 } from '../actions/types';
 
 
@@ -35,7 +38,10 @@ const initialState= {
     ordersForBilling: [],
     ordersConfirmed: [],
     userOrdersOpen: [],
-    dolarValue: 0
+    dolarValue: 0,
+    userDataForBilling: {},
+    ordersForChangeStatus: [],
+    ordersList: [],
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -150,10 +156,41 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 dolarValue: action.payload
             }
-            
+        
+        case GET_DATA_USER_FOR_BILL:
+            return {
+                ...state,
+                userDataForBilling: action.payload
+            }
+        
+        case ORDERS_FOR_CHANGE_STATUS:
+            return {
+                ...state,
+                ordersForChangeStatus: action.payload
+            }
+        
+        case ORDERS_LIST:
+            if(action.payload.checked) {
+                let findOrder= state.ordersList.find(o=> o.id === action.payload.orderId);
+                if(!findOrder){
+                    return {
+                        ...state,
+                        ordersList: [...state.ordersList, action.payload]
+                    }
+               
+                }} else {
+
+                    let list= state.ordersList.filter(o=> o.id !== action.payload.orderId);
+                    return {
+                        ...state,
+                        ordersList: list
+                    }}
+    
+
         default:
             return state;
       }
+
     
   
 };
