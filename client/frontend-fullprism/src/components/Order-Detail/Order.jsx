@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder } from "../../actions/userActions";
+import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder, getDolarValue } from "../../actions/userActions";
 import { formateNumber } from '../../utils/functions';
 import OrderDetail from "./OrderDetail";
 import {GiConfirmed} from "react-icons/gi";
@@ -22,8 +22,8 @@ const Order= ()=> {
 
     useEffect(() => {
         dispatch(deleteItemOrder());
+        dispatch(getDolarValue());
       }, [cartUser]);
-
 
     function handleConfirm(e) {
         e.preventDefault();
@@ -35,7 +35,7 @@ const Order= ()=> {
    
 return (
     error ? <h1>CARRITO VACIO</h1> :
-   (order && order.models.length>0? (
+   (order.hasOwnProperty('id') && order.models.length>0? (
 <section class="antialiased bg-gray-100 text-gray-600 px-4" x-data="app">
     <div class="flex flex-col justify-center py-3  ">
        
@@ -87,7 +87,7 @@ return (
         </div>
     </div>
 </section> ) : 
-   !order ? <h1>CARRITO VACIO</h1>  : <h1>Cargando</h1>)
+     <h1>Cargando</h1>)
     )
 }
 

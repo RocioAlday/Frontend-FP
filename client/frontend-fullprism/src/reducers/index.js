@@ -19,14 +19,15 @@ import {
     GET_DOLARVALUE,
     GET_DATA_USER_FOR_BILL,
     ORDERS_FOR_CHANGE_STATUS,
-    ORDERS_LIST
+    ORDERS_LIST,
+    USER_DATA
 } from '../actions/types';
 
 
 const initialState= {
     allModels: [],
     allUsers: [],
-    userLogin: [],
+    userLogin: {},
     modelsByCompany: [],
     modelsInCart: {},
     searchModelsByName: [],
@@ -42,6 +43,7 @@ const initialState= {
     userDataForBilling: {},
     ordersForChangeStatus: [],
     ordersList: [],
+    userData: {}
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -49,11 +51,10 @@ const rootReducer= (state= initialState, action)=> {
         case LOGIN_USER:
             return {
                 ...state,
-                userLogin: [action.payload]
+                userLogin: action.payload
             }
 
         case GET_MODELS: 
-        console.log('mi reducer', action.payload);
             return {
                 ...state,
                 modelsByCompany: action.payload
@@ -62,7 +63,8 @@ const rootReducer= (state= initialState, action)=> {
         case LOGOUT_USER:
             return {
                 ...state,
-                userLogin: []
+                userLogin: {},
+                userData: {}
             }
         
         case GET_CART:
@@ -72,7 +74,6 @@ const rootReducer= (state= initialState, action)=> {
             }
 
         case MODIFY_ITEM_CART:
-            console.log(action.payload.data);
             return {
                 ...state,
                 modelsInCart: action.payload.data
@@ -90,7 +91,6 @@ const rootReducer= (state= initialState, action)=> {
             }
 
         case GENERATE_ORDER:
-            console.log('REDUCER:', action.payload);
             return {
                 ...state,
                 userOrder: action.payload
@@ -103,6 +103,7 @@ const rootReducer= (state= initialState, action)=> {
             }
         
         case DELETE_ITEM_ORDER:
+            console.log(action.payload)
             return {
                 ...state,
                 userOrder: action.payload
@@ -186,6 +187,11 @@ const rootReducer= (state= initialState, action)=> {
                         ordersList: list
                     }}
     
+        case USER_DATA:
+            return {
+                ...state,
+                userData: action.payload
+            }
 
         default:
             return state;

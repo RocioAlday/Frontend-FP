@@ -1,6 +1,6 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, 
-        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST } from "./types";
+        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -40,8 +40,6 @@ export const logOut= ()=> {
 export const loginUser = (user) => {
    let cookie = new Cookies();
     try{
-        console.log('EN ACTIONS:', user);
-
         return async function(dispatch){
             let dataLogin= await axios.post("http://localhost:3001/user/login" , user);
             console.log(dataLogin);
@@ -59,7 +57,6 @@ export const loginUser = (user) => {
 export const getModels= ()=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
-    console.log('ACTIONFORGETMODELS:' , token);
     try {
         return async function(dispatch) {
             let modelsByCompany= await axios.get("http://localhost:3001/model/companyModels" ,
@@ -68,7 +65,7 @@ export const getModels= ()=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(modelsByCompany);
+
             return dispatch({
                 type: GET_MODELS,
                 payload: modelsByCompany.data
@@ -98,7 +95,6 @@ export const modifyModel= (newModel)=> {
     try{
         return async function() {
             let modifyModel= await axios.put("http://localhost:3001/admin/modifyModel", newModel);
-          console.log(modifyModel.data);
         }
     } catch(error){
         console.log(error)
@@ -116,7 +112,6 @@ export const getCartUser= async()=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-           console.log(cartUser);
             return cartUser.data
             
         }
@@ -139,7 +134,6 @@ export const modifyItemCart = (payload) => {
                   }
             });
             
-            console.log("console.log" ,addToCart)
 
             return dispatch({
                 type: MODIFY_ITEM_CART,
@@ -166,7 +160,7 @@ export const searchByName= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response);
+      
             dispatch({
                 type: GET_MODEL_BY_NAME,
                 payload: response.data,
@@ -194,7 +188,7 @@ export const generateOrder= ()=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response);
+        
             return dispatch({
                 type: GENERATE_ORDER,
                 payload: response.data,
@@ -216,7 +210,7 @@ export const modifyOrder= ()=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response);
+    
             return dispatch({
                 type: MODIFY_ORDER,
                 payload: response.data,
@@ -245,8 +239,6 @@ export const addToOrderConfirmed= (payload)=> {
                   }
             });
             
-            console.log(response);
-           
             return response.data;
             
         } catch (error) {
@@ -267,7 +259,7 @@ export const deleteItemOrder= ()=> {
                   }
             });
             
-            console.log(response);
+      
             return dispatch({
                 type: DELETE_ITEM_ORDER,
                 payload: response.data,
@@ -297,7 +289,7 @@ export const deleteOrder= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response);
+      
             return response.data;
         
         } catch (error) {
@@ -324,7 +316,7 @@ export const changeStatus= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response);
+        
             return dispatch({
                 type: CHANGE_STATUS,
                 payload: response.data,
@@ -346,7 +338,7 @@ export const changeStatusItemOrder= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(response.data);
+        
             
         } catch (error) {
             console.log("Error Changing item in Order", error);
@@ -373,7 +365,7 @@ export const getOrdersForBilling= ()=> {
     return async function(dispatch) {
         try{
             const orders= await axios.get("http://localhost:3001/admin/ordersForBilling");
-            console.log(orders.data);
+           
             return dispatch({
                 type: GET_ORDERS_FOR_BILLING,
                 payload: orders.data
@@ -396,7 +388,7 @@ export const getOrdersForBilling= ()=> {
                      Authorization: `Bearer ${token}`
                    }
              });
-             console.log(response);
+         
              return dispatch({
                 type: GET_USER_ORDERS,
                 payload: response.data
@@ -411,7 +403,7 @@ export const getDolarValue= ()=> {
     return async function (dispatch) {  
         try{
             const dolar= await axios.get('http://localhost:3001/model/dolarValue');
-            console.log(dolar.data);
+    
             return dispatch({
                 type: GET_DOLARVALUE,
                 payload: dolar.data
@@ -424,11 +416,17 @@ export const getDolarValue= ()=> {
 }
 
 export const getDataForBill= (payload)=> {
-
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
     return async function (dispatch) {
         try{
           
-            const userInfo= await axios.get(`http://localhost:3001/user/dataUserForBill?userId=${payload}`);
+            const userInfo= await axios.get(`http://localhost:3001/user/dataUserForBill?userId=${payload}`,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
             return dispatch({
                 type: GET_DATA_USER_FOR_BILL,
                 payload: userInfo.data
@@ -451,7 +449,7 @@ export const changeConfirmedOrderStatus= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-            console.log(orderChanged);
+          
         } catch (error) {
             console.log('Error changing status of confirmed order', error)
         }
@@ -481,9 +479,9 @@ export const ordersList= (payload)=> {
 export const modifyOrderByAdmin= (payload)=> {
     return async function() {
         try {
-            console.log(payload);
+          
             const modifyOrder= await axios.put('http://localhost:3001/admin/modifyOrderDetail', payload);
-            console.log(modifyOrder.data);
+         
           
         } catch (error) {
             console.log('Error modifyng order detail in dashboard admin')
@@ -495,10 +493,31 @@ export const modifyPriority= (payload)=> {
     return async function() {
         try {
             const modifyPriority= await axios.put('http://localhost:3001/admin/modifyPriority', payload);
-            console.log(modifyPriority)
 
         } catch (error) {
             console.log('Error modifyng priority in order')
+        }
+    }
+}
+
+export const userInfoData= ()=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function(dispatch) {
+        try {
+            const userData= await axios.get('http://localhost:3001/user/userData',
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(userData);
+            return dispatch({
+                type: USER_DATA,
+                payload: userData.data
+            })
+        } catch(error) {
+            console.log('Error getting user info')
         }
     }
 }
