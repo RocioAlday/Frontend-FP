@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import  Card from '../Card-STL/Card';
 import { useState } from "react";
-import { getDolarValue, getModels } from "../../actions/userActions";
+import { getDolarValue } from "../../actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -37,11 +37,9 @@ export const Pagination= ({models})=> {
     const indexOfFirstModel= indexOfLastModel - modelPerPage;
     const currentModels= models.slice(indexOfFirstModel, indexOfLastModel);    
     let dolarValue= useSelector((state)=> state.dolarValue);
-    console.log(dolarValue);
     let dispatch= useDispatch();
 
     useEffect(()=> {
-        dispatch(getModels());
         dispatch(getDolarValue());
     }, [])
 
@@ -49,7 +47,6 @@ export const Pagination= ({models})=> {
     for (let i = 1; i <= Math.ceil(models.length / modelPerPage); i++) {
         pages.push(i);
     };
-    console.log(pages);
 
     const handleClick= (e)=> {
         setCurrentPage(Number(e.target.id));
