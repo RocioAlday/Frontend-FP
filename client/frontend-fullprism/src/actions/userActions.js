@@ -1,6 +1,6 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, 
-        GET_USER_ORDERS, GET_DOLARVALUE} from "./types";
+        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -330,7 +330,7 @@ export const changeStatus= (payload)=> {
                 payload: response.data,
             })
         } catch (error) {
-            console.log("Error Creating Order", error);
+            console.log("Error Changing status Order", error);
         }
     }
 }
@@ -373,10 +373,12 @@ export const getOrdersForBilling= ()=> {
     return async function(dispatch) {
         try{
             const orders= await axios.get("http://localhost:3001/admin/ordersForBilling");
+            console.log(orders.data);
             return dispatch({
                 type: GET_ORDERS_FOR_BILLING,
                 payload: orders.data
             })
+
         } catch(error){
             console.log("Error Getting Orders For Billing", error);
         }
@@ -417,6 +419,86 @@ export const getDolarValue= ()=> {
 
         } catch(error) {
             console.log('Error geting dolar value', error)
+        }
+    }
+}
+
+export const getDataForBill= (payload)=> {
+
+    return async function (dispatch) {
+        try{
+          
+            const userInfo= await axios.get(`http://localhost:3001/user/dataUserForBill?userId=${payload}`);
+            return dispatch({
+                type: GET_DATA_USER_FOR_BILL,
+                payload: userInfo.data
+            })
+        } catch(error) {
+            console.log('Error geting user info for billing', error)
+        }
+    }
+}
+
+
+export const changeConfirmedOrderStatus= (payload)=> {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    return async function () {
+        try{
+            const orderChanged= await axios.post('http://localhost:3001/order/changeConfirmOrderStatus', payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(orderChanged);
+        } catch (error) {
+            console.log('Error changing status of confirmed order', error)
+        }
+    }
+}
+
+export const ordersForChangeStatus= (payload)=> {
+    return async function(dispatch) {
+        try {
+            return dispatch({
+                type: ORDERS_FOR_CHANGE_STATUS,
+                payload: payload
+            })
+        } catch(error) {
+            console.log('Error adding order on change status list')
+        }
+    }
+}
+
+export const ordersList= (payload)=> {
+    return {
+        type: ORDERS_LIST,
+        payload: payload
+    }
+};
+
+export const modifyOrderByAdmin= (payload)=> {
+    return async function() {
+        try {
+            console.log(payload);
+            const modifyOrder= await axios.put('http://localhost:3001/admin/modifyOrderDetail', payload);
+            console.log(modifyOrder.data);
+          
+        } catch (error) {
+            console.log('Error modifyng order detail in dashboard admin')
+        }
+    }
+}
+
+export const modifyPriority= (payload)=> {
+    return async function() {
+        try {
+            const modifyPriority= await axios.put('http://localhost:3001/admin/modifyPriority', payload);
+            console.log(modifyPriority)
+
+        } catch (error) {
+            console.log('Error modifyng priority in order')
         }
     }
 }

@@ -2,20 +2,28 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getOrdersForBilling } from "../../actions/userActions";
+import { changeConfirmedOrderStatus, getOrdersForBilling } from "../../actions/userActions";
 import RowTableOrdersForBilling from "./RowTableOrdersForBilling";
 
 
 const OrderForFact= ()=> {
     let dispatch= useDispatch();
     let ordersForBilling= useSelector((state)=> state.ordersForBilling);
+	const ordersList= useSelector((state)=> state.ordersList);
+	console.log(ordersList);
     console.log(ordersForBilling);
 
     useEffect(()=> {
-        dispatch(getOrdersForBilling())
+        dispatch(getOrdersForBilling());
     }, []);
 
+	function handleConfirm(e) {
+		e.preventDefault();
+		dispatch(changeConfirmedOrderStatus (ordersList)) //mandarle el state global donde almacené los objetos para fact
+	}
+
     return (
+		ordersForBilling.length?
         <div class="flex flex-col mt-6">
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
@@ -25,40 +33,59 @@ const OrderForFact= ()=> {
 						>
 							<thead class="bg-gray-50 dark:bg-gray-700">
 								<tr className="text-center">
+									<th scope="col"
+										class="p-2 text-md text-left font-medium tracking-wider text-gray-500 uppercase dark:text-white">
+
+									</th>
 									<th
 										scope="col"
-										class="py-4 pl-10 flex flex-row gap-24 justify-left text-xs font-medium tracking-wider text-left text-gray-500 uppercase dark:text-white"
+										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Cliente
-								
-                                 
-									<p>	Nombre de Pieza </p>
-                                    <p>Cantidad</p>
-										
 									</th>
 									<th
 										scope="col"
-										class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
-										Monto Total
+										CUIT
 									</th>
+									<th
+										scope="col"
+										class="p-2 mr-16 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+									>
+										Condición Impositiva
+									</th>
+									<th
+										scope="col"
+										class="p-2 pl-6 mt-1 flex gap-20 text-md text-left font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+									>	
+										<p className="text-left">Nombre de Pieza</p>
+										<p className="text-left">Cantidad</p>
+										<p className="text-left">Monto por Unidad</p>
+									</th>
+									
 									
                                     <th
 										scope="col"
 										class="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
-										FACTURAR
+										FACTURADO
 									</th>
 								</tr>
 							</thead>
 							<tbody class="bg-white dark:bg-gray-800">
-                            {ordersForBilling.map(o=> <RowTableOrdersForBilling id= {o.id} models= {o.models} totalBudget= {o.totalBudget} />)}
+                            	{ordersForBilling.map((o, index)=> <RowTableOrdersForBilling key={o.index} id= {o.orderId} index= {index+1} userId= {o.userId} models= {o.detailModels} dolar= {o.dolarValue} />)}
                             </tbody>
                                 </table>
+								<div className="flex justify-end">
+								<button className="mr-3 my-4 px-4 py-2 text-gray-600 rounded-full uppercase text-sm font-medium tracking-wide  bg-green-300" onClick={(e)=> handleConfirm(e)}>Confirmar Facturación</button>
+								</div>
                                 </div>
                                 </div>
                                 </div>
-                                </div>
+                                </div> :
+								
+								<h1 className="p-20 text-gray-600 text-center font-medium">NO EXISTEN PEDIDOS LISTOS PARA FACTURAR</h1>
     )
 };  
 

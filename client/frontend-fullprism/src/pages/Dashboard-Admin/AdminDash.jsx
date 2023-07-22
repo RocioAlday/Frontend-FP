@@ -1,12 +1,11 @@
 import React from "react"
-import RowTable from "./RowTable";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getAllOrders } from "../../actions/userActions";
-import RowTableOrders from "./RowTableOrders";
+import RowTableAdmin from "./RowTableAdmin";
 import { sliceDate } from "../../utils/functions";
 
-const ClientOrders= ()=> {
+const AdminDash= ()=> {
 	let allOrders= useSelector((state)=> state.allOrders);
 	const dispatch= useDispatch();
 
@@ -14,10 +13,8 @@ const ClientOrders= ()=> {
         dispatch(getAllOrders())
     }, []);
 
-
-
     return (
-		allOrders? 
+        allOrders? 
         	<div class="flex flex-col mt-6 mb-20">
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
@@ -27,6 +24,12 @@ const ClientOrders= ()=> {
 						>
 							<thead class="bg-gray-50 dark:bg-gray-700">
 								<tr className="text-center">
+                                    <th
+										scope="col"
+										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+									>
+										Cliente
+									</th>
 									<th
 										scope="col"
 										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
@@ -45,12 +48,7 @@ const ClientOrders= ()=> {
 									>
 										Material
 									</th>
-									<th
-										scope="col"
-										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
-									>
-										Link
-									</th>
+								
 									<th
 										scope="col"
 										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
@@ -90,8 +88,8 @@ const ClientOrders= ()=> {
 								{
 									
 								allOrders.map(o=> {
-									return	o.detailModels.map(m=> <RowTableOrders key={m.modelId} orderId= {o.orderId} modelId= {m.modelId} quantity= {m.quantity} color= {m.color} status= {m.status} 
-										name= {m.name} material= {m.material} link= {m.link} fechaSolicitud= {sliceDate(o.fechaSolicitud)} /> )
+									return	o.detailModels.map(m=> <RowTableAdmin key={m.modelId} orderId= {o.orderId} company= {m.companyName}  modelId= {m.modelId} quantity= {m.quantity} color= {m.color} status= {m.status} 
+										name= {m.name} material= {m.material} link= {m.link} fechaSolicitud= {sliceDate(o.fechaSolicitud)} priority= {o.priority} /> )
 									}
 								)}
 								
@@ -104,6 +102,7 @@ const ClientOrders= ()=> {
             </div>
 		: 'NO HAY ORDENES'
     )
+
 }
 
-export default ClientOrders;
+export default AdminDash;
