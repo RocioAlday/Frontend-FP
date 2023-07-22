@@ -26,7 +26,7 @@ function App() {
          <Route path='/login' element= {<Login />} />
          <Route path='/logout' element= {<Logout />} />
          <Route path='/register' element= {<Register />} />
-         <Route path='/pedidos' element= {<Pedidos />} />
+         <Route path='/piezas' element= {<Pedidos />} />
          <Route path= '/orderDetail' element= {<Order />} />
          <Route path= '/productionDash' element= {<ProductionDash />} />
          <Route path= '/editModels' element= {<EditModels />} />

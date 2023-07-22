@@ -1,7 +1,7 @@
 import { useState, useEffect, React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser } from "../../actions/userActions";
+import { loginUser, userInfoData } from "../../actions/userActions";
 
 const Login= ()=> {
     const [user, setUser] = useState({email: "", password: ""});
@@ -12,6 +12,7 @@ const Login= ()=> {
     const handleSubmit= (e)=> {
         e.preventDefault();
         dispatch(loginUser(user));
+        dispatch(userInfoData());
         setUser({email: "", password: ""});
     };
 
@@ -23,7 +24,7 @@ const Login= ()=> {
         console.log(user);
       };
   
-    if (dataLogin.length>0) history('/pedidos');
+    if (dataLogin.hasOwnProperty('email')) history('/piezas');
 
     return (
         <div className="flex items-center justify-center">

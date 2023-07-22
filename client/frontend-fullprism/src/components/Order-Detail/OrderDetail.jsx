@@ -16,7 +16,6 @@ const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
     let cartUser= useSelector((state)=> state.modelsInCart);
 
 
-
     useEffect(() => {
         dispatch(modifyOrder());
       }, [cartUser]);
