@@ -14,7 +14,8 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
 		material,
 		color
 	});
-    const [newPriority, setPriority]= useState(priority)
+    const [newPriority, setPriority]= useState(priority);
+    console.log(newPriority);
     const [bgPriority, setBgPriority]= useState('');
    
     useEffect(()=> {
@@ -40,10 +41,11 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
 		setEditing(true);
 	}
 
-    function handlePriority() {
-        setPriority(!newPriority)
+    function handlePriority(e) {
+        e.preventDefault();
+        setPriority(!newPriority);
         !newPriority? setBgPriority("bg-red-200") : setBgPriority("bg-gray-200");
-        dispatch(modifyPriority({orderId, priority: !newPriority}));
+        dispatch(modifyPriority({orderId, modelId, priority: !newPriority}));
     }
 
     function handleSave() {
