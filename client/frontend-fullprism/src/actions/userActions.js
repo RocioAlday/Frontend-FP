@@ -1,6 +1,6 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, 
-        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA } from "./types";
+        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -101,23 +101,29 @@ export const modifyModel= (newModel)=> {
     }
 }
 
-export const getCartUser= async()=> {
+export const getCartUser= ()=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
    
     try {
+        return async function(dispatch) {
         let cartUser= await axios.get("http://localhost:3001/cart/cartByUser" ,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
                   }
             });
-            return cartUser.data
-            
-        }
+            console.log(cartUser);
+            return dispatch({
+                type: GET_CART,
+                payload: cartUser.data
+            })
+        }      
+    }
         catch (error) {
         console.log(error)
     }
+
 } 
 
 
@@ -230,6 +236,7 @@ export const modifyOrder= ()=> {
 export const addToOrderConfirmed= (payload)=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
+  
     return async function () {
         try {
             const response = await axios.post('http://localhost:3001/order/orderConfirmed', payload, 
@@ -338,7 +345,7 @@ export const changeStatusItemOrder= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
-        
+        console.log(response)
             
         } catch (error) {
             console.log("Error Changing item in Order", error);
@@ -519,5 +526,12 @@ export const userInfoData= ()=> {
         } catch(error) {
             console.log('Error getting user info')
         }
+    }
+}
+
+export const filterByStatus= (payload)=> {
+    return {
+        type: FILTER_BY_STATUS,
+        payload
     }
 }

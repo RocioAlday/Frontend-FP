@@ -8,13 +8,13 @@ import { changeData } from "../../utils/functions";
 const OrderStatus= ()=> {
   const userOrders= useSelector((state)=> state.userOrdersOpen);
   const dispatch= useDispatch();
-  let printDate= 
+
   useEffect(()=> {
     dispatch(getUserOrders());
   }, [])
 
     return (
-      userOrders?
+      userOrders.length?
       <>
       <p className="px-12 py-10 pb-1 font-semibold">ESTADO DE SUS PEDIDOS</p>
       {userOrders.map(o => {

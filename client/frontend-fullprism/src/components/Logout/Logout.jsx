@@ -1,10 +1,8 @@
 import React from "react";
-import axios from 'axios';
-import Cookies from "universal-cookie";
-import Home from "../../pages/Home/Home";
 import { useEffect } from "react";
 import { logOut } from "../../actions/userActions";
 import { useDispatch } from "react-redux";
+import Login from "../../pages/Login/Login";
 
 
 const Logout = ()=> {
@@ -17,7 +15,7 @@ const Logout = ()=> {
     
     return (
         <div>
-            <Home />
+            <Login />
         </div>
     )
 };
