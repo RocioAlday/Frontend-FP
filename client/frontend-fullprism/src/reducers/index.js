@@ -20,7 +20,8 @@ import {
     GET_DATA_USER_FOR_BILL,
     ORDERS_FOR_CHANGE_STATUS,
     ORDERS_LIST,
-    USER_DATA
+    USER_DATA,
+    FILTER_BY_STATUS
 } from '../actions/types';
 
 
@@ -43,7 +44,8 @@ const initialState= {
     userDataForBilling: {},
     ordersForChangeStatus: [],
     ordersList: [],
-    userData: {}
+    userData: {},
+    ordersCopy: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -68,6 +70,7 @@ const rootReducer= (state= initialState, action)=> {
             }
         
         case GET_CART:
+            console.log(action.payload)
             return {
                 ...state,
                 cartUser: action.payload
@@ -192,6 +195,43 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 userData: action.payload
             }
+
+        case FILTER_BY_STATUS:
+            const status= action.payload;
+            console.log(status);
+            console.log(state.allOrders);
+            if(status === 'todos'){
+                return {
+                    ...state,
+                    ordersCopy: state.allOrders
+                }
+            } else {
+                let detailModels= [];
+                let ordersFiltered=[];
+                state.allOrders.map(o=> {
+                    let filter= o.detailModels.filter(m => m.status === status);
+                    if (filter) {
+                        detailModels= [...filter];
+                    };
+                
+                    if (detailModels.length) { 
+                        let order= {
+                            fechaSolicitud: o.fechaSolicitud,
+                            orderId: o.orderId,
+                            status: o.status,
+                            totalBudget: o.totalBudget,
+                            userId: o.userId,
+                            detailModels: detailModels
+                        }  
+                        ordersFiltered.push(order)
+                    } 
+                });
+                console.log(ordersFiltered);
+                return{
+                    ...state,
+                    ordersCopy: ordersFiltered,
+                }
+            } 
 
         default:
             return state;

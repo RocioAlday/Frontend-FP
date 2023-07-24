@@ -1,20 +1,27 @@
 import React from "react"
-import RowTable from "./RowTable";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getAllOrders } from "../../actions/userActions";
+import { filterByStatus, getAllOrders } from "../../actions/userActions";
 import RowTableOrders from "./RowTableOrders";
 import { sliceDate } from "../../utils/functions";
 
 const ProductionDash= ()=> {
 	let allOrders= useSelector((state)=> state.allOrders);
+	let ordersFiltered= useSelector((state)=> state.ordersCopy);
+	console.log(ordersFiltered);
+	let ordersToShow= ordersFiltered.length ? ordersFiltered : allOrders;
 	const dispatch= useDispatch();
 
 	useEffect(()=> {
         dispatch(getAllOrders())
-    }, []);
+    }, [ordersToShow]);
 
-console.log(allOrders);
+// console.log(allOrders);
+
+	function handleFilterByStatus(e) {
+		e.preventDefault();
+        dispatch(filterByStatus(e.target.value));
+	}
 
     return (
 		allOrders? 
@@ -71,11 +78,19 @@ console.log(allOrders);
 										Prioridad
 									</th>
 									
-									<th
-										scope="col"
-										class="text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
-									>
-										Status
+									<th scope="col" className="text-md font-medium tracking-wider text-center">
+										<select className="w-36 border-none tracking-wider text-center text-gray-500 dark:text-white bg-gray-50" name="filters" onChange={e => handleFilterByStatus(e)} defaultValue="default">
+											<option className="text-md font-medium" disabled value="default">
+												ESTADO
+											</option>
+											<option className='text-sm' value="todos">Todos</option>
+											<option className='text-sm' value="Confirmado">Confirmado</option>
+											<option className='text-sm' value="Impresión Finalizada">Impresión Finalizada</option>
+											<option className='text-sm' value="Facturado">Facturado</option>
+											<option className='text-sm' value="Entregado">Entregado</option>
+											<option className='text-sm' value="Cobrado">Cobrado</option>
+											
+										</select>
 									</th>
 									<th
 										scope="col"
@@ -88,14 +103,12 @@ console.log(allOrders);
 							<tbody class=" bg-white dark:bg-gray-800">	
 								
 								{
-									
-								allOrders.map(o=> {
-									return	o.detailModels.map(m=> <RowTableOrders key={m.modelId} orderId= {o.orderId} modelId= {m.modelId} quantity= {m.quantity} color= {m.color} status= {m.status} 
-										name= {m.name} material= {m.material} link= {m.link} fechaSolicitud= {sliceDate(o.fechaSolicitud)} priority= {o.priority} /> )
+								ordersToShow.map(o=> {
+									return	o.detailModels.map(m=> <RowTableOrders key={`${o.orderId}-${m.modelId}`} orderId= {o.orderId} modelId= {m.modelId} quantity= {m.quantity} color= {m.color} status= {m.status} 
+										name= {m.name} material= {m.material} link= {m.link} fechaSolicitud= {sliceDate(o.fechaSolicitud)} priority= {m.priority} /> )
 									}
 								)}
 								
-
                                 </tbody>
                                 </table>
                                 </div>
