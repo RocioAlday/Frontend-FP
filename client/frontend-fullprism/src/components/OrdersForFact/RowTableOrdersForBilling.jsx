@@ -4,7 +4,7 @@ import { getDataForBill, ordersList } from "../../actions/userActions";
 
 
 
-const RowTableOrdersForBilling= ({id, userId, index, models, dolar})=> {
+const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations})=> {
     console.log(models);
     console.log(id);
     const dispatch= useDispatch();
@@ -16,16 +16,6 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar})=> {
     function handleCheck(e) {
         dispatch(ordersList({checked: !checked, orderId: id, status: 'Facturado'}));
         setChecked(!checked);
-        //dispatch(checkedOrdersForBilling())  guardo todas las seleccionadas en un state global   USAR EL GLOBAL!!!!
-        //si se desselecciona--> eliminarla del state a traves de reducer
-        // if(checked) {
-        // setOrderList(
-        //     [orderList, {id: e.id, status: 'Facturado'}]
-        // )} else {
-        // let eliminateOrder= orderList.filter(o=> o.id !== e.id);
-        // setOrderList(eliminateOrder);
-        // setChecked(!checked);
-      
     }
 
     useEffect(()=> {
@@ -69,6 +59,10 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar})=> {
                 </div>
             )
             })}
+
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                {observations}
+            </td>
             
             <td className="p-4 font-normal text-center text-gray-500 whitespace-nowrap dark:text-gray-400">
                 <input
