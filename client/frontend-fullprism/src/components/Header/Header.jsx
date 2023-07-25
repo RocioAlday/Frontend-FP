@@ -3,6 +3,7 @@ import foto from '../../assets/userIcon.jpg';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {userInfoData } from '../../actions/userActions';
+import LogoHorizontal from '../../assets/LogoHorizontal.png';
 
 const Header = () => {
   let userLogin= useSelector((state)=> state.userData);
@@ -18,10 +19,9 @@ return (
         <>
         
 <nav className="bg-white border-gray-200 dark:bg-gray-900">
-  <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+  <div className="max-w-screen-xl flex flex-wrap items-center justify-around mx-auto p-4">
   <a href="" className="flex items-center">
-      <img src="https://flowbite.com/docs/images/logo.svg" className="h-8 mr-3" alt="FullPrism Logo" />
-      <span className="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">FullPrism</span>
+      <img src={LogoHorizontal} className="w-40 mr-3" alt="FullPrism Logo" />
   </a>
   <div className="flex items-center md:order-2">
       <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
