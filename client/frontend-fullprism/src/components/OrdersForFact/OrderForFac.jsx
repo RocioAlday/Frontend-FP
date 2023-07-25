@@ -24,7 +24,7 @@ const OrderForFact= ()=> {
 
     return (
 		ordersForBilling.length?
-        <div class="flex flex-col mt-6">
+        <div class="flex flex-col mt-6 md:mx-20">
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
 					<div class="overflow-hidden shadow sm:rounded-lg px-14">
@@ -63,7 +63,12 @@ const OrderForFact= ()=> {
 										<p className="text-left">Cantidad</p>
 										<p className="text-left">Monto por Unidad</p>
 									</th>
-									
+									<th
+										scope="col"
+										class="p-2 mr-16 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+									>
+										Observaciones
+									</th>
 									
                                     <th
 										scope="col"
@@ -74,7 +79,7 @@ const OrderForFact= ()=> {
 								</tr>
 							</thead>
 							<tbody class="bg-white dark:bg-gray-800">
-                            	{ordersForBilling.map((o, index)=> <RowTableOrdersForBilling key={o.index} id= {o.orderId} index= {index+1} userId= {o.userId} models= {o.detailModels} dolar= {o.dolarValue} />)}
+                            	{ordersForBilling.map((o, index)=> <RowTableOrdersForBilling key={o.index} id= {o.orderId} index= {index+1} userId= {o.userId} models= {o.detailModels} dolar= {o.dolarValue} observations= {o.observations} />)}
                             </tbody>
                                 </table>
 								<div className="flex justify-end">

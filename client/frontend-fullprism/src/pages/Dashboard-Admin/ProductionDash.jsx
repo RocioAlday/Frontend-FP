@@ -14,7 +14,7 @@ const ProductionDash= ()=> {
 
 	useEffect(()=> {
         dispatch(getAllOrders())
-    }, [ordersToShow]);
+    }, []);
 
 // console.log(allOrders);
 
