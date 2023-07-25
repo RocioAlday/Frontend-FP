@@ -5,10 +5,12 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifyItemCart, getModels } from "../../actions/userActions";
 import { formateNumber } from '../../utils/functions';
+import { toast } from 'react-toastify';
 
 const Card= ({name, material, price, image, dolar})=> {
     let [input, setInput] = useState(0);
     let [color, setColor]= useState(0);
+    let [editAdd, setEditAdd]= useState(false);
 
     const dispatch= useDispatch();
     let allModels= useSelector ((state)=> state.modelsByCompany); 
@@ -29,7 +31,12 @@ const Card= ({name, material, price, image, dolar})=> {
     }
     
     function handleChangeInput(e) {
-        setInput(Number(e.target.value));
+        const parsedValue = parseInt(e.target.value, 10);
+        if (Number(parsedValue) && parsedValue > 0) {
+            setInput(e.target.value);
+        } else {
+            setInput(0)
+        }
     }
 
     function handleChangeColor(e){
@@ -38,8 +45,23 @@ const Card= ({name, material, price, image, dolar})=> {
 
     function handleConfirm(e) {
         e.preventDefault();
-        dispatch(modifyItemCart({id: model.id , quantity: input, color: color}))
+        dispatch(modifyItemCart({id: model.id , quantity: input, color: color}));
+        showNotification();
+        setEditAdd(true);
     }
+
+    const showNotification = () => {
+        toast.success('Pieza Agregada al Pedido!', {
+          position: toast.POSITION.BOTTOM_RIGHT,
+          autoClose: 3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: false,
+          draggable: true,
+          progress: undefined,
+          className: "text-sm"
+        });
+      };
 
     useEffect(() => {
         dispatch(getModels());
@@ -67,7 +89,7 @@ const Card= ({name, material, price, image, dolar})=> {
                             <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                         </button>
                         <div>
-                            <input type="number" id="quantity" class="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" value={input} onChange={handleChangeInput}/>
+                            <input id="quantity" class="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" value={input} onChange={handleChangeInput}/>
                         </div>
                     
                         <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button" onClick= {e=> {handleClickAdd(e)}} >
@@ -91,7 +113,7 @@ const Card= ({name, material, price, image, dolar})=> {
                         </div>
                     </div>
                 
-                    <button className="mx-4 bg-lime-200 rounded-full p-2  font-light  hover:bg-lime-500" type="button" onClick={handleConfirm}>Agregar</button>
+                    <button className= { !editAdd ? "mx-4 bg-green-300 rounded-full p-2  font-light  hover:bg-green-200" : "mx-4 bg-gray-300 rounded-full p-2  font-light hover:bg-gray-200"} type="button" onClick={handleConfirm}>{ editAdd ? 'Modificar' : 'Agregar' } </button>
             
                 </div>
             </div>
