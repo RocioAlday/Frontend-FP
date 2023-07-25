@@ -3,7 +3,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder, getDolarValue, getCartUser } from "../../actions/userActions";
+import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder, getDolarValue, getCartUser, generateOrder } from "../../actions/userActions";
 import { formateNumber } from '../../utils/functions';
 import OrderDetail from "./OrderDetail";
 import {GiConfirmed} from "react-icons/gi";
@@ -23,10 +23,15 @@ const Order= ()=> {
  console.log( 'ORDER' , order);
 
     useEffect(() => {
-        if (order!==null) dispatch(deleteItemOrder());
+        if (order.hasOwnProperty('models')) { 
+            dispatch(deleteItemOrder());
+        } else if (!order.hasOwnProperty('models')){
+            dispatch(generateOrder())
+        }
         dispatch(getDolarValue());
         dispatch(getCartUser())
-      }, [modelsCart]);
+      }, [modelsCart]
+    );
 
     function handleChange(e) {
         setObservations(e.target.value)
@@ -47,7 +52,7 @@ const Order= ()=> {
 
 return (
    
-   (order!==null && order.hasOwnProperty('models') &&(cartUser.hasOwnProperty('items')&&cartUser.items.length)? (
+   (order!==null &&order.hasOwnProperty('models') && cartUser.hasOwnProperty('items')&&cartUser.items.length)? (
 <section class="antialiased bg-gray-100 text-gray-600 px-4" x-data="app">
     <div class="flex flex-col justify-center py-3  ">
        
@@ -109,8 +114,8 @@ return (
      <h1 className="p-6 font-bold text-center">No hay Productos Agregados</h1>
      <button className=" bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" onClick={(e)=> handleReturn(e)}> Seleccionar Productos</button> 
  </div> :
-     <h1>Cargando</h1>)
-    )
+     <h1>Cargando</h1>
+)
 }
 
 export default Order;
