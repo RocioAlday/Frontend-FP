@@ -8,6 +8,7 @@ import LogoHorizontal from '../../assets/LogoHorizontal.png';
 const Header = () => {
   let userLogin= useSelector((state)=> state.userData);
   const userInfo= useSelector((state)=> state.userLogin);
+  console.log(userInfo);
   const dispatch= useDispatch();
   console.log(userLogin);
   

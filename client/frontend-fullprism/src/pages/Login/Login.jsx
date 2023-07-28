@@ -23,8 +23,11 @@ const Login= ()=> {
         });
         console.log(user);
       };
-  
-    if (dataLogin.hasOwnProperty('email')) history('/piezas');
+      
+    useEffect(()=> {
+        if (dataLogin.hasOwnProperty('email')) history('/piezas');
+    }, [dataLogin])
+    
 
     return (
         <div className="flex items-center justify-center">

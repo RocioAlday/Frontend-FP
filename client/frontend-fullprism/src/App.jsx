@@ -14,6 +14,7 @@ import OrderForFact from './components/OrdersForFact/OrderForFac';
 import OrderStatus from './components/Order-Status/OrderStatus';
 import ProductionDash from './pages/Dashboard-Admin/ProductionDash';
 import AdminDash from './pages/Dashboard-Admin/AdminDash';
+import Presupuesto from './components/Presupuesto/Presupuesto';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
          <Route path='/ordersForBilling' element= {<OrderForFact />} />
          <Route path= '/orderStatus' element= {<OrderStatus/>} />
          <Route path= '/adminDash' element= {<AdminDash/>} />
+         <Route path= '/presupuesto' element= {<Presupuesto />} />
         </Route>
         </Routes>
       </BrowserRouter>

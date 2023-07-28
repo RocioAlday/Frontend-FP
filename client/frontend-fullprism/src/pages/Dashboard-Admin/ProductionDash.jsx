@@ -16,7 +16,7 @@ const ProductionDash= ()=> {
         dispatch(getAllOrders())
     }, []);
 
-// console.log(allOrders);
+ console.log(allOrders);
 
 	function handleFilterByStatus(e) {
 		e.preventDefault();
