@@ -23,7 +23,7 @@ const Order= ()=> {
  console.log( 'ORDER' , order);
 
     useEffect(() => {
-        if (order.hasOwnProperty('models')) { 
+        if (order!==null || order.hasOwnProperty('models')) { 
             dispatch(deleteItemOrder());
         } else if (!order.hasOwnProperty('models')){
             dispatch(generateOrder())
@@ -39,10 +39,11 @@ const Order= ()=> {
 
     function handleConfirm(e) {
         e.preventDefault();
-        dispatch(addToOrderConfirmed({orderId: order.id, status: "Confirmado", dolarValue: dolarValue, observations: observations}));
-        dispatch(deleteOrder({orderId: order.id}));
+        // dispatch(addToOrderConfirmed({orderId: order.id, status: "Confirmado", dolarValue: dolarValue, observations: observations}));
+        // dispatch(deleteOrder({orderId: order.id}));
         setObservations('');
-        history('/orderStatus');
+        // history('/presupuesto');
+        // history('/orderStatus');
     }
 
    function handleReturn(e) {

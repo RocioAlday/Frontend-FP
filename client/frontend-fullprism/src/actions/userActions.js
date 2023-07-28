@@ -510,22 +510,25 @@ export const modifyPriority= (payload)=> {
 export const userInfoData= ()=> {
     const cookie= new Cookies();
     const token= cookie.get("refreshToken");
+    console.log(token);
     return async function(dispatch) {
-        try {
-            const userData= await axios.get('http://localhost:3001/user/userData',
-            {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                  }
-            });
-            console.log(userData);
-            return dispatch({
-                type: USER_DATA,
-                payload: userData.data
-            })
-        } catch(error) {
-            console.log('Error getting user info')
-        }
+        if(token) {
+            try {
+                const userData= await axios.get('http://localhost:3001/user/userData',
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`
+                    }
+                });
+                console.log(userData);
+                return dispatch({
+                    type: USER_DATA,
+                    payload: userData.data
+                })
+            } catch(error) {
+                console.log('Error getting user info')
+            }
+        } return
     }
 }
 
