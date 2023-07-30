@@ -1,6 +1,6 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, CONFIRMED_ORDER, 
-        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS } from "./types";
+        GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS, GET_DATA_BUDGET } from "./types";
 import axios from 'axios';
 import Cookies from "universal-cookie";
 
@@ -537,4 +537,29 @@ export const filterByStatus= (payload)=> {
         type: FILTER_BY_STATUS,
         payload
     }
+}
+
+export const dataForBudget= (payload) => {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
+    console.log(token)
+    return async function (dispatch) {
+        try{
+            const result= await axios.post('http://localhost:3001/order/dataForBudget', payload,
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                  }
+            });
+            console.log(result.data)
+            return dispatch({
+                type: GET_DATA_BUDGET,
+                payload: result.data
+            })
+          
+        } catch (error) {
+            console.log('Error geting data for budget generation', error)
+        }
+    }
+
 }
