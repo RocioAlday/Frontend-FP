@@ -21,7 +21,8 @@ import {
     ORDERS_FOR_CHANGE_STATUS,
     ORDERS_LIST,
     USER_DATA,
-    FILTER_BY_STATUS
+    FILTER_BY_STATUS,
+    GET_DATA_BUDGET
 } from '../actions/types';
 
 
@@ -45,7 +46,8 @@ const initialState= {
     ordersForChangeStatus: [],
     ordersList: [],
     userData: {},
-    ordersCopy: []
+    ordersCopy: [],
+    dataBudget: {}
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -233,6 +235,11 @@ const rootReducer= (state= initialState, action)=> {
                 }
             } 
 
+        case GET_DATA_BUDGET:
+            return {
+                ...state,
+                dataBudget: action.payload
+            }
         default:
             return state;
       }

@@ -10,16 +10,19 @@ const OrderForFact= ()=> {
     let dispatch= useDispatch();
     let ordersForBilling= useSelector((state)=> state.ordersForBilling);
 	const ordersList= useSelector((state)=> state.ordersList);
+	let [update, setUpdate]= useState(false);
+	console.log(update)
 	console.log(ordersList);
     console.log(ordersForBilling);
 
     useEffect(()=> {
         dispatch(getOrdersForBilling());
-    }, []);
+    }, [update]);
 
 	function handleConfirm(e) {
 		e.preventDefault();
 		dispatch(changeConfirmedOrderStatus (ordersList)) //mandarle el state global donde almacené los objetos para fact
+		setUpdate(true)
 	}
 
     return (
@@ -83,7 +86,7 @@ const OrderForFact= ()=> {
                             </tbody>
                                 </table>
 								<div className="flex justify-end">
-								<button className="mr-3 my-4 px-4 py-2 text-gray-600 rounded-full uppercase text-sm font-medium tracking-wide  bg-green-300" onClick={(e)=> handleConfirm(e)}>Confirmar Facturación</button>
+								<button className="mr-3 my-4 px-4 py-2 text-gray-600 rounded-full uppercase text-sm font-medium tracking-wide  bg-green-300 hover:bg-green-500 hover:text-gray-100 hover:py-2.5" onClick={(e)=> handleConfirm(e)}>Confirmar Facturación</button>
 								</div>
                                 </div>
                                 </div>
