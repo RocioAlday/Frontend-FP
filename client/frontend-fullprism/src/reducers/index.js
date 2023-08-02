@@ -22,7 +22,8 @@ import {
     ORDERS_LIST,
     USER_DATA,
     FILTER_BY_STATUS,
-    GET_DATA_BUDGET
+    GET_DATA_BUDGET,
+    FILTER_USER_ORDERS_BY_STATUS
 } from '../actions/types';
 
 
@@ -47,7 +48,8 @@ const initialState= {
     ordersList: [],
     userData: {},
     ordersCopy: [],
-    dataBudget: {}
+    dataBudget: {},
+    filteredOrdersByStatus: []
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -152,9 +154,16 @@ const rootReducer= (state= initialState, action)=> {
             }
         
         case GET_USER_ORDERS:
+            let dateOrder= [];
+            let orders= action.payload;
+
+            dateOrder = orders.sort(function(a, b) {
+                    return new Date(b.fechaSolicitud) - new Date(a.fechaSolicitud)
+                })
+
             return {
                 ...state,
-                userOrdersOpen: action.payload
+                userOrdersOpen: dateOrder
             }
 
         case GET_DOLARVALUE:
@@ -240,6 +249,44 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 dataBudget: action.payload
             }
+
+        case FILTER_USER_ORDERS_BY_STATUS:
+            const statusReceived= action.payload;
+            let filteredOrdersCopy= [];
+            if(statusReceived.hasOwnProperty('printed')){
+                if(statusReceived.printed) {
+                    let filterByPrinted= state.userOrdersOpen.filter(o=> o.status === 'Impresión Finalizada');
+                    filteredOrdersCopy= [...filteredOrdersCopy, ...filterByPrinted];
+                } else if (!statusReceived.printed) {
+                    let eliminateFilterByPrinted= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Impresión Finalizada') : state.userOrdersOpen.filter(o=> o.status !== 'Impresión Finalizada');
+                    filteredOrdersCopy= eliminateFilterByPrinted
+                }
+            }
+            if(statusReceived.hasOwnProperty('delivered')){
+                if(statusReceived.delivered) {
+                    let filterByDelivered= state.userOrdersOpen.filter(o=> o.status === 'Entregado');
+                    filteredOrdersCopy= [...filteredOrdersCopy, ...filterByDelivered];
+                } else if (!statusReceived.delivered) {
+                    let eliminateFilterByDelivered= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Entregado') : state.userOrdersOpen.filter(o=> o.status !== 'Entregado');
+                    filteredOrdersCopy= eliminateFilterByDelivered;
+                }
+            }
+            if(statusReceived.hasOwnProperty('billed')){
+                if(statusReceived.billed) {
+                    let filterBybilled= state.userOrdersOpen.filter(o=> o.status === 'Facturado');
+                    let founded= filteredOrdersCopy.find(o=> o.status === 'Facturado');
+                    if (!founded) filteredOrdersCopy= [...filteredOrdersCopy, ...filterBybilled];
+                } else if (!statusReceived.billed) {
+                    let eliminateFilterBybilled= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Facturado') : state.userOrdersOpen.filter(o=> o.status !== 'Facturado');
+                    filteredOrdersCopy= eliminateFilterBybilled
+                }
+            }
+
+            return {
+                ...state,
+                filteredOrdersByStatus: filteredOrdersCopy
+            }
+
         default:
             return state;
       }

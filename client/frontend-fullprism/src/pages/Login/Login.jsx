@@ -8,6 +8,7 @@ const Login= ()=> {
     const dispatch = useDispatch();
     let history= useNavigate();
     const dataLogin= useSelector((state)=> state.userLogin);
+    let userData= useSelector((state)=> state.userData);
 
     const handleSubmit= (e)=> {
         e.preventDefault();
@@ -31,6 +32,7 @@ const Login= ()=> {
 
     return (
         <div className="flex items-center justify-center">
+        { dataLogin.hasOwnProperty('email') || userData.hasOwnProperty('email') ? <h1>Usted ya tiene una sesión abierta</h1> :
         <div className="w-full max-w-xs">
             <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit= {handleSubmit} >
                 <div className="mb-4">
@@ -62,6 +64,7 @@ const Login= ()=> {
             </form>
        
         </div>
+        }
         </div>
    
     )

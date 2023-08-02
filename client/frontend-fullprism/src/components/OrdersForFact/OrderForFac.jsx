@@ -10,19 +10,18 @@ const OrderForFact= ()=> {
     let dispatch= useDispatch();
     let ordersForBilling= useSelector((state)=> state.ordersForBilling);
 	const ordersList= useSelector((state)=> state.ordersList);
-	let [update, setUpdate]= useState(false);
-	console.log(update)
+
 	console.log(ordersList);
     console.log(ordersForBilling);
 
     useEffect(()=> {
         dispatch(getOrdersForBilling());
-    }, [update]);
+    }, []);
 
 	function handleConfirm(e) {
 		e.preventDefault();
-		dispatch(changeConfirmedOrderStatus (ordersList)) //mandarle el state global donde almacené los objetos para fact
-		setUpdate(true)
+		dispatch(changeConfirmedOrderStatus (ordersList)) 
+		dispatch(getOrdersForBilling());
 	}
 
     return (
