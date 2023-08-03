@@ -9,8 +9,8 @@ import { useDispatch, useSelector } from "react-redux";
 export const rederMapeo= (currentModels, dolarValue)=> {
    
     return (
-        <div className="flex flex-col items-center m-4">
-            <div className="grid grid-flow-row justify-center p-6">
+        <div className="items-center m-4">
+            <div className=" justify-center p-6">
                 {currentModels.map((m)=> {
                     
                     return (
