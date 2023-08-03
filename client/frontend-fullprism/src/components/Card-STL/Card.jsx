@@ -70,7 +70,7 @@ const Card= ({name, material, price, image, dolar})=> {
 
     return (
 
-    <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row sm:flex-row md:max-w-xxl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row sm:flex-row md:max-w-xxl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div className= 'md:flex flex-row w-full'>
             <img class=" object-cover w-full rounded-t-lg h-40 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={image} alt="" />  
             <div class="flex flex-col justify-between p-4 leading-normal w-2/3">
@@ -119,6 +119,7 @@ const Card= ({name, material, price, image, dolar})=> {
             </div>
     </div>
 )};
+
 
 
 

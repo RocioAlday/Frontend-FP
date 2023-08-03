@@ -2,75 +2,88 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import './orderStatus.css';
-import { getUserOrders } from "../../actions/userActions";
-import { changeData } from "../../utils/functions";
+import { getUserOrders, FilterUserOrdersByStatus } from "../../actions/userActions";
+import OrderMap from "./OrderMap";
+
 
 const OrderStatus= ()=> {
   const userOrders= useSelector((state)=> state.userOrdersOpen);
+  const filtered= useSelector((state)=> state.filteredOrdersByStatus);
   const dispatch= useDispatch();
-
+  const [checked, setChecked] = useState({
+    printed: false,
+    delivered: false,
+    billed: false
+  });
+  
   useEffect(()=> {
     dispatch(getUserOrders());
   }, [])
 
+
+  function handleCheck(e) {
+    console.log(e.target.checked);
+    console.log(e.target.id);
+    console.log(!checked[e.target.id])
+    setChecked({
+      ...checked,
+      [e.target.id]: e.target.checked
+    });
+    dispatch(FilterUserOrdersByStatus({...checked, [e.target.id]: e.target.checked}))
+  }
+
+
     return (
-      userOrders.length?
-      <>
-      <p className="px-12 py-10 pb-1 font-semibold">ESTADO DE SUS PEDIDOS</p>
-      {userOrders.map(o => {
-        return (
-        <div key={o.orderId} className="flex md:flex-row sm:flex-col items-center justify-center">
-          <div className=" flex flex-col w-full">
-    
-            <div className="m-5 p-6 my-3 gap-4 border-y-2 bg-gray-100 flex flex-col md:flex-row sm:flex-col items-center justify-evenly ">
-            
-                <div className="flex flex-row justify-between">
-                  <div className="order-tracking completed">
-                    <span className="is-complete"></span>
-                    <p>Pedido Confirmado<br /><span>{changeData(o.fechaSolicitud)}</span></p>
-                  </div>
-                  <div className= {o.fechaImpresionFinalizada !== null? "order-tracking completed" : "order-tracking" }>
-                    <span className= "is-complete"></span>
-                    <p>Impresión Finalizada<br /><span> {o.fechaImpresionFinalizada !== null? changeData(o.fechaImpresionFinalizada) : null}</span></p>
-                  </div>
-                  <div className= {o.fechaRetirado !== null? "order-tracking completed" : "order-tracking"}>
-                    <span className="is-complete"></span>
-                    <p>Entregado<br /><span>{o.fechaRetirado !== null? changeData(o.fechaRetirado) : null}</span></p>
-                  </div>
-                  <div className={o.fechaFacturado !== null? "order-tracking completed" : "order-tracking"}>
-                    <span className="is-complete"></span>
-                    <p>Facturado<br /><span>{o.fechaFacturado !== null? changeData(o.fechaFacturado) : null}</span></p>
-                  </div>
-                </div>
-        
-              
-              <dl class=" md:w-80  bg-gray-100 text-gray-600 divide-y divide-gray-200 dark:text-white dark:divide-gray-700">
-              <div class="flex flex-row pb-3">
-              <dt class="mb-1 pb-3 text-gray-800 md:text-md dark:text-gray-400 pr-2">Nro.Orden: </dt>
-              {o.orderId}
-              </div>
-              <div class="flex flex-row pb-3">
-                  <dt class="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Piezas / Cantidades: </dt>    
-                    {
-                        o.detailModels.map(m=> {
-                          return <dd key={`${o.orderId}-${m.modelId}`}  class="text-sm px-1 text-center mt-0.5">{m.name} (cant: {m.quantity}) - </dd>
-                        })
-                      
-                      }  
-              </div>
-              <div class="flex flex-row pb-3">
-              <dt class="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Total Presupuesto: </dt>
-              $ {o.totalBudget}
-              </div>
-            
-              </dl>
+      userOrders.length ? 
+      <div className="flex flex-col items-center">
+        <p className="px-12 py-10 pb-1 mb-10 font-semibold">ESTADO DE SUS PEDIDOS</p>
+        <div className="sm:flex-row flex items-center gap-4 pb-6">
+          <div className=" flex items-center gap-2">
+            <input className="rounded-sm"
+                type="checkbox"
+                id= 'printed'
+                checked= {checked.printed}
+                onChange={(e)=> handleCheck(e)}
+            > 
+            </input> 
+            <span>Impresión Lista</span>
+          </div>
+          <div className=" flex items-center gap-2">
+            <input className="rounded-sm"
+                type="checkbox"
+                id= 'delivered'
+                name='billed'
+                checked= {checked.delivered}
+                onChange={(e)=> handleCheck(e)}
+            > 
+            </input> 
+            <span>Entregados</span>
+          </div>
+          <div className=" flex items-center gap-2">
+            <input className="rounded-sm"
+                type="checkbox"
+                id= 'billed'
+                checked= {checked.billed}
+                onChange={(e)=> handleCheck(e)}
+            > 
+            </input> 
+            <span>Facturados</span>
           </div>
         </div>
-      </div> 
-        )
-      })}
-      </>
- 
+      
+      { filtered.length ? filtered.map(order=> {
+         return (
+          <OrderMap key={order.orderId} props={{order: order, detailModels: order.detailModels}} />
+         )
+        }) :
+        userOrders.map(order => {
+          return (
+          <OrderMap key={order.orderId} props={{order: order, detailModels: order.detailModels}} />
+          )
+        })
+      }
+
+      </div>
    : 'NO TIENE PEDIDOS PENDIENTES O EN CURSO'
      
       
