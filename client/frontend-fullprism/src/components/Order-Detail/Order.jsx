@@ -3,12 +3,11 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { deleteItemOrder, changeStatus, addToOrderConfirmed, deleteOrder, getDolarValue, getCartUser, generateOrder, dataForBudget } from "../../actions/userActions";
+import { deleteItemOrder, addToOrderConfirmed, deleteOrder, getDolarValue, getCartUser, generateOrder, dataForBudget } from "../../actions/userActions";
 import { formateNumber } from '../../utils/functions';
 import OrderDetail from "./OrderDetail";
 import {GiConfirmed} from "react-icons/gi";
 import {LuMailCheck} from "react-icons/lu";
-import {IoMdOpen} from "react-icons/io";
 import {FiDownload} from "react-icons/fi";
 import './order.css';
 import Presupuesto from "../Presupuesto/Presupuesto";
@@ -28,6 +27,7 @@ const Order= ()=> {
     let [modal, setModal]= useState(false);
     let [renderBudget, setRenderBudget]= useState(false);
     let [download, setDownload]= useState(false);
+    let [sendByEmail, setSendByEmail]= useState(false);
     const data= useSelector((state)=> state.dataBudget);
 
  console.log( 'ORDER' , order);
@@ -51,6 +51,9 @@ const Order= ()=> {
     function handleConfirm(e) {
         e.preventDefault();
         setChangeButtons(false);
+        if(!data.hasOwnProperty('order')) dispatch(dataForBudget({orderId: order.id, dolarValue: dolarValue, observations: observations}));
+        setRenderBudget(true);   
+        setSendByEmail(true);
     }
 
     function handleConfirmBudget(e) {
@@ -72,11 +75,6 @@ const Order= ()=> {
 
     function handleCancel(e) {
         setModal(false);
-    }
-
-    function handleOpenBudget(e) {
-        if(!data.hasOwnProperty('order')) dispatch(dataForBudget({orderId: order.id, dolarValue: dolarValue, observations: observations}))
-        setRenderBudget(true);       
     }
 
     function handleDownload(e){
@@ -157,10 +155,9 @@ return (
                             <p className="text-sm font-thin"> Hemos enviado el presupuesto a su mail</p>
                         </div>
                         <div className="flex items-center justify-center gap-4 p-4">
-                            <button className="flex items-center gap-2 bg-blue-200 font-normal text-sm py-2 px-4 rounded-md" onClick={(e)=> handleOpenBudget(e)}>
-                                {<IoMdOpen />}   
-                                <span>Ver Presupuesto</span>
-                            </button>
+                            <div className="flex items-center gap-2 bg-blue-200 font-normal text-sm py-2 px-4 rounded-md"> 
+                                <a href="#presup">Ver Presupuesto</a>
+                            </div>
                        
                             <button className="flex items-center gap-2 bg-blue-200 font-normal text-sm py-2 px-4 rounded-md" onClick={(e)=>handleDownload(e)}>
                                 {<FiDownload />}
@@ -181,7 +178,7 @@ return (
         </div>
         {renderBudget &&data.hasOwnProperty('order') && download===false ? 
         <div id="presup" className="bg-white items-center flex justify-center mx-20 mt-6 pb-6">
-            <Presupuesto download= {download} /> 
+            <Presupuesto download= {download} sendByMail= {sendByEmail} /> 
         </div>: 
         renderBudget &&data.hasOwnProperty('order') && download ? 
         <div className="bg-white items-center flex justify-center mx-20 mt-6 pb-6">
