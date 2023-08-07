@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const changeData= (completedate)=> {
     const date = new Date(completedate);
     const options = { weekday: 'short', day: 'numeric', month: 'long' };
@@ -18,4 +20,21 @@ export const formateNumber= (number)=> {
     const numFormated = number.toLocaleString('es-ES', options);
     
     return numFormated;
+}
+
+
+
+export async function sendBudgetToMail(blob) {
+    try {
+        const result= await axios.post('http://localhost:3001/order/sendBudgetByEmail', blob,
+        {
+            headers: {
+                'Content-Type': 'application/pdf' 
+            }
+        })
+    
+        console.log(result.data)
+    } catch(error) {
+        console.log('Error al enviar el presupuesto por mail:', error)
+    }
 }
