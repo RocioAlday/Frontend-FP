@@ -5,28 +5,39 @@ import './presupuesto.css';
 import Logo from '../../assets/LogoHorizontal.png';
 import { useSelector } from "react-redux";
 import { sliceDate } from '../../utils/functions';
+import { sendBudgetToMail } from "../../utils/functions";
 
-const Presupuesto = ({download}) => {
+const Presupuesto = ({download, sendByMail}) => {
   const data= useSelector((state)=> state.dataBudget);
   const total= data?.order.totalBudget*data.dolarValue;
-  console.log(data)
+  // console.log(data)
 
-  const handleGeneratePdf = () => {
+  
+  const handleGeneratePdf = async() => {
     const input = document.getElementsByClassName("presupuesto")[0];
-    html2canvas(input).then((canvas) => {
-      const imgData = canvas.toDataURL("image/png");
+    const canvas = await html2canvas(input);
+    const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
 
       pdf.addImage(imgData, "PNG", 0, 0, pdfWidth, pdfHeight);
-      pdf.save("presupuesto.pdf");
-    });
-    return download=false
+      if(sendByMail) {
+        const pdfBlob = await pdf.output('blob')
+        // console.log(pdfBlob)
+        sendBudgetToMail(pdfBlob);
+        return sendByMail=false
+        
+      } else if(download) {
+        pdf.save("presupuesto.pdf");
+        download=false;
+        return download
+      }
+    
   };
 
   useEffect(()=> {
-    if(download) handleGeneratePdf();
+    if(download || sendByMail) handleGeneratePdf();
   }, [download])
 
 
@@ -67,7 +78,7 @@ const Presupuesto = ({download}) => {
                 <td className="py-2 text-md border-y border-[1]">{model.OrderDetail.color}</td>
                 <td className="py-2 text-md border-y border-[1]">{model.material}</td>
                 { model.parameters ? 
-                  <td className="py-2 text-md border-y border-[1]">{model.parameters.length < 20 ? model.parameters : `${model.parameters.slice(0,20)}...`}</td> 
+                  <td className="py-2 text-md border-y border-[1]">{model.parameters.length < 35 ? model.parameters : `${model.parameters.slice(0,35)}...`}</td> 
                   : <td className="py-2 text-md border-y border-[1]"> - </td>
                 }
             
