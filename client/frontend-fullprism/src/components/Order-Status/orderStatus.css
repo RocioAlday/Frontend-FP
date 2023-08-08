@@ -18,7 +18,7 @@
 	height: 30px;
 	width: 30px;
 	border: 0px solid #AFAFAF;
-	background-color: #f7be16;
+	background-color: #d3d3d3;
 	margin: 0 auto;
 	transition: background 0.25s linear;
 	-webkit-transition: background 0.25s linear;
@@ -65,7 +65,7 @@
 	display: block;
 	height: 3px;
 	width: calc(100% - 40px);
-	background-color: #f7be16;
+	background-color: #d3d3d3;
 	top: 13px;
 	position: absolute;
 	left: calc(-50% + 20px);
