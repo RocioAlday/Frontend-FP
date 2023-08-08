@@ -11,6 +11,7 @@ const OrderStatus= ()=> {
   const filtered= useSelector((state)=> state.filteredOrdersByStatus);
   const dispatch= useDispatch();
   const [checked, setChecked] = useState({
+    confirmed: false,
     printed: false,
     delivered: false,
     billed: false
@@ -38,6 +39,16 @@ const OrderStatus= ()=> {
       <div className="flex flex-col items-center">
         <p className="px-12 py-10 pb-1 mb-10 font-semibold">ESTADO DE SUS PEDIDOS</p>
         <div className="sm:flex-row flex items-center gap-4 pb-6">
+        <div className=" flex items-center gap-2">
+            <input className="rounded-sm"
+                type="checkbox"
+                id= 'confirmed'
+                checked= {checked.confirmed}
+                onChange={(e)=> handleCheck(e)}
+            > 
+            </input> 
+            <span>Confirmados</span>
+          </div>
           <div className=" flex items-center gap-2">
             <input className="rounded-sm"
                 type="checkbox"
