@@ -3,7 +3,7 @@ import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAM
         GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS, 
         GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS } from "./types";
 import axios from 'axios';
-import Cookies from "universal-cookie";
+import { getTokenInCookies, setTokenInCookies } from "../utils/functions";
 
 export const registerUser= (user)=> {
     try {
@@ -18,8 +18,7 @@ export const registerUser= (user)=> {
 
 export const logOut= ()=> {
   
-    let cookies= new Cookies();
-    const token= cookies.get("refreshToken");
+    const token= getTokenInCookies();
     try{
         return async function(dispatch){
             let dataLogout= await axios.get("http://localhost:3001/user/logout" ,{
@@ -39,12 +38,13 @@ export const logOut= ()=> {
 };
 
 export const loginUser = (user) => {
-   let cookie = new Cookies();
+
     try{
         return async function(dispatch){
             let dataLogin= await axios.post("http://localhost:3001/user/login" , user);
             console.log(dataLogin);
-            cookie.set("refreshToken", dataLogin.data.refreshToken);
+            setTokenInCookies(dataLogin.data.refreshToken);
+           
             return dispatch({
                 type: LOGIN_USER,
                 payload: dataLogin.data,
@@ -56,8 +56,7 @@ export const loginUser = (user) => {
 };
 
 export const getModels= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     try {
         return async function(dispatch) {
             let modelsByCompany= await axios.get("http://localhost:3001/model/companyModels" ,
@@ -103,8 +102,7 @@ export const modifyModel= (newModel)=> {
 }
 
 export const getCartUser= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
    
     try {
         return async function(dispatch) {
@@ -129,8 +127,7 @@ export const getCartUser= ()=> {
 
 
 export const modifyItemCart = (payload) => {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     
     try { 
         return async function(dispatch){
@@ -157,8 +154,7 @@ export const modifyItemCart = (payload) => {
 
 
 export const searchByName= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try {
             const response = await axios.get(`http://localhost:3001/model/modelByName?name=${payload}`,
@@ -185,8 +181,7 @@ export const clearFilter= ()=> {
 };
 
 export const generateOrder= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try {
             const response = await axios.post('http://localhost:3001/order/newOrder', {},
@@ -207,8 +202,7 @@ export const generateOrder= ()=> {
 }
 
 export const modifyOrder= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try {
             const response = await axios.put('http://localhost:3001/order/modifyOrder', {},
@@ -235,8 +229,7 @@ export const modifyOrder= ()=> {
 }
 
 export const addToOrderConfirmed= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
   
     return async function () {
         try {
@@ -256,8 +249,7 @@ export const addToOrderConfirmed= (payload)=> {
 }
 
 export const deleteItemOrder= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try {
             const response = await axios.delete('http://localhost:3001/order/deleteItem', 
@@ -286,8 +278,7 @@ export const deleteItemOrder= ()=> {
 }
 
 export const deleteOrder= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     
     return async function () {
         try {
@@ -314,8 +305,7 @@ export const clearError= ()=> {
 }
 
 export const changeStatus= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try {
             const response = await axios.post('http://localhost:3001/order/changeStatus', {status: payload},
@@ -336,8 +326,7 @@ export const changeStatus= (payload)=> {
 }
 
 export const changeStatusItemOrder= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function () {
         try {
             const response = await axios.put('http://localhost:3001/admin/modifyStatusOrderDetail', payload,
@@ -386,8 +375,7 @@ export const getOrdersForBilling= ()=> {
 }
 
  export const getUserOrders= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
      return async function (dispatch) {
          try {
              const response = await axios.get('http://localhost:3001/order/openOrders',
@@ -424,8 +412,7 @@ export const getDolarValue= ()=> {
 }
 
 export const getDataForBill= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function (dispatch) {
         try{
           
@@ -447,8 +434,7 @@ export const getDataForBill= (payload)=> {
 
 
 export const changeConfirmedOrderStatus= (payload)=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     return async function () {
         try{
             const orderChanged= await axios.post('http://localhost:3001/order/changeConfirmOrderStatus', payload,
@@ -509,9 +495,8 @@ export const modifyPriority= (payload)=> {
 }
 
 export const userInfoData= ()=> {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
-    console.log(token);
+    const token= getTokenInCookies();
+   
     return async function(dispatch) {
         if(token) {
             try {
@@ -541,8 +526,7 @@ export const filterByStatus= (payload)=> {
 }
 
 export const dataForBudget= (payload) => {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
+    const token= getTokenInCookies();
     console.log(token)
     return async function (dispatch) {
         try{

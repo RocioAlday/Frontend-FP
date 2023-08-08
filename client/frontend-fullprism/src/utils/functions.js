@@ -1,4 +1,18 @@
 import axios from 'axios';
+import Cookies from "universal-cookie";
+
+
+export const getTokenInCookies= ()=> {
+    let cookies= new Cookies();
+    const token= cookies.get("refreshToken");
+    return token
+}
+
+export const setTokenInCookies= (data)=> {
+    let cookie= new Cookies();
+    return cookie.set("refreshToken", data);
+}
+
 
 export const changeData= (completedate)=> {
     const date = new Date(completedate);
@@ -25,15 +39,19 @@ export const formateNumber= (number)=> {
 
 
 export async function sendBudgetToMail(blob) {
+    const cookie= new Cookies();
+    const token= cookie.get("refreshToken");
     try {
-        const result= await axios.post('http://localhost:3001/order/sendBudgetByEmail', blob,
-        {
-            headers: {
-                'Content-Type': 'application/pdf' 
-            }
-        })
+        // const result= await axios.post('http://localhost:3001/order/sendBudgetByEmail', blob,
+        // {
+        //     headers: {
+        //         'Content-Type': 'application/pdf',
+        //         Authorization: `Bearer ${token}` 
+        //     }
+        // })
     
-        console.log(result.data)
+        // console.log(result.data)
+        console.log('Comentado para no recibir mails al realizar pruebas')
     } catch(error) {
         console.log('Error al enviar el presupuesto por mail:', error)
     }

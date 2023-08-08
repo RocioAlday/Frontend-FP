@@ -253,34 +253,24 @@ const rootReducer= (state= initialState, action)=> {
         case FILTER_USER_ORDERS_BY_STATUS:
             const statusReceived= action.payload;
             let filteredOrdersCopy= [];
-            if(statusReceived.hasOwnProperty('printed')){
-                if(statusReceived.printed) {
-                    let filterByPrinted= state.userOrdersOpen.filter(o=> o.status === 'Impresión Finalizada');
-                    filteredOrdersCopy= [...filteredOrdersCopy, ...filterByPrinted];
-                } else if (!statusReceived.printed) {
-                    let eliminateFilterByPrinted= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Impresión Finalizada') : state.userOrdersOpen.filter(o=> o.status !== 'Impresión Finalizada');
-                    filteredOrdersCopy= eliminateFilterByPrinted
+
+            function filterStatus(status, param, filteredOrdersCopy, statusValue) {
+                if (status[param]) {
+                    const filterByStatus = state.userOrdersOpen.filter(o => o.status === statusValue);
+                    filteredOrdersCopy.push(...filterByStatus);
+                } else if (!status[statusValue]) {
+                    const eliminateFilterByStatus = filteredOrdersCopy.length ?
+                        filteredOrdersCopy.filter(o => o.status !== statusValue) :
+                        state.userOrdersOpen.filter(o => o.status !== statusValue);
+                    filteredOrdersCopy = eliminateFilterByStatus;
                 }
             }
-            if(statusReceived.hasOwnProperty('delivered')){
-                if(statusReceived.delivered) {
-                    let filterByDelivered= state.userOrdersOpen.filter(o=> o.status === 'Entregado');
-                    filteredOrdersCopy= [...filteredOrdersCopy, ...filterByDelivered];
-                } else if (!statusReceived.delivered) {
-                    let eliminateFilterByDelivered= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Entregado') : state.userOrdersOpen.filter(o=> o.status !== 'Entregado');
-                    filteredOrdersCopy= eliminateFilterByDelivered;
-                }
-            }
-            if(statusReceived.hasOwnProperty('billed')){
-                if(statusReceived.billed) {
-                    let filterBybilled= state.userOrdersOpen.filter(o=> o.status === 'Facturado');
-                    let founded= filteredOrdersCopy.find(o=> o.status === 'Facturado');
-                    if (!founded) filteredOrdersCopy= [...filteredOrdersCopy, ...filterBybilled];
-                } else if (!statusReceived.billed) {
-                    let eliminateFilterBybilled= filteredOrdersCopy.length ? filteredOrdersCopy.filter(o=>o.status !== 'Facturado') : state.userOrdersOpen.filter(o=> o.status !== 'Facturado');
-                    filteredOrdersCopy= eliminateFilterBybilled
-                }
-            }
+            
+            filterStatus(statusReceived, 'printed' , filteredOrdersCopy, 'Impresión Finalizada');
+            filterStatus(statusReceived, 'delivered', filteredOrdersCopy, 'Entregado');
+            filterStatus(statusReceived, 'billed', filteredOrdersCopy, 'Facturado');
+            filterStatus(statusReceived, 'confirmed', filteredOrdersCopy, 'Confirmado');
+            
 
             return {
                 ...state,
