@@ -46,12 +46,12 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations
                         </td>
                     </div>
                     <div className="w-full items-center justify-center">
-                        <td className="p-4 pl-12 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <td className="p-4 pl-20 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                             {m.quantity}
                         </td>
                     </div>
                     <div className="w-full items-center justify-center">
-                        <td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <td className="p-4 pl-10 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                             {m.price*dolar} 
                         
                         </td>
