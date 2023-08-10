@@ -26,10 +26,11 @@ const OrderForFact= ()=> {
 
     return (
 		ordersForBilling.length?
-        <div class="flex flex-col mt-6 md:mx-20">
+        <div class="flex flex-col mt-2 mb-20">
+			<h2 className="text-start px-6 pb-4 font-thin text-white">Tablero de Facturación:</h2>
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
-					<div class="overflow-hidden shadow sm:rounded-lg px-14">
+					<div class="overflow-hidden shadow sm:rounded-lg px-6">
 						<table
 							class="w-full divide-y divide-gray-200 dark:divide-gray-600"
 						>

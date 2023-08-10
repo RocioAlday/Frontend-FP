@@ -23,7 +23,8 @@ import {
     USER_DATA,
     FILTER_BY_STATUS,
     GET_DATA_BUDGET,
-    FILTER_USER_ORDERS_BY_STATUS
+    FILTER_USER_ORDERS_BY_STATUS,
+    SETDASH
 } from '../actions/types';
 
 
@@ -49,7 +50,8 @@ const initialState= {
     userData: {},
     ordersCopy: [],
     dataBudget: {},
-    filteredOrdersByStatus: []
+    filteredOrdersByStatus: [],
+    dashboard: ''
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -275,6 +277,12 @@ const rootReducer= (state= initialState, action)=> {
             return {
                 ...state,
                 filteredOrdersByStatus: filteredOrdersCopy
+            }
+
+        case SETDASH:
+            return {
+                ...state,
+                dashboard: action.payload
             }
 
         default:

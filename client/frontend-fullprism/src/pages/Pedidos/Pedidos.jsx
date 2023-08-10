@@ -56,15 +56,16 @@ const Pedidos = ()=> {
    
     return (
         allModels ?
-            <div className='md:flex md:flex-row md:place-items-start md:mt-8 md:justify-center sm:flex sm:flex-col sm:items-center'>
+        <div className='pt-20 bg-gradient-to-r from-customPink to-customPurple'>
+            <div className='w-full md:flex md:flex-row md:place-items-start md:mt-8 md:justify-center sm:flex sm:flex-col sm:items-center'>
                 <div class=" flex flex-col items-center m-6 gap-6 space-x-6 contenido-sticky">
-                    <div className=' bg-white rounded-xl shadow-lg p-4 pt-8'>
+                    <div className=' bg-customGray rounded-xl shadow-slate-400 shadow-sm-light p-4 pt-8'>
                     <div className='flex flex-row gap-2 '>
-                        <div class="bg-gray-100 flex w-full md:w-72 py-1 px-3 space-x-4 rounded-lg items-center">
+                        <div class="bg-white flex md:w-72 py-1 px-3 space-x-4 rounded-lg items-center">
                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-30" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
                             </svg>
-                            <input class="bg-gray-100 outline-none border-none" type="text" placeholder="Nombre del modelo..." value={input} onChange={handleChange}/>
+                            <input class="bg-white outline-none border-none" type="text" placeholder="Nombre del modelo..." value={input} onChange={handleChange}/>
                             
                         </div>
                         <button className="bg-blue-500 py-1 px-3 text-white font-semibold rounded-lg hover:shadow-lg transition duration-3000 cursor-pointer" type='button' onClick={handleSearch}>
@@ -79,6 +80,7 @@ const Pedidos = ()=> {
                 </div>
                 <Pagination models= {searchModels.length>0 ? searchModels : allModels }/>
                
+            </div>
             </div>
         : 'Cargando'
 

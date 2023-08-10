@@ -11,7 +11,7 @@ return(
 <div className="flex md:flex-row sm:flex-col items-center justify-center w-full">
 <div className=" flex flex-col items-center justify-center">
 
-  <div className="m-5 p-6 px-10 my-3 gap-4 border-2 bg-gray-100 flex flex-col md:flex-row sm:flex-col items-center justify-evenly md:rounded-xl">
+  <div className="m-5 p-6 px-10 my-3 gap-4 border-2 bg-gray-100 shadow-lg shadow-gray-700  flex flex-col md:flex-row sm:flex-col items-center justify-evenly md:rounded-xl">
   
       <div className="flex flex-row justify-between w-full">
         <div className="order-tracking completed">

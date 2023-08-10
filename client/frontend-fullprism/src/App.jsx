@@ -15,6 +15,7 @@ import OrderStatus from './components/Order-Status/OrderStatus';
 import ProductionDash from './pages/Dashboard-Admin/ProductionDash';
 import AdminDash from './pages/Dashboard-Admin/AdminDash';
 import Presupuesto from './components/Presupuesto/Presupuesto';
+import Dashboards from './pages/Dashboard-Admin/Dashboards';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
          <Route path= '/orderStatus' element= {<OrderStatus/>} />
          <Route path= '/adminDash' element= {<AdminDash/>} />
          <Route path= '/presupuesto' element= {<Presupuesto />} />
+         <Route path= '/dashboards' element= {<Dashboards />} />
         </Route>
         </Routes>
       </BrowserRouter>

@@ -13,10 +13,11 @@ const EditModels= ()=> {
     }, []);
 
     return (
-        <div class="flex flex-col my-10">
+        <div class="flex flex-col mb-20 mt-2">
+			<h2 className="text-start px-6 pb-4 font-thin text-white">Modificar Modelos:</h2>
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
-					<div class="overflow-hidden shadow sm:rounded-lg px-14">
+					<div class="overflow-hidden shadow sm:rounded-lg px-6">
 						<table
 							class="w-full divide-y divide-gray-200 dark:divide-gray-600"
 						>

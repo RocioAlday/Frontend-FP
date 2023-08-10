@@ -92,17 +92,17 @@ const Order= ()=> {
 return (
    
 (order!==null &&order.hasOwnProperty('models') && cartUser.hasOwnProperty('items')&&cartUser.items.length)? (
-<section class="antialiased bg-gray-100 text-gray-600 px-4" x-data="app">
+<section class="antialiased bg-customBlue text-gray-600 px-4 py-36" x-data="app">
     <div class="flex flex-col justify-center py-3  ">
        <div>
-        <div class={`w-full max-w-2xl mx-auto bg-white shadow-lg rounded-lg border border-gray-200 ${modal ? 'container' : ''}`}>
+        <div class={`w-full max-w-2xl mx-auto bg-white shadow-lg shadow-gray-700 rounded-lg border border-gray-200 ${modal ? 'container' : ''}`}>
             <header class="px-5 py-4 border-b border-gray-100">
                 <div class="font-semibold text-gray-800">Su Pedido</div>
             </header>
 
             <div class="overflow-x-auto p-3">
                 <table class="table-auto w-full">
-                    <thead class="text-xs font-semibold uppercase text-gray-400 bg-gray-50">
+                    <thead class="text-xs font-semibold uppercase text-gray-500 bg-gray-50">
                         <tr>
                             <th></th>
                             <th class="p-2">
