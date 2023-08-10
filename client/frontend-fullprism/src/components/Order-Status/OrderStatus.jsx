@@ -36,9 +36,9 @@ const OrderStatus= ()=> {
 
     return (
       userOrders.length ? 
-      <div className="flex flex-col items-center">
-        <p className="px-12 py-10 pb-1 mb-10 font-semibold">ESTADO DE SUS PEDIDOS</p>
-        <div className="sm:flex-row flex items-center gap-4 pb-6">
+      <div className="flex flex-col items-center py-36 bg-customBlue">
+        <p className="px-12 pb-1 mb-10 font-semibold text-gray-300 font">ESTADO DE SUS PEDIDOS</p>
+        <div className="sm:flex-row flex items-center gap-4 pb-6 text-gray-300">
         <div className=" flex items-center gap-2">
             <input className="rounded-sm"
                 type="checkbox"
@@ -84,12 +84,17 @@ const OrderStatus= ()=> {
       
       { filtered.length ? filtered.map(order=> {
          return (
+          <div className="w-3/6">
           <OrderMap key={order.orderId} props={{order: order, detailModels: order.detailModels}} />
+          </div>
          )
-        }) :
+        }) 
+         :
         userOrders.map(order => {
           return (
+            <div className="w-3/6">
           <OrderMap key={order.orderId} props={{order: order, detailModels: order.detailModels}} />
+          </div>
           )
         })
       }

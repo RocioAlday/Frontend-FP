@@ -15,7 +15,6 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
 		color
 	});
     const [newPriority, setPriority]= useState(priority);
-    console.log(newPriority);
     const [bgPriority, setBgPriority]= useState('');
    
     useEffect(()=> {

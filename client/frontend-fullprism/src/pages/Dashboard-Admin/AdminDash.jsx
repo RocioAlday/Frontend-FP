@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { filterByStatus, getAllOrders } from "../../actions/userActions";
 import RowTableAdmin from "./RowTableAdmin";
 import { sliceDate } from "../../utils/functions";
+import SideMenu from "./SideMenu/SideMenu";
 
 const AdminDash= ()=> {
 	let allOrders= useSelector((state)=> state.allOrders);
@@ -22,10 +23,11 @@ const AdminDash= ()=> {
 	}
     return (
         allOrders? 
-        	<div class="flex flex-col mt-6 mb-20">
+        	<div class="flex flex-col mt-2 mb-20 w-full">
+					<h2 className="text-start px-6 pb-4 font-thin text-white">Tablero de Administrador:</h2>
 			<div class="overflow-x-auto rounded-lg">
 				<div class="inline-block min-w-full align-middle">
-					<div class="overflow-hidden shadow sm:rounded-lg px-14">
+					<div class="overflow-hidden shadow sm:rounded-lg px-6">
 						<table
 							class="w-full divide-y divide-gray-200 dark:divide-gray-600"
 						>
@@ -115,6 +117,7 @@ const AdminDash= ()=> {
                                 </div>
                                 </div>
             </div>
+
 		: 'NO HAY ORDENES'
     )
 

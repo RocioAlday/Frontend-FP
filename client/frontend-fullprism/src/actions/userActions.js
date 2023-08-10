@@ -1,7 +1,7 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, 
         GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS, 
-        GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS } from "./types";
+        GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS, SETDASH } from "./types";
 import axios from 'axios';
 import { getTokenInCookies, setTokenInCookies } from "../utils/functions";
 
@@ -27,7 +27,7 @@ export const logOut= ()=> {
                 }
             }); 
             console.log(dataLogout.data.refreshToken);
-            cookies.set("refreshToken", "");
+            setTokenInCookies("");
             return dispatch({
                 type: LOGOUT_USER
             })
@@ -557,6 +557,12 @@ export function FilterUserOrdersByStatus(payload){
     };
 };
 
+export function setDashboard(payload) {
+    return {
+        type: SETDASH,
+        payload: payload
+    }
+};
 
 
 
