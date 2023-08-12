@@ -56,8 +56,8 @@ const Presupuesto = ({download, sendByMail}) => {
           </div>
         </div>
 
-        <div class="flex flex-col my-10 w-full">
-        <div class="inline-block align-middle px-14">
+        <div className="flex flex-col my-10 w-full">
+        <div className="inline-block align-middle px-14">
         <table className="divide-y divide-gray-200 dark:divide-gray-600 w-full">
           <thead className="">
             <tr className="">
@@ -125,9 +125,9 @@ const Presupuesto = ({download, sendByMail}) => {
         </div>
    
         </div>
-        <div class="mt-48 p-10">
-     <div class="border-t pt-9 border-slate-200 flex">
-      <div class="text-md font-light text-slate-700">
+        <div className="mt-48 p-10">
+     <div className="border-t pt-9 border-slate-200 flex">
+      <div className="text-md font-light text-slate-700">
        <p >
         Este presupuesto tiene una validez de 20 días. <br/> 
         Forma de pago a convenir.<br/> 

@@ -23,57 +23,57 @@ const AdminDash= ()=> {
 	}
     return (
         allOrders? 
-        	<div class="flex flex-col mt-2 mb-20 w-full">
+        	<div className="flex flex-col mt-2 mb-20 w-full">
 					<h2 className="text-start px-6 pb-4 font-thin text-white">Tablero de Administrador:</h2>
-			<div class="overflow-x-auto rounded-lg">
-				<div class="inline-block min-w-full align-middle">
-					<div class="overflow-hidden shadow sm:rounded-lg px-6">
+			<div className="overflow-x-auto rounded-lg">
+				<div className="inline-block min-w-full align-middle">
+					<div className="overflow-hidden shadow sm:rounded-lg mx-6">
 						<table
-							class="w-full divide-y divide-gray-200 dark:divide-gray-600"
+							className="w-full divide-y divide-gray-200 dark:divide-gray-600"
 						>
-							<thead class="bg-gray-50 dark:bg-gray-700">
+							<thead className="bg-gray-50 dark:bg-gray-700">
 								<tr className="text-center">
                                     <th
 										scope="col"
-										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Cliente
 									</th>
 									<th
 										scope="col"
-										class="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className="p-2 text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Pieza
 									</th>
 									<th
 										scope="col"
-										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Cantidad
 									</th>
 									<th
 										scope="col"
-										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Material
 									</th>
 								
 									<th
 										scope="col"
-										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Color
 									</th>
 										
 									<th
 										scope="col"
-										class=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
+										className=" text-md text-center font-medium tracking-wider text-gray-500 uppercase dark:text-white"
 									>
 										Fecha de solicitud
 									</th>
 									<th
 										scope="col"
-										class="text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Prioridad
 									</th>
@@ -94,13 +94,13 @@ const AdminDash= ()=> {
 									</th>
 									<th
 										scope="col"
-										class="text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white pr-4"
+										className="text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white pr-4"
 									>
 										Editar
 									</th>
 								</tr>
 							</thead>
-							<tbody class=" bg-white dark:bg-gray-800">	
+							<tbody className=" bg-white dark:bg-gray-800">	
 								
 								{
 									

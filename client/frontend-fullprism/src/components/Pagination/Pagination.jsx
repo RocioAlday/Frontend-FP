@@ -10,6 +10,7 @@ export const rederMapeo= (currentModels, dolarValue)=> {
    
     return (
         <div className="items-center m-4">
+            {currentModels.length ?
             <div className=" justify-center p-6">
                 {currentModels.map((m)=> {
                     
@@ -23,7 +24,8 @@ export const rederMapeo= (currentModels, dolarValue)=> {
                     )
                 })}
                 
-            </div> 
+            </div> : 'Cargando'
+            } 
         </div>
     )
 };

@@ -62,17 +62,17 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
 	}
 
     return (
-        <tr class=" bg-gray-50 dark:bg-gray-700 border-y-2">
+        <tr className=" bg-gray-50 dark:bg-gray-700 border-y-2">
 
-                <td class="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                <td className="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                     {company}
                 </td>
            
-                <td class="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                <td className="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                     {name}
                 </td>
              
-                <td class="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
                     {editing ? (
                     <input
                     type="text"
@@ -86,7 +86,7 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
                     
                 </td>
              
-                <td class="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
                     {editing? 
                     <select name='material' defaultValue='Seleccione un material' onChange={(e)=>handleChange(e)} className="w-40 text-sm rounded-full py-1">
                             <option disabled value='Seleccione un material'>Elija el material</option>
@@ -103,7 +103,7 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
                     }
                 </td>
     
-                <td class="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-500 whitespace-nowrap dark:text-white">
                     {editing ? (
                         <input
                         type="text"
