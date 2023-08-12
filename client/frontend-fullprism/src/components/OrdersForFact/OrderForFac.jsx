@@ -1,6 +1,5 @@
 
 import React, { useEffect } from "react";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { changeConfirmedOrderStatus, getOrdersForBilling } from "../../actions/userActions";
 import RowTableOrdersForBilling from "./RowTableOrdersForBilling";
@@ -16,12 +15,11 @@ const OrderForFact= ()=> {
 
     useEffect(()=> {
         dispatch(getOrdersForBilling());
-    }, []);
+    }, [dispatch]);
 
 	function handleConfirm(e) {
 		e.preventDefault();
-		dispatch(changeConfirmedOrderStatus (ordersList)) 
-		dispatch(getOrdersForBilling());
+		dispatch(changeConfirmedOrderStatus (ordersList)); 
 	}
 
     return (
@@ -94,7 +92,7 @@ const OrderForFact= ()=> {
                                 </div>
                                 </div> :
 								
-								<h1 className="p-20 text-gray-600 text-center font-medium">NO EXISTEN PEDIDOS LISTOS PARA FACTURAR</h1>
+								<h1 className="p-20 text-gray-50 text-center font-medium">NO EXISTEN PEDIDOS LISTOS PARA FACTURAR</h1>
     )
 };  
 

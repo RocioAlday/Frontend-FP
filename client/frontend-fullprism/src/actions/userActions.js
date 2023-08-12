@@ -435,7 +435,7 @@ export const getDataForBill= (payload)=> {
 
 export const changeConfirmedOrderStatus= (payload)=> {
     const token= getTokenInCookies();
-    return async function () {
+    return async function (dispatch) {
         try{
             const orderChanged= await axios.post('http://localhost:3001/order/changeConfirmOrderStatus', payload,
             {
@@ -443,6 +443,9 @@ export const changeConfirmedOrderStatus= (payload)=> {
                     Authorization: `Bearer ${token}`
                   }
             });
+
+            dispatch(getOrdersForBilling())
+            
           
         } catch (error) {
             console.log('Error changing status of confirmed order', error)

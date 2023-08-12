@@ -16,7 +16,7 @@ import ProductionDash from './pages/Dashboard-Admin/ProductionDash';
 import AdminDash from './pages/Dashboard-Admin/AdminDash';
 import Presupuesto from './components/Presupuesto/Presupuesto';
 import Dashboards from './pages/Dashboard-Admin/Dashboards';
-
+import SideMenu from './pages/Dashboard-Admin/SideMenu/SideMenu';
 
 function App() {
 
@@ -26,7 +26,8 @@ function App() {
       <BrowserRouter>
         <Routes>
         <Route path= "/" element= {<Layout />} >
-         <Route path='/login' element= {<Login />} />
+         <Route index element= {<Login />} />
+         <Route path= '/login' element= {<Login />} />
          <Route path='/logout' element= {<Logout />} />
          <Route path='/register' element= {<Register />} />
          <Route path='/piezas' element= {<Pedidos />} />
@@ -37,7 +38,7 @@ function App() {
          <Route path= '/orderStatus' element= {<OrderStatus/>} />
          <Route path= '/adminDash' element= {<AdminDash/>} />
          <Route path= '/presupuesto' element= {<Presupuesto />} />
-         <Route path= '/dashboards' element= {<Dashboards />} />
+         <Route path= '/dashboards' element= {<SideMenu />} />
         </Route>
         </Routes>
       </BrowserRouter>
