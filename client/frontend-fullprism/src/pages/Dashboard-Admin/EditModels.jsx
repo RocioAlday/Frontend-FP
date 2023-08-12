@@ -13,61 +13,61 @@ const EditModels= ()=> {
     }, []);
 
     return (
-        <div class="flex flex-col mb-20 mt-2">
+        <div className="flex flex-col mb-20 mt-2">
 			<h2 className="text-start px-6 pb-4 font-thin text-white">Modificar Modelos:</h2>
-			<div class="overflow-x-auto rounded-lg">
-				<div class="inline-block min-w-full align-middle">
-					<div class="overflow-hidden shadow sm:rounded-lg px-6">
+			<div className="overflow-x-auto rounded-lg">
+				<div className="inline-block min-w-full align-middle">
+					<div className="overflow-hidden shadow sm:rounded-lg mx-6">
 						<table
-							class="w-full divide-y divide-gray-200 dark:divide-gray-600"
+							className="w-full divide-y divide-gray-200 dark:divide-gray-600"
 						>
-							<thead class="bg-gray-50 dark:bg-gray-700">
+							<thead className="bg-gray-50 dark:bg-gray-700">
 								<tr>
 									<th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Imagen
 									</th>
                                     <th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Nombre
 									</th>
 									<th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Material
 									</th>
 									<th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Empresa Cliente
 									</th>
 									<th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										Precio
 									</th>
 									<th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										link
 									</th>
                                     <th
 										scope="col"
-										class="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-md font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
 									>
 										EDITAR
 									</th>
 								</tr>
 							</thead>
-							<tbody class="bg-white dark:bg-gray-800">
+							<tbody className="bg-white dark:bg-gray-800">
 								{models.map( m=> <RowTable id= {m.id} name= {m.name} material= {m.material} price= {m.price} link= {m.link} image= {m.image} companyName= {m.companyName} /> )}	
                             </tbody>
                                 </table>

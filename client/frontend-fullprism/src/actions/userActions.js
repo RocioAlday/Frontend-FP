@@ -26,7 +26,7 @@ export const logOut= ()=> {
                     Authorization: `Bearer ${token}`
                 }
             }); 
-            console.log(dataLogout.data.refreshToken);
+            console.log(dataLogout.data);
             setTokenInCookies("");
             return dispatch({
                 type: LOGOUT_USER

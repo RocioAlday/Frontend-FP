@@ -56,8 +56,8 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 	}
 
     return (
-        <tr class=" bg-gray-50 dark:bg-gray-700 text-center">
-			<td class="p-4 text-sm justify-center flex flex-col items-center">
+        <tr className=" bg-gray-50 dark:bg-gray-700 text-center">
+			<td className="p-4 text-sm justify-center flex flex-col items-center">
 				{editing? (
 					<div className="flex flex-col">
 					<input className="text-xs" type="file" name="image" onChange= {handleImageChange} />
@@ -67,7 +67,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 				}
 			 
 			</td>
-			<td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+			<td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
 				{editing ? (
 				<input
 				type="text"
@@ -80,7 +80,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 				}
 			
 			</td>
-			<td class="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+			<td className="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
 				{editing? 
 				<select name='material' defaultValue='Seleccione un material' onChange={handleChange} className="rounded-full py-1">
                         <option disabled value='Seleccione un material'>Elija el material</option>
@@ -97,7 +97,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 				}
 			</td>
 								
-			<td class="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+			<td className="p-4 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
 				{editing?
 				<select name='companyName' defaultValue='Seleccione un Cliente' onChange={handleChange} className="rounded-full py-1">
 					<option disabled value='Seleccione un cliente'>Elija el cliente</option>

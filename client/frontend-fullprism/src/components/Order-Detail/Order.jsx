@@ -92,35 +92,35 @@ const Order= ()=> {
 return (
    
 (order!==null &&order.hasOwnProperty('models') && cartUser.hasOwnProperty('items')&&cartUser.items.length)? (
-<section class="antialiased bg-customBlue text-gray-600 px-4 py-36" x-data="app">
-    <div class="flex flex-col justify-center py-3  ">
+<section className="antialiased bg-customBlue text-gray-600 px-4 py-36" x-data="app">
+    <div className="flex flex-col justify-center py-3  ">
        <div>
-        <div class={`w-full max-w-2xl mx-auto bg-white shadow-lg shadow-gray-700 rounded-lg border border-gray-200 ${modal ? 'container' : ''}`}>
-            <header class="px-5 py-4 border-b border-gray-100">
-                <div class="font-semibold text-gray-800">Su Pedido</div>
+        <div className={`w-full max-w-2xl mx-auto bg-white shadow-lg shadow-gray-700 rounded-lg border border-gray-200 ${modal ? 'container' : ''}`}>
+            <header className="px-5 py-4 border-b border-gray-100">
+                <div className="font-semibold text-gray-800">Su Pedido</div>
             </header>
 
-            <div class="overflow-x-auto p-3">
-                <table class="table-auto w-full">
-                    <thead class="text-xs font-semibold uppercase text-gray-500 bg-gray-50">
+            <div className="overflow-x-auto p-3">
+                <table className="table-auto w-full">
+                    <thead className="text-xs font-semibold uppercase text-gray-500 bg-gray-50">
                         <tr>
                             <th></th>
-                            <th class="p-2">
-                                <div class="font-semibold text-center">Pieza Solicitada</div>
+                            <th className="p-2">
+                                <div className="font-semibold text-center">Pieza Solicitada</div>
                             </th>
-                            <th class="p-2">
-                                <div class="font-semibold text-center">Cantidad</div>
+                            <th className="p-2">
+                                <div className="font-semibold text-center">Cantidad</div>
                             </th>
-                            <th class="p-2">
-                                <div class="font-semibold text-center">Subtotal</div>
+                            <th className="p-2">
+                                <div className="font-semibold text-center">Subtotal</div>
                             </th>
-                            <th class="p-2">
-                                <div class="font-semibold text-center">Eliminar</div>
+                            <th className="p-2">
+                                <div className="font-semibold text-center">Eliminar</div>
                             </th>
                         </tr>
                     </thead>
 
-                    <tbody class="text-sm divide-y divide-gray-100">
+                    <tbody className="text-sm divide-y divide-gray-100">
                        {order.models.map(m => <OrderDetail key={m.id} id= {m.id} name= {m.name} image= {m.image} orderDetail= {m.OrderDetail} price= {m.price} dolarValue={dolarValue} /> )}
                     </tbody>
                 </table>
@@ -131,17 +131,17 @@ return (
                 <textarea name='observations' placeholder='Escriba las observaciones que considere necesarias' className="text-sm rounded-xl items-center border-1 border-gray-200 w-full h-20" value={observations} type='text' onChange={(e)=>handleChange(e)}></textarea>
            </div>
 
-            <div class="flex items-center justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
+            <div className="flex items-center justify-end font-bold space-x-4 text-2xl border-t border-gray-100 px-5 py-4">
              <p className="px-4 font-semibold text-xl">TOTAL:</p>$ {formateNumber(order.totalBudget*dolarValue)}
             </div>
 
-            <div class="flex justify-end">
-                <input type="hidden" class="border border-black bg-gray-50" x-model="selected" />
+            <div className="flex justify-end">
+                <input type="hidden" className="border border-black bg-gray-50" x-model="selected" />
             </div>
            
                 { changeButtons?
-                 <div className="flex flex-row justify-center mb-3">
-                    <button className="confirm flex items-center gap-2 bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" 
+                 <div className="flex flex-row justify-center mb-6">
+                    <button className="confirm flex items-center gap-2 bg-customBlue2 text-white font-bold py-2 px-4 rounded-xl" 
                         type='button' onClick={handleConfirm}>
                     <span>Confirmar Pedido</span>
                     <span className="hidden"> {<GiConfirmed className="text-xl"/>} </span>
@@ -177,7 +177,7 @@ return (
 
         </div>
         {renderBudget &&data.hasOwnProperty('order') && download===false ? 
-        <div id="presup" className="bg-white items-center flex justify-center mx-20 mt-6 pb-6">
+        <div id="presup" className="bg-white items-center flex justify-center mx-20 mt-20 pb-6">
             <Presupuesto download= {download} sendByMail= {sendByEmail} /> 
         </div>: 
         renderBudget &&data.hasOwnProperty('order') && download ? 
@@ -188,14 +188,14 @@ return (
 
         {modal?
 
-            <div class="details-modal">
+            <div className="details-modal">
                 <button className="details-modal-close" type='button' onClick={(e)=>{handleCloseModal(e)}}>
                 X
                 </button>
-            <div class="details-modal-title">
+            <div className="details-modal-title">
                 <h1>Confirmar Presupuesto</h1>
             </div>
-            <div class="details-modal-content">
+            <div className="details-modal-content">
                 <p>
                 ¡Nos complace que estés considerando nuestro presupuesto! <br/>
                 Queremos recordarte  que al aceptar este presupuesto, estarás indicando tu interés en adquirir nuestros productos/servicios y, 
@@ -220,7 +220,7 @@ return (
 
 </section> ) : 
  error || order==null || (cartUser.hasOwnProperty('items')&&!cartUser.items.length) ? 
- <div className="flex flex-col items-center justify-center pb-60 pt-20">
+ <div className="flex flex-col items-center justify-center mb-80 pt-36">
      <h1 className="p-6 font-bold text-center">No hay Productos Agregados</h1>
      <button className=" bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" onClick={(e)=> handleReturn(e)}> Seleccionar Productos</button> 
  </div> :

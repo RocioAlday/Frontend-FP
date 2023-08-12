@@ -33,22 +33,22 @@ return(
       </div>
 
     
-    <dl class=" md:w-80  bg-gray-100 text-gray-600 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 w-full">
-    <div class="flex flex-row pb-3">
-    <dt class="mb-1 pb-3 text-gray-800 md:text-md dark:text-gray-400 pr-2">Nro.Orden: </dt>
+    <dl className=" md:w-80  bg-gray-100 text-gray-600 divide-y divide-gray-200 dark:text-white dark:divide-gray-700 w-full">
+    <div className="flex flex-row pb-3">
+    <dt className="mb-1 pb-3 text-gray-800 md:text-md dark:text-gray-400 pr-2">Nro.Orden: </dt>
     {order.orderId}
     </div>
-    <div class="flex flex-row pb-3 w-full">
-        <dt class="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Piezas / Cantidades: </dt>    
+    <div className="flex flex-row pb-3 w-full">
+        <dt className="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Piezas / Cantidades: </dt>    
           {
               detailModels.map(m=> {
-                return <dd key={`${order.orderId}${m.modelId}`}  class="text-sm px-1 text-center mt-0.5 w-full">{m.name} (cant: {m.quantity})  </dd>
+                return <dd key={`${order.orderId}${m.modelId}`}  className="text-sm px-1 text-center mt-0.5 w-full">{m.name} (cant: {m.quantity})  </dd>
               })
             
             }  
     </div>
-    <div class="flex flex-row pb-3">
-    <dt class="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Total Presupuesto: </dt>
+    <div className="flex flex-row pb-3">
+    <dt className="mb-1 text-gray-800 md:text-md dark:text-gray-400 pr-2">Total Presupuesto: </dt>
     $ {order.totalBudget}
     </div>
   

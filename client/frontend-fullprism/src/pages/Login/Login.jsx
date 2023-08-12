@@ -2,19 +2,20 @@ import { useState, useEffect, React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUser, userInfoData } from "../../actions/userActions";
+import './login.css';
 
 const Login= ()=> {
     const [user, setUser] = useState({email: "", password: ""});
     const dispatch = useDispatch();
     let history= useNavigate();
     const dataLogin= useSelector((state)=> state.userLogin);
+    console.log(dataLogin)
     let userData= useSelector((state)=> state.userData);
-
+    console.log(user)
     const handleSubmit= (e)=> {
         e.preventDefault();
         dispatch(loginUser(user));
-        dispatch(userInfoData());
-        setUser({email: "", password: ""});
+       
     };
 
     const handleInputChange = function (event) {
@@ -23,41 +24,42 @@ const Login= ()=> {
           [event.target.id]: event.target.value
         });
         console.log(user);
+
       };
       
     useEffect(()=> {
-        if (dataLogin.hasOwnProperty('email')) history('/piezas');
-    }, [dataLogin])
+       userData.hasOwnProperty('email') === false ? dispatch(userInfoData()) : history('/piezas')
+    }, [userData])
     
 
     return (
-        <div className="flex items-center justify-center">
-        { dataLogin.hasOwnProperty('email') || userData.hasOwnProperty('email') ? <h1>Usted ya tiene una sesión abierta</h1> :
+        <div className="flex items-center justify-center pt-48 pb-60 bg-imageLogin">
+        {dataLogin.hasOwnProperty('email') || userData.hasOwnProperty('email') ? <h1>Usted ya tiene una sesión abierta</h1> : 
+        
         <div className="w-full max-w-xs">
-            <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit= {handleSubmit} >
+            <form className="bg-customBeige bg-opacity-70 shadow-customBeigeDark shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit= {handleSubmit} >
                 <div className="mb-4">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="usuario">
+                <label className="block text-gray-900 font-bold mb-2 text-md" htmlFor="usuario">
                     Usuario
                 </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" name='email' type="text" placeholder="Ingrese su usuario" onChange={handleInputChange}/>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 leading-tight focus:outline-none focus:shadow-outline" id="email" name='email' type="text" placeholder="Ingrese su usuario" onChange={handleInputChange}/>
                 </div>
                 <div className="mb-6">
-                <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="contraseña">
+                <label className="block text-gray-900 text-md font-bold mb-2" htmlFor="contraseña">
                     Contraseña
                 </label>
-                <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="******************" onChange={handleInputChange} />
-                <p className="text-red-500 text-xs italic">Please choose a password.</p>
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="********" onChange={handleInputChange} />
                 </div>
                 <div className="flex items-center justify-between">
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="submit" >
+                <button className="bg-customBlue shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-white font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="submit" >
                     Loguearse
                 </button>
-                <a className="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="/forgotPassword">
+                <a className="inline-block align-baseline font-bold text-sm text-gray-700 text-shadow-lg hover:text-blue-800" href="/forgotPassword">
                     Olvidaste tu clave?
                 </a>
                 </div>
                 
-                <button className=" mt-8 w-full bg-blue-400 hover:bg-blue-500 text-white font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="button">
+                <button className=" mt-8 w-full bg-customBlue2 shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-slate-50 font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="button">
                     <Link to='/register'>Registrarse</Link>
                 </button>
              

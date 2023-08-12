@@ -49,33 +49,33 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
 	}
 
     return (
-        <tr class=" bg-gray-50 dark:bg-gray-700 border-y-2">
+        <tr className=" bg-gray-50 dark:bg-gray-700 border-y-2">
            
-                <td class="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                <td className="p-2 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                     {name}
                 
                 </td>
              
-                <td class="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                     {quantity}
                 </td>
              
-                <td class="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                     {material}
                 </td>
             
-                <td class="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
 				    {link}
 			    </td>
     
-                <td class="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                    {color}
                 </td>
             
                 <td className="p-4 text-center text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
 				{fechaSolicitud}
                 </td>
-                <td class="p-4 text-sm text-center font-semibold text-gray-900 whitespace-nowrap dark:text-white">
+                <td className="p-4 text-sm text-center font-semibold text-gray-900 whitespace-nowrap dark:text-white">
                 <div className={`py-1 px-0 mr-5 rounded-full ${bgPriority}`}>
                         {priority === true? <span>Prioritario</span>  :
                        <p className="text-sm text-gray-500">Sin Prioridad </p>}

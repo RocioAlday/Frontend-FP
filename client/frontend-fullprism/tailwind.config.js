@@ -8,13 +8,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        customBeige: '#F0CAA3',
-        customPink: '#C060A1',
-        customNavy: '#00005C',
+        customlavender: '#DBD2E0',
+        customPink: '#DD7596',
+        customNavy: '#B7C3F3',
         customPurple: '#3B185F',
         customBlue: '#4A55A2',
-        customDarkGray: '#61677A',
-        customGray: '#D8D9DA'
+        customBlue2: '#6983E9',
+        customDarkGray: '#4F6272',
+        customGray: '#D8D9DA',
+        customBeige: '#D6D2D2',
+        customBeigeDark: '#D6D2D2'
       },
     },
   },
