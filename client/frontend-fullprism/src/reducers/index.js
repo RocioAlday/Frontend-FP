@@ -51,7 +51,8 @@ const initialState= {
     ordersCopy: [],
     dataBudget: {},
     filteredOrdersByStatus: [],
-    dashboard: ''
+    dashboard: '',
+    statusChanged: {}
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -284,6 +285,8 @@ const rootReducer= (state= initialState, action)=> {
                 ...state,
                 dashboard: action.payload
             }
+        
+
 
         default:
             return state;

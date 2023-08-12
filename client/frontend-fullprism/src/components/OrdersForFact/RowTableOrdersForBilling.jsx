@@ -18,12 +18,13 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations
         setChecked(!checked);
     }
 
+
     useEffect(()=> {
         dispatch(getDataForBill(userId));
     }, [])
     
     return (
-        <tr className= {!checked? " bg-gray-50 dark:bg-gray-700 border-y-2 border-stone-300" :  "bg-green-100 dark:bg-green-300 border-y-2 border-stone-300"}>
+        <tr className= {checked ? "bg-green-100 dark:bg-green-300 border-y-2 border-stone-300" :  " bg-gray-50 dark:bg-gray-700 border-y-2 border-stone-300" }>
             <td className="p-4 pl-4 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
                 {index}
             </td>
