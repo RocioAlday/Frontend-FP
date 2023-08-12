@@ -70,31 +70,31 @@ const Card= ({name, material, price, image, dolar})=> {
 
     return (
 
-        <div class="flex flex-col items-center bg-white rounded-lg shadow-slate-400 shadow-sm-light md:flex-row sm:flex-row md:max-w-xxl hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+        <div className="flex flex-col items-center  bg-gray-50 shadow-lg shadow-gray-700 rounded-lg md:flex-row sm:flex-row md:max-w-xxl hover:bg-gray-200 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
         <div className= 'md:flex flex-row w-full'>
-            <img class=" object-cover w-full rounded-t-lg h-40 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={image} alt="" />  
-            <div class="flex flex-col justify-between p-4 leading-normal w-2/3">
-                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
-                <p class="mb-3 font-normal  text-gray-700 dark:text-gray-400">Material: {material}</p>
-                <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">Precio:&nbsp;&nbsp; ${formateNumber(price*dolar)}</p>
+            <img className=" object-cover w-full rounded-t-lg h-40 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src={image} alt="" />  
+            <div className="flex flex-col justify-between p-4 leading-normal w-2/3">
+                <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{name}</h5>
+                <p className="mb-3 font-normal  text-gray-700 dark:text-gray-400">Material: {material}</p>
+                <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">Precio:&nbsp;&nbsp; ${formateNumber(price*dolar)}</p>
             </div>
             <div className="flex flex-row items-center">
                 <div className="flex flex-col items-center ">
                     <label className="md:mt-4 text-gray-700 text-sm font-bold mb-2" htmlFor="cantidad">
                         Cantidad
                     </label>
-                    <div class="flex items-center space-x-3">
-                        <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button" onClick= {e=> {handleClickDelete(e)}} >
-                            <span class="sr-only">Quantity button</span>
-                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
+                    <div className="flex items-center space-x-3">
+                        <button className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button" onClick= {e=> {handleClickDelete(e)}} >
+                            <span className="sr-only">Quantity button</span>
+                            <svg className="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
                         </button>
                         <div>
-                            <input id="quantity" class="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" value={input} onChange={handleChangeInput}/>
+                            <input id="quantity" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="0" value={input} onChange={handleChangeInput}/>
                         </div>
                     
-                        <button class="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button" onClick= {e=> {handleClickAdd(e)}} >
-                            <span class="sr-only">Quantity button</span>
-                            <svg class="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                        <button className="inline-flex items-center p-1 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-full focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-200 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700" type="button" onClick= {e=> {handleClickAdd(e)}} >
+                            <span className="sr-only">Quantity button</span>
+                            <svg className="w-4 h-4" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
                         </button>
                     </div>
                     <div className="p-6">
@@ -113,7 +113,7 @@ const Card= ({name, material, price, image, dolar})=> {
                         </div>
                     </div>
                 
-                    <button className= { !editAdd ? "mx-4 bg-green-300 rounded-full p-2  font-light  hover:bg-green-200" : "mx-4 bg-gray-300 rounded-full p-2  font-light hover:bg-gray-200"} type="button" onClick={handleConfirm}>{ editAdd ? 'Modificar' : 'Agregar' } </button>
+                    <button className= { !editAdd ? "mx-4 bg-customPink text-white rounded-full py-2 px-3 text-sm hover:bg-customPink hover:bg-opacity-50 hover:text-gray-700 hover:scale-110 transition duration-600" : "mx-4 bg-gray-300 rounded-full py-2 px-3 font-light hover:bg-gray-400 hover:text-gray-100"} type="button" onClick={handleConfirm}>{ editAdd ? 'Modificar' : 'AGREGAR' } </button>
             
                 </div>
             </div>

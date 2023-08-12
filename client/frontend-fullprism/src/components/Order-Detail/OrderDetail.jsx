@@ -1,7 +1,8 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { modifyOrder, modifyItemCart, deleteItemOrder } from "../../actions/userActions";
+import { useNavigate } from 'react-router-dom';
+import { modifyOrder, modifyItemCart, deleteItemOrder, userInfoData } from "../../actions/userActions";
 import { formateNumber } from "../../utils/functions";
 
 
@@ -10,6 +11,9 @@ const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
 
   console.log(orderDetail);
     let [input, setInput]= useState({});
+    let history= useNavigate();
+    const dataLogin= useSelector((state)=> state.userLogin);
+    let userData= useSelector((state)=> state.userData);
     const dispatch= useDispatch();
     let [value, setValue]= useState({});
     let order= useSelector((state)=> state.userOrder); 
@@ -18,7 +22,8 @@ const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
 
     useEffect(() => {
         dispatch(modifyOrder());
-      }, [cartUser]);
+        dataLogin.hasOwnProperty('email') ? null : dispatch(userInfoData())
+      }, [cartUser, dispatch]);
 
     function handleChangeInput(e) {
         const inputValue= Number(e.target.value);
@@ -51,35 +56,36 @@ const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
 
     
 return (
-
+    <>
+    { userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email') ?
     <tr className="">
         <td className="py-2">
             <img className="w-20" src= {image}></img>
         </td>
 
-        <td class="p-2 text-center">
-            <div class="font-medium text-center text-gray-800">
+        <td className="p-2 text-center">
+            <div className="font-medium text-center text-gray-800">
                 {name}
             </div>
             <div>
                 <p className="text-xs pt-1">Color: {orderDetail.color}</p>
             </div>
         </td>
-        <td class="p-2">
-        <div class="font-medium text-center text-gray-800">
-            <input type="number" id="quantity" class="bg-gray-50 w-14 text-center border border-gray-300 text-gray-900 text-sm rounded-lg"  defaultValue= {input.hasOwnProperty(id)? input[id] : orderDetail.quantity} onChange={(e)=> handleChangeInput(e, id)} onBlur={()=>handleBlur()}/>
+        <td className="p-2">
+        <div className="font-medium text-center text-gray-800">
+            <input type="number" id="quantity" className="bg-gray-50 w-14 text-center border border-gray-300 text-gray-900 text-sm rounded-lg"  defaultValue= {input.hasOwnProperty(id)? input[id] : orderDetail.quantity} onChange={(e)=> handleChangeInput(e, id)} onBlur={()=>handleBlur()}/>
         </div>
         </td>
-        <td class="p-2">
-            <div class="text-center font-medium text-green-500">
+        <td className="p-2">
+            <div className="text-center font-medium text-green-500">
                 {input.hasOwnProperty(id) ? formateNumber(price*dolarValue*(input[id]))
                 : formateNumber(orderDetail.subtotal*dolarValue)}
             </div>
         </td>
-        <td class="p-2">
-            <div class="flex justify-center">
+        <td className="p-2">
+            <div className="flex justify-center">
                 <button onClick={handleClick}>
-                    <svg class="w-8 h-8 hover:text-red-600 rounded-full hover:bg-gray-100 p-1"
+                    <svg className="w-8 h-8 hover:text-red-600 rounded-full hover:bg-gray-100 p-1"
                         fill="none" stroke="currentColor" viewBox="0 0 24 24"
                         xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -89,7 +95,11 @@ return (
                 </button>
             </div>
         </td>
-    </tr>
+    </tr> 
+    : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ? history('/login') 
+    : null
+    }
+    </>
 
 )
 }

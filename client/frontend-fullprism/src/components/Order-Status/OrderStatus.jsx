@@ -1,14 +1,18 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import './orderStatus.css';
-import { getUserOrders, FilterUserOrdersByStatus } from "../../actions/userActions";
+import { getUserOrders, FilterUserOrdersByStatus, userInfoData } from "../../actions/userActions";
 import OrderMap from "./OrderMap";
 
 
 const OrderStatus= ()=> {
+  let history= useNavigate();
   const userOrders= useSelector((state)=> state.userOrdersOpen);
   const filtered= useSelector((state)=> state.filteredOrdersByStatus);
+  const dataLogin= useSelector((state)=> state.userLogin);
+  let userData= useSelector((state)=> state.userData);
   const dispatch= useDispatch();
   const [checked, setChecked] = useState({
     confirmed: false,
@@ -19,7 +23,8 @@ const OrderStatus= ()=> {
   
   useEffect(()=> {
     dispatch(getUserOrders());
-  }, [])
+    dataLogin.hasOwnProperty('email') ? null : dispatch(userInfoData()) 
+  }, [dispatch])
 
 
   function handleCheck(e) {
@@ -35,7 +40,7 @@ const OrderStatus= ()=> {
 
 
     return (
-      userOrders.length ? 
+      userOrders.length && (userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email') ) ? 
       <div className="flex flex-col items-center py-36 bg-customBlue">
         <p className="px-12 pb-1 mb-10 font-semibold text-gray-300 font">ESTADO DE SUS PEDIDOS</p>
         <div className="sm:flex-row flex items-center gap-4 pb-6 text-gray-300">
@@ -100,6 +105,8 @@ const OrderStatus= ()=> {
       }
 
       </div>
+
+   : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ? history('/login')
    : 'NO TIENE PEDIDOS PENDIENTES O EN CURSO'
      
       
