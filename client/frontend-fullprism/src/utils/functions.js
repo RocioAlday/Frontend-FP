@@ -1,6 +1,20 @@
 import axios from 'axios';
 import Cookies from "universal-cookie";
+import { toast } from 'react-toastify';
 
+
+export const showNotification = (message, position) => {
+    toast.success(message , {
+      position: toast.POSITION[position],
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      className: "text-sm"
+    });
+};
 
 export const getTokenInCookies= ()=> {
     let cookies= new Cookies();

@@ -3,14 +3,16 @@ import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAM
         GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS, 
         GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS, SETDASH } from "./types";
 import axios from 'axios';
-import { getTokenInCookies, setTokenInCookies } from "../utils/functions";
+import { getTokenInCookies, setTokenInCookies, showNotification } from "../utils/functions";
 
 export const registerUser= (user)=> {
     try {
         return async function(){
             let dataRegister= await axios.post("http://localhost:3001/user/register" , user);
             console.log(dataRegister);
+            dataRegister.status === 201 && showNotification('Usuario registrado con éxito!', 'BOTTOM_CENTER')
         }
+        
     } catch (error){
         console.log(error);
     }
@@ -568,4 +570,16 @@ export function setDashboard(payload) {
 };
 
 
-
+export function sendContactEmail(payload){
+    return async function () {
+        try{
+            const response= await axios.post('http://localhost:3001/user/sendContactEmail', payload);
+            
+            console.log(response.data)
+            response.status === 200 && showNotification('Tu consulta fue enviada con éxito!', 'TOP_LEFT')
+          
+        } catch (error) {
+            console.log('Error sending contact Email', error)
+        }
+    }
+}

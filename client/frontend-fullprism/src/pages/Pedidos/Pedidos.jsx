@@ -79,7 +79,7 @@ const Pedidos = ()=> {
                         <button className='hover:scale-110 transition duration-500 cursor-pointer' type='button' onClick={handleClearFilter}>Borrar Filtro</button>
                     </div>
                     </div>
-                    <button className=" bg-customDarkGray bg-opacity-50 shadow-md shadow-slate-700 hover:bg-customBlue2 hover:text-gray-700 text-white font-bold py-2 px-4 rounded-xl" type='button' onClick={handleContinueToOrder}>Continuar con el Pedido</button>
+                    <button className=" bg-customDarkGray bg-opacity-50 shadow-md shadow-slate-700 hover:bg-customGray hover:text-gray-700 text-white font-semibold py-2 px-4 rounded-xl" type='button' onClick={handleContinueToOrder}>Continuar con el Pedido</button>
                 </div>
                 <Pagination models= {searchModels.length>0 ? searchModels : allModels }/>
                
