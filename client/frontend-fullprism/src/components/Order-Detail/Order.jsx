@@ -205,8 +205,8 @@ return (
                 ¡Gracias por considerar nuestra propuesta!
                 </p>
                 <div className="flex items-center justify-center gap-4 py-6">
-                    <button className="bg-green-400 rounded-full text-stone-100 px-3 py-2 uppercase text-sm hover:px-4 hover:py-3 hover:opacity-60 hover:font-bold hover:text-black" onClick={(e)=> {handleAccept(e)}}>Aceptar</button>
-                    <button className="bg-red-400 rounded-full text-stone-100 px-3 py-2 uppercase text-sm hover:px-4 hover:py-3 hover:opacity-60 hover:font-bold hover:text-black" onClick={(e)=> {handleCancel(e)}}>Cancelar</button>
+                    <button className="bg-green-400 rounded-full text-stone-100 px-3 py-2 uppercase text-sm hover:px-4 hover:scale-110 transition duration-600 hover:opacity-60 hover:font-bold hover:text-black" onClick={(e)=> {handleAccept(e)}}>Aceptar</button>
+                    <button className="bg-red-400 rounded-full text-stone-100 px-3 py-2 uppercase text-sm hover:px-4 hover:scale-110 transition duration-600 hover:opacity-60 hover:font-bold hover:text-black" onClick={(e)=> {handleCancel(e)}}>Cancelar</button>
                 </div>
             </div>
             </div>
