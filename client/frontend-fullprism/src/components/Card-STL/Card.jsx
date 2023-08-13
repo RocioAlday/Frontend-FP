@@ -4,7 +4,7 @@ import stl1 from '../../assets/stl1.jpeg';
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { modifyItemCart, getModels } from "../../actions/userActions";
-import { formateNumber } from '../../utils/functions';
+import { formateNumber, showNotification } from '../../utils/functions';
 import { toast } from 'react-toastify';
 
 const Card= ({name, material, price, image, dolar})=> {
@@ -46,22 +46,10 @@ const Card= ({name, material, price, image, dolar})=> {
     function handleConfirm(e) {
         e.preventDefault();
         dispatch(modifyItemCart({id: model.id , quantity: input, color: color}));
-        showNotification();
+        showNotification('Pieza Agregada al Pedido!', 'BOTTOM_RIGHT');
         setEditAdd(true);
     }
 
-    const showNotification = () => {
-        toast.success('Pieza Agregada al Pedido!', {
-          position: toast.POSITION.BOTTOM_RIGHT,
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: false,
-          draggable: true,
-          progress: undefined,
-          className: "text-sm"
-        });
-      };
 
     useEffect(() => {
         dispatch(getModels());

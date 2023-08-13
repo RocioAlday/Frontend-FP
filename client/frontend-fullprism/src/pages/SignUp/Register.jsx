@@ -21,8 +21,7 @@ const Register= ()=> {
 
     const handleSubmit= (e)=> {
         e.preventDefault();
-        
-        
+    
         dispatch(registerUser(user));
         setUser({
         email: "", 
@@ -33,8 +32,10 @@ const Register= ()=> {
         phone: "", 
         firstname: "",
         lastname: ""});
-
-        history('/login');
+        setTimeout(()=> {
+            history('/login');
+        }, "1000")
+        
     };
 
     const handleInputChange = function (event) {
@@ -44,7 +45,8 @@ const Register= ()=> {
         });
         console.log(user);
       };
-  
+    
+ 
 
 
     return (
@@ -66,7 +68,7 @@ const Register= ()=> {
                 </div>
                 <div className="">
                 <label className=" text-gray-900 text-sm font-bold mb-2" htmlFor="empresa">
-                    Nombre de su Empresa
+                    Nombre de la Empresa
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="companyName" name='companyName' type="text" placeholder="Empresa" onChange={handleInputChange}/>
                 </div>
@@ -107,7 +109,7 @@ const Register= ()=> {
                 </div>
                 </div>   
                 <button className=" mt-6 w-full bg-customBlue2 shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-slate-50 font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="submit">
-                   Registrarse
+                   Registrar Usuario
                 </button>
              
             </form>

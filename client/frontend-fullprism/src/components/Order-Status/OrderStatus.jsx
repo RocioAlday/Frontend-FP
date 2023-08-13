@@ -107,7 +107,7 @@ const OrderStatus= ()=> {
       </div>
 
    : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ? history('/login')
-   : 'NO TIENE PEDIDOS PENDIENTES O EN CURSO'
+   : <h1 className="py-36 text-center">NO TIENE PEDIDOS PENDIENTES O EN CURSO</h1>
      
       
      
