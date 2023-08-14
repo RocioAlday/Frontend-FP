@@ -28,7 +28,8 @@ const Login= ()=> {
       };
       
     useEffect(()=> {
-       userData.hasOwnProperty('email') === false ? dispatch(userInfoData()) : history('/piezas')
+       userData.hasOwnProperty('email') === false ? dispatch(userInfoData()) : 
+       userData.hasOwnProperty('role') && userData.role === 'Client' ? history('/piezas') : history('/dashboards')
     }, [userData])
     
 

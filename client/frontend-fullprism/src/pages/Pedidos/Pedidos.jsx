@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { getModels, searchByName, clearFilter, generateOrder, clearError, userInfoData } from '../../actions/userActions';
 import { Pagination } from '../../components/Pagination/Pagination';
 import './pedidos.css';
+import Loading from '../../components/Loading/Loading';
 
 const Pedidos = ()=> {
     let history= useNavigate();
@@ -56,9 +57,9 @@ const Pedidos = ()=> {
     history('/orderDetail');
    } 
 
-   
+   console.log(allModels)
     return (
-        allModels && (userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email') ) ?
+        allModels.length && (userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email') ) ?
         <div className='pt-20 bg-customBlue bg-opacity-90'>
             <div className='w-full md:flex md:flex-row md:place-items-start md:mt-8 md:justify-center sm:flex sm:flex-col sm:items-center'>
                 <div className=" flex flex-col items-center m-6 gap-6 space-x-6 contenido-sticky">
@@ -88,7 +89,10 @@ const Pedidos = ()=> {
         : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ?
             history('/login')
         :
-        'Cargando'
+        <div className=' bg-customBlue bg-opacity-90'>
+            <Loading /> 
+        </div>
+        
 
     )
 

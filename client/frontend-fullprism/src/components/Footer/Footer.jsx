@@ -34,10 +34,10 @@ const Footer = () => {
                         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Nosotros</h2>
                         <ul class="text-gray-600 dark:text-gray-400 font-medium">
                             <li class="mb-4">
-                                <a href="" class="hover:underline ">Sobre Nosotros</a>
+                                <Link to='/aboutUs' className="hover:underline ">Sobre Nosotros</Link>
                             </li>
                             <li>
-                                <a href="" class="hover:underline">LinkedIn</a>
+                                <Link to="https://www.linkedin.com/company/full-prism/" class="hover:underline">LinkedIn</Link>
                             </li>
                         </ul>
                     </div>
