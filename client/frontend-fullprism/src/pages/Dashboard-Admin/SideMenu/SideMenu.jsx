@@ -3,13 +3,17 @@ import { FiMenu, FiEdit } from "react-icons/fi";
 import { RxDashboard } from "react-icons/rx";
 import { MdProductionQuantityLimits } from "react-icons/md";
 import { FaFileInvoiceDollar } from "react-icons/fa";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
 import { setDashboard } from "../../../actions/userActions";
 import Dashboards from "../Dashboards";
 
 const SideMenu= ()=> {
    const dispatch= useDispatch();
+   let history= useNavigate();
    const [isDrawerOpen, setIsDrawerOpen]= useState(false);
+   const dataLogin= useSelector((state)=> state.userLogin);
+   let userData= useSelector((state)=> state.userData);
 
    function handleDrawer() {
       setIsDrawerOpen(!isDrawerOpen)
@@ -22,6 +26,7 @@ const SideMenu= ()=> {
    }
 
     return (
+         userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email')  ?
         <div className="flex flex-col px-14 py-36 bg-gradient-to-r from-customPink to-customPurple">
             <div className="px-6">
                <button className=" text-white flex flex-row items-center gap-2 justify-center text-xs bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button"  onClick={handleDrawer} >
@@ -70,7 +75,11 @@ const SideMenu= ()=> {
                <Dashboards />
             </div>
    
-
+        </div> :
+        userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ?
+        history('/login') :
+        <div className=' bg-gradient-to-r from-customPink to-customPurple'>
+            <Loading /> 
         </div>
     )
 }

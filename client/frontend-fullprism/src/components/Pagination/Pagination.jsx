@@ -24,7 +24,7 @@ export const rederMapeo= (currentModels, dolarValue)=> {
                     )
                 })}
                 
-            </div> : 'Cargando'
+            </div> : null
             } 
         </div>
     )

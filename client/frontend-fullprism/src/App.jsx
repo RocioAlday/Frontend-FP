@@ -18,6 +18,7 @@ import Presupuesto from './components/Presupuesto/Presupuesto';
 import Dashboards from './pages/Dashboard-Admin/Dashboards';
 import SideMenu from './pages/Dashboard-Admin/SideMenu/SideMenu';
 import Contact from './pages/Contact/Contact';
+import AboutUs from './pages/AboutUs/AboutUs';
 
 function App() {
 
@@ -41,6 +42,7 @@ function App() {
          <Route path= '/presupuesto' element= {<Presupuesto />} />
          <Route path= '/dashboards' element= {<SideMenu />} />
          <Route path= '/contacto' element= {<Contact />} />
+         <Route path= '/aboutUs' element= {<AboutUs />} />
         </Route>
         </Routes>
       </BrowserRouter>
