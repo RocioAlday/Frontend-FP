@@ -74,7 +74,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 				name= "name"
 				value={editedData.name}
 				onChange={handleChange}
-				className="rounded-full py-1"
+				className="rounded-full py-1 w-40"
 				/>
 				) : editedData.name 
 				}
@@ -82,7 +82,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 			</td>
 			<td className="p-4 text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
 				{editing? 
-				<select name='material' defaultValue='Seleccione un material' onChange={handleChange} className="rounded-full py-1">
+				<select name='material' defaultValue='Seleccione un material' onChange={handleChange} className="rounded-full py-1 w-44">
                         <option disabled value='Seleccione un material'>Elija el material</option>
                         <option value='PLA'>PLA</option>
                         <option value='PETG'>PETG</option>
@@ -117,9 +117,9 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 					name= "price"
 					value={editedData.price}
 					onChange={handleChange}
-					className="rounded-full py-1"
+					className="rounded-full py-1 w-24"
 					/> :
-				`$ ${editedData.price}`
+				`US$ ${editedData.price}`
 				}
 			</td>
 
@@ -130,7 +130,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 					name= "link"
 					value={editedData.link}
 					onChange={handleChange}
-					className="rounded-full py-1"
+					className="rounded-full py-1 w-40"
 					/> :
 					editedData.link
 				}
