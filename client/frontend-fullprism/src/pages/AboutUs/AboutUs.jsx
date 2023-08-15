@@ -4,10 +4,18 @@ import { BsFillPersonVcardFill, BsFillPatchCheckFill } from 'react-icons/bs';
 import { MdSupportAgent, MdPrecisionManufacturing } from 'react-icons/md';
 import { PiCertificateDuotone } from 'react-icons/pi';
 import './aboutUs.css';
+import { useSelector } from "react-redux";
+import { useNavigate } from 'react-router-dom';
+import Loading from "../../components/Loading/Loading";
 
 const AboutUs= ()=> {
+
+    const dataLogin= useSelector((state)=> state.userLogin);
+    let userData= useSelector((state)=> state.userData);
+    let history= useNavigate();
+
     return (
-        
+         userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email')  ?
         <div className='bg-imageContact py-36 pb-80 flex items-center justify-center px-20'>
             <div className="bg-red-50 rounded-md bg-opacity-60 text-start p-20 text-lg text-gray-960 font-medium w-full animate-fadeIn">
                 <h1 className="transition-opacity transform hover:opacity-100 hover:translate-y-0">FullPrism es una empresa especializada en brindar servicios de impresión 3D / fabricación aditiva para empresas.
@@ -25,6 +33,11 @@ const AboutUs= ()=> {
                     <li className="flex items-center pb-4"> <MdPrecisionManufacturing size={26} className="mr-3 text-gray-800"/>Gran capacidad de producción</li>
                 </ul>
             </div>
+        </div>
+        : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ?
+        history('/login') :
+        <div className=' bg-imageContact'>
+            <Loading /> 
         </div>
         
     )

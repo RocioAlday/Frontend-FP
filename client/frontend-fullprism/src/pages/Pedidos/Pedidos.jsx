@@ -57,7 +57,7 @@ const Pedidos = ()=> {
     history('/orderDetail');
    } 
 
-   console.log(allModels)
+   
     return (
         allModels.length && (userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email') ) ?
         <div className='pt-20 bg-customBlue bg-opacity-90'>

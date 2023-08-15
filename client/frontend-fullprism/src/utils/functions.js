@@ -45,7 +45,7 @@ export const sliceDate= (date)=> {
 
 export const formateNumber= (number)=> {
     const options = { minimumFractionDigits: 2, maximumFractionDigits: 2 };
-    const numFormated = number.toLocaleString('es-ES', options);
+    const numFormated = number.toLocaleString('es-AR', options);
     
     return numFormated;
 }

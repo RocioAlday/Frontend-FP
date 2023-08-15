@@ -27,13 +27,14 @@
     .details-modal-close {
       align-items: center;
       color: #111827;
+      font-size: large;
       display: flex;
-      height: 4.5em;
+      height: 3.5em;
       justify-content: center;
       position: absolute;
       right: 0;
       top: 0;
-      width: 4.5em;
+      width: 4em;
     }
   
 

@@ -5,11 +5,12 @@ import './presupuesto.css';
 import Logo from '../../assets/LogoHorizontal.png';
 import { useSelector } from "react-redux";
 import { sliceDate } from '../../utils/functions';
-import { sendBudgetToMail } from "../../utils/functions";
+import { sendBudgetToMail, formateNumber } from "../../utils/functions";
 
 const Presupuesto = ({download, sendByMail}) => {
   const data= useSelector((state)=> state.dataBudget);
   const total= data?.order.totalBudget*data.dolarValue;
+  const totalConIva= formateNumber(total*0.21 + total);
   // console.log(data)
 
   
@@ -109,7 +110,7 @@ const Presupuesto = ({download, sendByMail}) => {
                 <td>21%</td>
               </tr>
               <tr className=" text-xl font-semibold text-center ">
-                <td>${total*0.21 + total}</td>
+                <td>${totalConIva}</td>
               </tr>
           
           </tbody>

@@ -15,7 +15,7 @@ const AdminDash= ()=> {
 
 	useEffect(()=> {
         dispatch(getAllOrders())
-    }, []);
+    }, [dispatch, filterByStatus]);
 
 	function handleFilterByStatus(e) {
 		e.preventDefault();
@@ -118,7 +118,7 @@ const AdminDash= ()=> {
                                 </div>
             </div>
 
-		: 'NO HAY ORDENES'
+		: <h1 className="py-36 text-center">'NO HAY ORDENES CARGADAS'</h1>
     )
 
 }
