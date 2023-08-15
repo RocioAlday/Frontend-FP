@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getDataForBill, ordersList } from "../../actions/userActions";
-
+import { formateNumber } from "../../utils/functions";
 
 
 const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations})=> {
@@ -24,36 +24,36 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations
     }, [])
     
     return (
-        <tr className= {checked ? "bg-green-100 dark:bg-green-300 border-y-2 border-stone-300" :  " bg-gray-50 dark:bg-gray-700 border-y-2 border-stone-300" }>
-            <td className="p-4 pl-4 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                {index}
+        <tr className= {checked ? "bg-green-100 dark:bg-green-300 border-y-2 border-stone-600" :  " bg-gray-50 dark:bg-gray-700 border-y-2 border-stone-400" }>
+            <td className="p-4 pl-4 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
+                #{index}
             </td>
-            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                 {dataUserCompany.name}
             </td>
-            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                 {dataUserCompany.cuit}
             </td>
-            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                 {dataUserCompany.condicionImpositiva}
             </td>
             {models.map((m)=> {
             return(
                 <div className="flex flex-row ">
                     <div className="w-full items-center justify-center">
-                        <td className="p-4 pl-7 text-sm text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <td className="p-4 pl-7 text-sm text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                             {m.name}
                     
                         </td>
                     </div>
                     <div className="w-full items-center justify-center">
-                        <td className="p-4 pl-20 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+                        <td className="p-4 pl-20 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                             {m.quantity}
                         </td>
                     </div>
                     <div className="w-full items-center justify-center">
-                        <td className="p-4 pl-10 text-sm font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
-                            {m.price*dolar} 
+                        <td className="p-4 pl-10 text-sm font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
+                            $ {formateNumber(m.price*dolar)} 
                         
                         </td>
                     </div>
@@ -61,11 +61,11 @@ const RowTableOrdersForBilling= ({id, userId, index, models, dolar, observations
             )
             })}
 
-            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">
+            <td className="p-4 pl-2 text-sm  text-center font-normal text-gray-600 whitespace-nowrap dark:text-gray-400">
                 {observations}
             </td>
             
-            <td className="p-4 font-normal text-center text-gray-500 whitespace-nowrap dark:text-gray-400">
+            <td className="p-4 font-normal text-center text-gray-600 whitespace-nowrap dark:text-gray-400">
                 <input
                     type="checkbox"
                     id= {id}

@@ -532,7 +532,7 @@ export const filterByStatus= (payload)=> {
 
 export const dataForBudget= (payload) => {
     const token= getTokenInCookies();
-    console.log(token)
+    console.log(token);
     return async function (dispatch) {
         try{
             const result= await axios.post('http://localhost:3001/order/dataForBudget', payload,

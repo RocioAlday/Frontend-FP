@@ -11,6 +11,7 @@ import {LuMailCheck} from "react-icons/lu";
 import {FiDownload} from "react-icons/fi";
 import './order.css';
 import Presupuesto from "../Presupuesto/Presupuesto";
+import Loading from "../Loading/Loading";
 
 const Order= ()=> {
 
@@ -51,7 +52,7 @@ const Order= ()=> {
     function handleConfirm(e) {
         e.preventDefault();
         setChangeButtons(false);
-        if(!data.hasOwnProperty('order')) dispatch(dataForBudget({orderId: order.id, dolarValue: dolarValue, observations: observations}));
+        dispatch(dataForBudget({orderId: order.id, dolarValue: dolarValue, observations: observations}));
         setRenderBudget(true);   
         setSendByEmail(true);
     }
@@ -190,7 +191,7 @@ return (
 
             <div className="details-modal">
                 <button className="details-modal-close" type='button' onClick={(e)=>{handleCloseModal(e)}}>
-                X
+                x
                 </button>
             <div className="details-modal-title">
                 <h1>Confirmar Presupuesto</h1>
@@ -224,7 +225,7 @@ return (
      <h1 className="p-6 font-bold text-center">No hay Productos Agregados</h1>
      <button className=" bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" onClick={(e)=> handleReturn(e)}> Seleccionar Productos</button> 
  </div> :
-     <h1>Cargando</h1>
+     <h1><Loading /></h1>
 )
 }
 

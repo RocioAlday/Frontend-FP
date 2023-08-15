@@ -80,7 +80,7 @@ const OrderForFact= ()=> {
 								</tr>
 							</thead>
 							<tbody className="bg-white dark:bg-gray-800">
-                            	{ordersForBilling.map((o, index)=> <RowTableOrdersForBilling key={o.index} id= {o.orderId} index= {index+1} userId= {o.userId} models= {o.detailModels} dolar= {o.dolarValue} observations= {o.observations} />)}
+                            	{ordersForBilling.map((o)=> <RowTableOrdersForBilling key={o.index} id= {o.orderId} index= {o.orderId} userId= {o.userId} models= {o.detailModels} dolar= {o.dolarValue} observations= {o.observations} />)}
                             </tbody>
                                 </table>
 								

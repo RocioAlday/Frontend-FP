@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import foto from '../../assets/userIcon.jpg';
 import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,6 +8,7 @@ import LogoHorizontal from '../../assets/LogoHorizontal.png';
 const Header = () => {
   let userLogin= useSelector((state)=> state.userData);
   const userInfo= useSelector((state)=> state.userLogin);
+  const [index, setIndex]= useState(0);
   console.log(userInfo);
   const dispatch= useDispatch();
   console.log(userLogin);
@@ -17,6 +18,10 @@ const Header = () => {
   dispatch(userInfoData())
  }, [userInfo])
 
+ function handleClickItem(e, index) {
+  e.preventDefault();
+  setIndex(index)
+ }
 
  function handleLogout(e) {
   e.preventDefault();
@@ -77,32 +82,45 @@ return (
     <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:flex-row md:space-x-8 md:mt-0 md:border-0 drop-shadow-md dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       {userLogin.role==='Client' || userInfo.role==='Client' ?
         <li>
-        <Link to= "/piezas" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 md:dark:text-blue-500" aria-current="page">Piezas</Link>
+        <button type='button' onClick={(e)=>handleClickItem(e,0)}>
+        <Link to= "/piezas" className={`block py-2 pl-3 pr-4 rounded md:bg-transparent 'md:hover:text-blue-700 md:p-0 md:dark:text-blue-500' ${index === 0 ? 'text-blue-700' : 'text-gray-900' }`} aria-current="page">Piezas</Link>
+        </button>
         </li> : null
+        
       }
       <li>
         <a href="#" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Instructivos</a>
       </li>
       {userLogin.role==='Client' || userInfo.role==='Client' ?
         <li>
-        <Link to= "/orderStatus" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Estado de Pedidos</Link>
+          <button type='button' onClick={(e)=>handleClickItem(e,1)}>
+        <Link to= "/orderStatus" className= {`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${index === 1 ? 'text-blue-700' : 'text-gray-900' }`}> Estado de Pedidos</Link>
+        </button>
         </li> : null
       }
       {userLogin.role==='Client' || userInfo.role==='Client' ?
         <li>
-        <Link to= "/orderDetail" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Pedidos Pendientes </Link>
+          <button type='button' onClick={(e)=>handleClickItem(e,2)}>
+        <Link to= "/orderDetail" className={`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${index === 2 ? 'text-blue-700' : 'text-gray-900' }`} >Pedidos Pendientes </Link>
+        </button>
         </li> : null
       }
       { userLogin.role==='Admin' ?
         <li>
-        <Link to= "/dashboards" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Tableros De Gestión </Link>
+          <button type='button' onClick={(e)=>handleClickItem(e,3)}>
+        <Link to= "/dashboards" className={`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${index === 3 ? 'text-blue-700' : 'text-gray-900' }`}>Tableros De Gestión </Link>
+        </button>
         </li> : null
       }
       <li>
-      <Link to= "/contacto" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contacto </Link>
+      <button type='button' onClick={(e)=>handleClickItem(e,4)}>
+      <Link to= "/contacto" className={`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${index === 4 ? 'text-blue-700' : 'text-gray-900' }`}>Contacto </Link>
+      </button>
       </li>
       <li>
-      <Link to= "/aboutUs" className="block py-2 pl-3 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Sobre Nosotros </Link>
+      <button type='button' onClick={(e)=>handleClickItem(e,5)}>
+      <Link to= "/aboutUs" className={`block py-2 pl-3 pr-4 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 dark:text-white md:dark:hover:text-blue-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700 ${index === 5 ? 'text-blue-700' : 'text-gray-900' }`}>Sobre Nosotros </Link>
+      </button>
       </li>
      
     </ul>
