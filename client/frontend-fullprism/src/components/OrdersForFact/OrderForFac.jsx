@@ -73,7 +73,7 @@ const OrderForFact= ()=> {
 									
                                     <th
 										scope="col"
-										className="p-4 text-xs font-medium tracking-wider text-center text-gray-500 uppercase dark:text-white"
+										className="p-4 text-xs tracking-wider text-center text-red-600 uppercase dark:text-white"
 									>
 										FACTURADO
 									</th>
@@ -86,7 +86,7 @@ const OrderForFact= ()=> {
 								
                                 </div>
 								<div className="flex justify-end">
-								<button className="mr-3 my-4 px-4 py-2 text-gray-600 rounded-full uppercase text-sm font-medium tracking-wide  bg-green-300 hover:bg-green-500 hover:text-gray-100 hover:py-2.5" onClick={(e)=> handleConfirm(e)}>Confirmar Facturación</button>
+								<button className="mr-6 my-4 px-4 py-2 text-gray-600 rounded-full uppercase text-sm font-medium tracking-wide  bg-green-300 hover:bg-green-500 hover:text-gray-100 hover:py-2.5" onClick={(e)=> handleConfirm(e)}>Confirmar Facturación</button>
 								</div>
                                 </div>
                                 </div>
