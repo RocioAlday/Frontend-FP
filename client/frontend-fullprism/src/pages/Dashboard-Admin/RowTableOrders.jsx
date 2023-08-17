@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { changeStatusItemOrder, getAllOrders } from "../../actions/userActions";
+import { copyLink } from "../../utils/functions";
+import { LuLink } from 'react-icons/lu';
 
 const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, status, name, material, link, priority })=> {
 
@@ -32,6 +34,11 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
         if(e.target.value === 'Cobrado') setColorBg("bg-gray-200");
 	}
 
+	function handleCopyLink(e) {
+		e.preventDefault();
+		console.log(link)
+		copyLink(link)
+	}
     
 
     function handleSave(e) {
@@ -64,8 +71,8 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
                     {material}
                 </td>
             
-                <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">
-				    {link}
+                <td className="p-4 text-center text-sm font-normal text-gray-500 whitespace-nowrap dark:text-white">
+				  <button onClick={(e)=> handleCopyLink(e)}> <LuLink/> </button>
 			    </td>
     
                 <td className="p-4 text-center text-sm font-semibold text-gray-900 whitespace-nowrap dark:text-white">

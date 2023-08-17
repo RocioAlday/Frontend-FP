@@ -83,8 +83,8 @@ const Presupuesto = ({download, sendByMail}) => {
                   : <td className="py-2 text-md border-y border-[1]"> - </td>
                 }
             
-                <td className="text-md border-y border-[1]">$ {model.price*data.dolarValue}</td>
-                <td className="text-md border-y border-[1]">$ {model.OrderDetail.subtotal*data.dolarValue}</td>
+                <td className="text-md border-y border-[1]">$ { formateNumber(model.price*data.dolarValue)}</td>
+                <td className="text-md border-y border-[1]">$ {formateNumber(model.OrderDetail.subtotal*data.dolarValue)}</td>
               </tr>
             ))}
           </tbody>

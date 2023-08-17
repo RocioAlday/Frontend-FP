@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import './orderStatus.css';
 import { getUserOrders, FilterUserOrdersByStatus, userInfoData } from "../../actions/userActions";
 import OrderMap from "./OrderMap";
+import Loading from "../Loading/Loading";
 
 
 const OrderStatus= ()=> {
@@ -107,7 +108,9 @@ const OrderStatus= ()=> {
       </div>
 
    : userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ? history('/login')
-   : <h1 className="py-36 text-center">NO TIENE PEDIDOS PENDIENTES O EN CURSO</h1>
+   : <div className="py-36 bg-customBlue"><Loading /> </div>
+   
+  //  <h1 className="py-36 text-center">NO TIENE PEDIDOS PENDIENTES O EN CURSO</h1>
      
       
      

@@ -39,7 +39,7 @@ const OrderDetail= ({name, image, orderDetail, id, price, dolarValue})=> {
 
     function handleBlur() {
     if (Object.keys(input).length !== 0){
-    dispatch(modifyItemCart({id: Number(value[id]) , quantity: Number(input[id])}));
+    dispatch(modifyItemCart({id: Number(value[id]) , quantity: Number(input[id]), color: orderDetail.color}));
     if (Number(input[id]) === 0) {
         dispatch(deleteItemOrder());
     }
