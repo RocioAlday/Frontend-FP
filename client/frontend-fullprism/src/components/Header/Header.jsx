@@ -13,7 +13,8 @@ const Header = () => {
   const dispatch= useDispatch();
   console.log(userLogin);
   let history= useNavigate();
-  
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+
  useEffect(()=> {
   dispatch(userInfoData())
  }, [userInfo])
@@ -23,6 +24,12 @@ const Header = () => {
   setIndex(index)
  }
 
+ function toggleDropdown(e) {
+  e.preventDefault();
+  setIsDropdownOpen(!isDropdownOpen);
+
+};
+console.log(isDropdownOpen)
  function handleLogout(e) {
   e.preventDefault();
   dispatch(logOut())
@@ -36,31 +43,38 @@ return (
   <div className="flex flex-wrap items-center justify-between px-20 py-1">
       <img src={LogoHorizontal} className="w-40 mr-3" alt="FullPrism Logo" />
       <div className="flex items-center md:order-2">
-        <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-          <img className="w-full h-9 rounded-full" src={foto} alt="user photo" />
-        </button>
+        <div className='relative py-2 text-base list-none'>
+          <button type="button" className="flex mr-3 text-sm bg-gray-800 rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"  onClick={(e)=>toggleDropdown(e)}>
+            <img className="w-full h-9 rounded-full" src={foto} alt="user photo" />
+          </button>
+        </div>
         {/* Dropdown menu */}
-        <div className="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
-          {userLogin.hasOwnProperty('firstname') || userInfo.hasOwnProperty('firstname') ? 
+        {isDropdownOpen && (
+        <div className="absolute right-20 top-20 z-50 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600" >
+          {userLogin.hasOwnProperty('firstname') || userInfo.hasOwnProperty('firstname') ?
             <div className="px-4 py-3">
               <span className="block text-sm text-gray-900 dark:text-white">{userLogin.hasOwnProperty('firstname')? userLogin.firstname : userInfo.firstname}</span>
               <span className="block text-sm  text-gray-500 truncate dark:text-gray-400">{userLogin.hasOwnProperty('email')? userLogin.email : userInfo.email}</span>
-            </div> : null
-          }
+            </div> 
+          : null }
         
-          <ul className="py-2" aria-labelledby="user-menu-button">
+          <ul className="py-1 divide-y divide-gray-100">
             {userLogin.hasOwnProperty('email') || userInfo.hasOwnProperty('email') ? null :
               <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
                 <button ><Link to='/login'>Loguearme</Link></button>
               </li>
             }
 
-            <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
-            {userLogin.role==='Client' || userInfo.role==='Client' ? 
-              <button ><Link to='/orderStatus'>Mis Pedidos</Link></button> :
-              userLogin.role==='Admin' ? <button><Link to='/dashboards'> Tableros Admin </Link></button> : null
+           
+            {userLogin.role==='Client' || userInfo.role==='Client' ?
+             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"> 
+              <button ><Link to='/orderStatus'>Mis Pedidos</Link></button> 
+              </li> :  userLogin.role==='Admin' ?
+              <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
+              <button><Link to='/dashboards'> Tableros Admin </Link></button> 
+              </li> : null
             }
-            </li>
+         
           
           {userLogin.hasOwnProperty('email') || userInfo.hasOwnProperty('email') ? 
             <li className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">
@@ -74,6 +88,7 @@ return (
             }
           </ul>
         </div>
+        )}
         <button data-collapse-toggle="mobile-menu-2" type="button" className="inline-flex items-center p-2 ml-1 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="mobile-menu-2" aria-expanded="false">
           <svg className="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
       </button>

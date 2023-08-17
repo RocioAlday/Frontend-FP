@@ -53,20 +53,32 @@ export const formateNumber= (number)=> {
 
 
 export async function sendBudgetToMail(blob) {
-    const cookie= new Cookies();
-    const token= cookie.get("refreshToken");
-    try {
-        // const result= await axios.post('http://localhost:3001/order/sendBudgetByEmail', blob,
-        // {
-        //     headers: {
-        //         'Content-Type': 'application/pdf',
-        //         Authorization: `Bearer ${token}` 
-        //     }
-        // })
+    const token= getTokenInCookies();
     
-        // console.log(result.data)
-        console.log('Comentado para no recibir mails al realizar pruebas')
+    try {
+        const result= await axios.post('http://localhost:3001/order/sendBudgetByEmail', blob,
+        {
+            headers: {
+                'Content-Type': 'application/pdf',
+                Authorization: `Bearer ${token}` 
+            }
+        })
+    
+        console.log(result.data)
+        // console.log('Comentado para no recibir mails al realizar pruebas')
     } catch(error) {
         console.log('Error al enviar el presupuesto por mail:', error)
     }
 }
+
+
+export async function copyLink(linkToCopy) {
+    try {
+        console.log(linkToCopy)
+        await navigator.clipboard.writeText(linkToCopy);
+        console.log('COPIADO')
+    }
+    catch(error) {
+        console.error('Error copying link:', error);
+      };
+  };

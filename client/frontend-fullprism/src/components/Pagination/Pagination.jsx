@@ -63,7 +63,7 @@ export const Pagination= ({models})=> {
                 {pages.map((number) => {
                     return (
                         <button
-                            className=" text-xs bg-gray-200 border-2 py-2 px-3 mx-1 rounded-xl "
+                            className=" text-xs bg-gray-200 border-2 py-2 px-3 mx-1 rounded-xl hover:scale-95 shadow-sm shadow-gray-600 "
                             key={number}
                             onClick={handleClick}
                             id={number}>

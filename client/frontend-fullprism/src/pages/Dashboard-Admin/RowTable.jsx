@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { BiEdit } from "react-icons/bi";
 import { modifyModel } from "../../actions/userActions";
+import { copyLink } from "../../utils/functions";
+import { LuLink } from 'react-icons/lu';
 
 const RowTable= ({id, name, material, link, image, price, companyName})=> {
 	const dispatch= useDispatch();
@@ -15,6 +17,13 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 		price,
 		companyName
 	});
+
+	function handleCopyLink(e) {
+		e.preventDefault();
+		console.log(link)
+		copyLink(link)
+	}
+
 	
 	function handleEdit() {
 		setEditing(true);
@@ -132,7 +141,7 @@ const RowTable= ({id, name, material, link, image, price, companyName})=> {
 					onChange={handleChange}
 					className="rounded-full py-1 w-40"
 					/> :
-					editedData.link
+					<button onClick={(e)=> handleCopyLink(e)}> <LuLink/> </button> 
 				}
 			</td>
 			<td className="p-4 font-normal text-gray-500 whitespace-nowrap dark:text-gray-400">

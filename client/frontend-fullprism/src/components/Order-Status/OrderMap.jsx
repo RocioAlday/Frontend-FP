@@ -13,8 +13,8 @@ return(
 
   <div className="m-5 p-6 px-10 my-3 gap-4 border-2 bg-gray-100 shadow-lg shadow-gray-700  flex flex-col md:flex-row sm:flex-col items-center justify-evenly md:rounded-xl">
   
-      <div className="flex flex-row justify-between w-full">
-        <div className="order-tracking completed">
+      <div className="flex flex-row justify-between w-96">
+        <div className="order-tracking completed w-full">
           <span className="is-complete"></span>
           <p>Pedido Confirmado<br /><span>{changeData(order.fechaSolicitud)}</span></p>
         </div>

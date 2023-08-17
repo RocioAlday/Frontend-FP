@@ -220,12 +220,14 @@ return (
     </div>
 
 </section> ) : 
- error || order==null || (cartUser.hasOwnProperty('items')&&!cartUser.items.length) ? 
- <div className="flex flex-col items-center justify-center mb-80 pt-36">
-     <h1 className="p-6 font-bold text-center">No hay Productos Agregados</h1>
-     <button className=" bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" onClick={(e)=> handleReturn(e)}> Seleccionar Productos</button> 
- </div> :
-     <h1><Loading /></h1>
+//  error || order==null || (cartUser.hasOwnProperty('items')&&!cartUser.items.length) ? 
+//  <div className="flex flex-col items-center justify-center mb-80 pt-36">
+//      <h1 className="p-6 font-bold text-center">No hay Productos Agregados</h1>
+//      <button className=" bg-blue-500 text-white font-bold py-2 px-4 rounded-xl" onClick={(e)=> handleReturn(e)}> Seleccionar Productos</button> 
+//  </div> :
+    <div className="bg-customBlue">
+     <Loading />
+     </div>
 )
 }
 
