@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { setDashboard } from "../../../actions/userActions";
 import Dashboards from "../Dashboards";
+import Loading from "../../../components/Loading/Loading";
 
 const SideMenu= ()=> {
    const dispatch= useDispatch();
@@ -26,7 +27,7 @@ const SideMenu= ()=> {
    }
 
     return (
-         userData.hasOwnProperty('email') || dataLogin.hasOwnProperty('email')  ?
+         (userData.hasOwnProperty('email') && userData.role === 'Admin') || (dataLogin.hasOwnProperty('email')  && dataLogin.role === 'Admin') ?
         <div className="flex flex-col px-14 py-36 bg-gradient-to-r from-customPink to-customPurple">
             <div className="px-6">
                <button className=" text-white flex flex-row items-center gap-2 justify-center text-xs bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2 mr-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button"  onClick={handleDrawer} >
@@ -79,7 +80,7 @@ const SideMenu= ()=> {
         userData.hasOwnProperty('email') == false && dataLogin.hasOwnProperty('email') == false ?
         history('/login') :
         <div className=' bg-gradient-to-r from-customPink to-customPurple'>
-            <Loading /> 
+            <Loading />
         </div>
     )
 }

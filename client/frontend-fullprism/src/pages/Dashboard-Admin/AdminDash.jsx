@@ -15,7 +15,7 @@ const AdminDash= ()=> {
 
 	useEffect(()=> {
         dispatch(getAllOrders())
-    }, [dispatch, filterByStatus]);
+    }, [dispatch, ordersFiltered]);
 
 	function handleFilterByStatus(e) {
 		e.preventDefault();
