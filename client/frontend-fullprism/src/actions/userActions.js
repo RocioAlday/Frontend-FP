@@ -478,7 +478,7 @@ export const ordersList= (payload)=> {
 export const modifyOrderByAdmin= (payload)=> {
     return async function() {
         try {
-          
+          console.log(payload);
             const modifyOrder= await axios.put('http://localhost:3001/admin/modifyOrderDetail', payload);
          
           

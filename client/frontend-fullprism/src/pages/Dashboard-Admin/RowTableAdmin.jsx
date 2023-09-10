@@ -14,16 +14,18 @@ const RowTableAdmin= ({orderId, modelId, company, fechaSolicitud, priority, quan
 		material,
 		color
 	});
+    console.log(editedData.status);
+
     const [newPriority, setPriority]= useState(priority);
     const [bgPriority, setBgPriority]= useState('');
    
     useEffect(()=> {
-        if(status === 'Impresión Finalizada') setColorBg("bg-green-200");
-        if(status === 'Entregado') setColorBg("bg-orange-200");
-        if(status === 'Facturado') setColorBg("bg-yellow-200");
-        if(status === 'Cobrado') setColorBg("bg-gray-200");
+        if(editedData.status === 'Impresión Finalizada') setColorBg("bg-green-200");
+        if(editedData.status === 'Entregado') setColorBg("bg-orange-200");
+        if(editedData.status === 'Facturado') setColorBg("bg-yellow-200");
+        if(editedData.status === 'Cobrado') setColorBg("bg-gray-200");
         priority === false ? setBgPriority("bg-gray-200") : setBgPriority("bg-red-200")
-    }, [])
+    }, [editedData])
 
     function handleChange(e) {
         setEditedData({
