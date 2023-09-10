@@ -43,6 +43,7 @@ const RowTableOrders= ({orderId, modelId, fechaSolicitud, quantity, color, statu
 
     function handleSave(e) {
         e.preventDefault();
+        console.log({status: statusChange, orderId: orderId, modelId: modelId})
 		dispatch(changeStatusItemOrder({status: statusChange, orderId: orderId, modelId: modelId}));
         // dispatch(getAllOrders())
 		setEditing(false);
