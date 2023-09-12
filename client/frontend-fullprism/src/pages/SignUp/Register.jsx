@@ -1,10 +1,13 @@
 import { useState, React } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../actions/userActions";
 import './signUp.css';
 
 const Register= ()=> {
+    const dataLogin= useSelector((state)=> state.userLogin);
+    let userData= useSelector((state)=> state.userData);
+
     let history= useNavigate();
     const [user, setUser] = useState({
         email: "", 
@@ -14,7 +17,8 @@ const Register= ()=> {
         taxCondition: "",
         phone: "", 
         firstname: "",
-        lastname: ""
+        lastname: "",
+        role: ""
     });
 
     const dispatch = useDispatch();
@@ -31,10 +35,11 @@ const Register= ()=> {
         taxCondition: "",
         phone: "", 
         firstname: "",
-        lastname: ""});
+        lastname: "",
+        role: ""});
         setTimeout(()=> {
             history('/login');
-        }, "1000")
+        }, "2000")
         
     };
 
@@ -51,6 +56,7 @@ const Register= ()=> {
 
     return (
         <div className="flex items-center justify-center pt-40 pb-60 bg-imageLogin">
+        {/* {dataLogin.hasOwnProperty('email') && dataLogin.role === 'Admin' || userData.hasOwnProperty('email') ? <h1>Usted ya tiene una sesión abierta</h1> :  */}
         <div className="w-full max-w-md">
             <form className="bg-customBeige bg-opacity-70 shadow-customBeigeDark shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit= {handleSubmit} >
             <div className="grid grid-cols-2 mb-4 gap-4 items-center">
@@ -100,14 +106,24 @@ const Register= ()=> {
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="phone" type="text" placeholder="Ingrese su tel." onChange={handleInputChange}/>
                 </div>
+                <div className="">
+                <label className=" text-gray-900 text-sm font-bold mb-2" htmlFor="role">
+                    Rol
+                </label>
+                <select name='role' id='role' className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline overflow-visible" defaultValue='Seleccione una opción' onChange={handleInputChange}>
+                    <option disabled value='Seleccione una opción'>Rol</option>
+                    <option value='Client'>Cliente</option>
+                    <option value='Admin'>Administrador</option>
+                </select>
+                </div>
+           
+                </div>   
                 <div className="mt-2">
                 <label className=" text-gray-900 text-sm font-bold mb-2" htmlFor="contraseña">
                     Contraseña
                 </label>
                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="" onChange={handleInputChange} />
-                
                 </div>
-                </div>   
                 <button className=" mt-6 w-full bg-customBlue2 shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-slate-50 font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="submit">
                    Registrar Usuario
                 </button>
