@@ -56,7 +56,7 @@ export async function sendBudgetToMail(blob) {
     const token= getTokenInCookies();
     
     try {
-        const result= await axios.post('https://fullprism3d.onrender.com/order/sendBudgetByEmail', blob,
+        const result= await axios.post('https://fullprism.fly.dev/order/sendBudgetByEmail', blob,
         {
             headers: {
                 'Content-Type': 'application/pdf',
