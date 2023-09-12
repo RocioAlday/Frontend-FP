@@ -22,7 +22,7 @@ const Register= ()=> {
     });
 
     const dispatch = useDispatch();
-
+    
     const handleSubmit= (e)=> {
         e.preventDefault();
     
@@ -37,9 +37,6 @@ const Register= ()=> {
         firstname: "",
         lastname: "",
         role: ""});
-        setTimeout(()=> {
-            history('/login');
-        }, "2000")
         
     };
 
@@ -56,7 +53,9 @@ const Register= ()=> {
 
     return (
         <div className="flex items-center justify-center pt-40 pb-60 bg-imageLogin">
-        {/* {dataLogin.hasOwnProperty('email') && dataLogin.role === 'Admin' || userData.hasOwnProperty('email') ? <h1>Usted ya tiene una sesión abierta</h1> :  */}
+        { 
+        dataLogin.hasOwnProperty('role') && dataLogin.role !== 'Admin'  || userData.hasOwnProperty('role') && userData.role !== 'Admin' ? <h1>USUARIO NO AUTORIZADO</h1> :
+        dataLogin.hasOwnProperty('email')  || userData.hasOwnProperty('email') ?  
         <div className="w-full max-w-md">
             <form className="bg-customBeige bg-opacity-70 shadow-customBeigeDark shadow-md rounded px-8 pt-6 pb-8 mb-4" onSubmit= {handleSubmit} >
             <div className="grid grid-cols-2 mb-4 gap-4 items-center">
@@ -130,7 +129,7 @@ const Register= ()=> {
              
             </form>
        
-        </div>
+        </div> : <h1 className="bg-customBeige bg-opacity-70 shadow-customBeigeDark shadow-md rounded px-8 pt-6 pb-8 mb-4 font-medium">ACCEDER CON UNA CUENTA ADMIN</h1> }
         </div>
    
     )
