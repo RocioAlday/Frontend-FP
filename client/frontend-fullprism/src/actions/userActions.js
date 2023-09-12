@@ -1,7 +1,7 @@
 import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAME, CLEAR_FILTER, GENERATE_ORDER, MODIFY_ORDER, GET_CART, 
         DELETE_ITEM_ORDER, ERROR_CART_EMPTY, CLEAR_ERROR, CHANGE_STATUS, GET_ALL_MODELS, GET_ALL_ORDERS, GET_ORDERS_FOR_BILLING, 
         GET_USER_ORDERS, GET_DOLARVALUE, GET_DATA_USER_FOR_BILL, ORDERS_FOR_CHANGE_STATUS, ORDERS_LIST, USER_DATA, FILTER_BY_STATUS, 
-        GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS, SETDASH } from "./types";
+        GET_DATA_BUDGET, FILTER_USER_ORDERS_BY_STATUS, SETDASH, ERROR_MESSAGE, CLEAR_ERR_MSG } from "./types";
 import axios from 'axios';
 import { getTokenInCookies, setTokenInCookies, showNotification } from "../utils/functions";
 
@@ -40,20 +40,32 @@ export const logOut= ()=> {
 };
 
 export const loginUser = (user) => {
-
-    try{
-        return async function(dispatch){
+    return async function(dispatch) {
+        try {
             let dataLogin= await axios.post("https://fullprism.fly.dev/user/login" , user);
             console.log(dataLogin);
+          
             setTokenInCookies(dataLogin.data.refreshToken);
            
             return dispatch({
                 type: LOGIN_USER,
                 payload: dataLogin.data,
             })
+
+        
+        } catch(error) {
+            console.log(error);
+            return dispatch({
+                type: ERROR_MESSAGE,
+                payload: 'Contraseña Incorrecta'
+            })
         }
-    } catch(error) {
-        console.log("error In LOGIN", error)
+    }
+};
+
+export const clearErrorMessage= ()=> {
+    return {
+        type: CLEAR_ERR_MSG
     }
 };
 

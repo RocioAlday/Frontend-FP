@@ -1,17 +1,21 @@
 import { useState, useEffect, React } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import { loginUser, userInfoData } from "../../actions/userActions";
+import { loginUser, userInfoData, clearErrorMessage } from "../../actions/userActions";
+import { AiOutlineEye } from 'react-icons/ai';
 import './login.css';
 
 const Login= ()=> {
     const [user, setUser] = useState({email: "", password: ""});
+    const [passwordVisible, setPasswordVisible] = useState(false);
     const dispatch = useDispatch();
     let history= useNavigate();
     const dataLogin= useSelector((state)=> state.userLogin);
     console.log(dataLogin)
     let userData= useSelector((state)=> state.userData);
-    console.log(user)
+    // console.log(user)
+    let error= useSelector((state)=> state.errorMessage);
+console.log(error)
     const handleSubmit= (e)=> {
         e.preventDefault();
         dispatch(loginUser(user));
@@ -26,11 +30,18 @@ const Login= ()=> {
         console.log(user);
 
       };
+    
+    const handlePasswordToogle= function(event) {
+        setPasswordVisible(!passwordVisible)
+    }
       
     useEffect(()=> {
        userData.hasOwnProperty('email') === false ? dispatch(userInfoData()) : 
-       userData.hasOwnProperty('role') && userData.role === 'Client' ? history('/piezas') : history('/dashboards')
-    }, [userData])
+       userData.hasOwnProperty('role') && userData.role === 'Client' ? history('/piezas') : history('/dashboards');
+       userData.hasOwnProperty('email') && dispatch(clearErrorMessage()) 
+
+    }, [userData, error])
+    
     
 
     return (
@@ -49,7 +60,11 @@ const Login= ()=> {
                 <label className="block text-gray-900 text-md font-bold mb-2" htmlFor="contraseña">
                     Contraseña
                 </label>
-                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type="password" placeholder="********" onChange={handleInputChange} />
+                <div className="flex text-center justify-center gap-2">
+                <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-800 mb-3 leading-tight focus:outline-none focus:shadow-outline" id="password" name="password" type={passwordVisible ? 'text' : 'password'} placeholder="********" onChange={handleInputChange} />
+                <button className="pb-2" onClick={handlePasswordToogle}> <AiOutlineEye /> </button>
+                </div>
+                {error.length ?  <p className="text-xs text-red-700">*{error}</p> : null}
                 </div>
                 <div className="flex items-center justify-between">
                 <button className="bg-customBlue shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-white font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="submit" >
@@ -59,10 +74,6 @@ const Login= ()=> {
                     Olvidaste tu clave?
                 </a>
                 </div>
-                
-                <button className=" mt-8 w-full bg-customBlue2 shadow-md shadow-slate-700 hover:bg-customNavy hover:text-gray-600 text-slate-50 font-bold py-2 px-4 pl-3 rounded focus:outline-none focus:shadow-outline" type="button">
-                    <Link to='/register'>Registrarse</Link>
-                </button>
              
             </form>
        
