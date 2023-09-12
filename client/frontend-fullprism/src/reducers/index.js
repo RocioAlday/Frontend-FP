@@ -24,7 +24,9 @@ import {
     FILTER_BY_STATUS,
     GET_DATA_BUDGET,
     FILTER_USER_ORDERS_BY_STATUS,
-    SETDASH
+    SETDASH,
+    ERROR_MESSAGE,
+    CLEAR_ERR_MSG
 } from '../actions/types';
 
 
@@ -52,7 +54,8 @@ const initialState= {
     dataBudget: {},
     filteredOrdersByStatus: [],
     dashboard: '',
-    statusChanged: {}
+    statusChanged: {},
+    errorMessage: ''
 }
 
 const rootReducer= (state= initialState, action)=> {
@@ -286,7 +289,17 @@ const rootReducer= (state= initialState, action)=> {
                 dashboard: action.payload
             }
         
-
+        case ERROR_MESSAGE:
+            return {
+                ...state,
+                errorMessage: action.payload
+            }
+        
+        case CLEAR_ERR_MSG:
+            return {
+                ...state,
+                errorMessage: ''
+            }
 
         default:
             return state;
