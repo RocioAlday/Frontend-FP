@@ -7,3 +7,5 @@ const ModelLoad = () => {
         </ModelLoadForm>
     )
 }
+
+export default ModelLoad;
