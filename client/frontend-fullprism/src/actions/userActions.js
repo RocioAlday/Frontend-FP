@@ -5,7 +5,7 @@ import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAM
 import axios from 'axios';
 import { getTokenInCookies, setTokenInCookies, showNotification } from "../utils/functions";
 
-const url = "http://localhost:3000/";
+const url = "http://localhost:3000";
 
 export const registerUser= (user)=> {
     try {
@@ -19,6 +19,15 @@ export const registerUser= (user)=> {
         console.log(error);
     }
 };
+
+export const registerModel= (model)=> {
+    try{
+        return async function() {
+            await axios.post(`${url}/model/create`, model);
+        }
+    } catch(error){
+    }
+}
 
 export const logOut= ()=> {
   
@@ -44,7 +53,7 @@ export const logOut= ()=> {
 export const loginUser = (user) => {
     return async function(dispatch) {
         try {
-            let dataLogin= await axios.post("https://fullprism.fly.dev/user/login" , user);
+            let dataLogin= await axios.post(`${url}/user/login` , user);
             console.log(dataLogin);
           
             setTokenInCookies(dataLogin.data.refreshToken);
@@ -75,7 +84,7 @@ export const getModels= ()=> {
     const token= getTokenInCookies();
     try {
         return async function(dispatch) {
-            let modelsByCompany= await axios.get("https://fullprism.fly.dev/model/companyModels" ,
+            let modelsByCompany= await axios.get(`${url}/model/companyModels` ,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -95,7 +104,7 @@ export const getModels= ()=> {
 export const getAllModels= ()=> {
     try {
         return async function(dispatch) {
-            let allModels= await axios.get("https://fullprism.fly.dev/admin/allModels");
+            let allModels= await axios.get(`${url}/admin/allModels`);
             
             return dispatch({
                 type: GET_ALL_MODELS,
@@ -110,7 +119,7 @@ export const getAllModels= ()=> {
 export const modifyModel= (newModel)=> {
     try{
         return async function() {
-            let modifyModel= await axios.put("https://fullprism.fly.dev/admin/modifyModel", newModel);
+            let modifyModel= await axios.put(`${url}/admin/modifyModel`, newModel);
         }
     } catch(error){
         console.log(error)
@@ -122,7 +131,7 @@ export const getCartUser= ()=> {
    
     try {
         return async function(dispatch) {
-        let cartUser= await axios.get("https://fullprism.fly.dev/cart/cartByUser" ,
+        let cartUser= await axios.get(`${url}/cart/cartByUser` ,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -147,7 +156,7 @@ export const modifyItemCart = (payload) => {
     
     try { 
         return async function(dispatch){
-            let addToCart = await axios.put("https://fullprism.fly.dev/cart/modifyCart" ,{product: payload},
+            let addToCart = await axios.put(`${url}/modifyCart` ,{product: payload},
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -173,7 +182,7 @@ export const searchByName= (payload)=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try {
-            const response = await axios.get(`https://fullprism.fly.dev/model/modelByName?name=${payload}`,
+            const response = await axios.get(`${url}/model/modelByName?name=${payload}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -200,7 +209,7 @@ export const generateOrder= ()=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try {
-            const response = await axios.post('https://fullprism.fly.dev/order/newOrder', {},
+            const response = await axios.post(`${url}/order/newOrder`, {},
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -221,7 +230,7 @@ export const modifyOrder= ()=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try {
-            const response = await axios.put('https://fullprism.fly.dev/order/modifyOrder', {},
+            const response = await axios.put(`${url}/order/modifyOrder`, {},
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -249,7 +258,7 @@ export const addToOrderConfirmed= (payload)=> {
   
     return async function () {
         try {
-            const response = await axios.post('https://fullprism.fly.dev/order/orderConfirmed', payload, 
+            const response = await axios.post(`${url}/order/orderConfirmed`, payload, 
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -268,7 +277,7 @@ export const deleteItemOrder= ()=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try {
-            const response = await axios.delete('https://fullprism.fly.dev/order/deleteItem', 
+            const response = await axios.delete(`${url}/order/deleteItem`, 
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -298,7 +307,7 @@ export const deleteOrder= (payload)=> {
     
     return async function () {
         try {
-            const response = await axios.put('https://fullprism.fly.dev/order/deleteOrder', payload,
+            const response = await axios.put(`${url}/order/deleteOrder`, payload,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -324,7 +333,7 @@ export const changeStatus= (payload)=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try {
-            const response = await axios.post('https://fullprism.fly.dev/order/changeStatus', {status: payload},
+            const response = await axios.post(`${url}/order/changeStatus`, {status: payload},
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -345,7 +354,7 @@ export const changeStatusItemOrder= (payload)=> {
     const token= getTokenInCookies();
     return async function () {
         try {
-            const response = await axios.put('https://fullprism.fly.dev/admin/modifyStatusOrderDetail', payload,
+            const response = await axios.put(`${url}/admin/modifyStatusOrderDetail`, payload,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -363,7 +372,7 @@ export const changeStatusItemOrder= (payload)=> {
 export const getAllOrders= ()=> {
     return async function(dispatch) {
         try{
-            const orders= await axios.get("https://fullprism.fly.dev/admin/allOrders");
+            const orders= await axios.get(`${url}/admin/allOrders`);
             return dispatch({
                 type: GET_ALL_ORDERS,
                 payload: orders.data
@@ -377,7 +386,7 @@ export const getAllOrders= ()=> {
 export const getOrdersForBilling= ()=> {
     return async function(dispatch) {
         try{
-            const orders= await axios.get("https://fullprism.fly.dev/admin/ordersForBilling");
+            const orders= await axios.get(`${url}/admin/ordersForBilling`);
            
             return dispatch({
                 type: GET_ORDERS_FOR_BILLING,
@@ -394,7 +403,7 @@ export const getOrdersForBilling= ()=> {
     const token= getTokenInCookies();
      return async function (dispatch) {
          try {
-             const response = await axios.get('https://fullprism.fly.dev/order/openOrders',
+             const response = await axios.get(`${url}/order/openOrders`,
              {
                  headers: {
                      Authorization: `Bearer ${token}`
@@ -414,7 +423,7 @@ export const getOrdersForBilling= ()=> {
 export const getDolarValue= ()=> {
     return async function (dispatch) {  
         try{
-            const dolar= await axios.get('https://fullprism.fly.dev/model/dolarValue');
+            const dolar= await axios.get(`${url}/model/dolarValue`);
     
             return dispatch({
                 type: GET_DOLARVALUE,
@@ -432,7 +441,7 @@ export const getDataForBill= (payload)=> {
     return async function (dispatch) {
         try{
           
-            const userInfo= await axios.get(`https://fullprism.fly.dev/user/dataUserForBill?userId=${payload}`,
+            const userInfo= await axios.get(`${url}/user/dataUserForBill?userId=${payload}`,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -453,7 +462,7 @@ export const changeConfirmedOrderStatus= (payload)=> {
     const token= getTokenInCookies();
     return async function (dispatch) {
         try{
-            const orderChanged= await axios.post('https://fullprism.fly.dev/order/changeConfirmOrderStatus', payload,
+            const orderChanged= await axios.post(`${url}/order/changeConfirmOrderStatus`, payload,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -493,7 +502,7 @@ export const modifyOrderByAdmin= (payload)=> {
     return async function() {
         try {
           console.log(payload);
-            const modifyOrder= await axios.put('https://fullprism.fly.dev/admin/modifyOrderDetail', payload);
+            const modifyOrder= await axios.put(`${url}/admin/modifyOrderDetail`, payload);
          
           
         } catch (error) {
@@ -505,7 +514,7 @@ export const modifyOrderByAdmin= (payload)=> {
 export const modifyPriority= (payload)=> {
     return async function() {
         try {
-            const modifyPriority= await axios.put('https://fullprism.fly.dev/admin/modifyPriority', payload);
+            const modifyPriority= await axios.put(`${url}/admin/modifyPriority`, payload);
 
         } catch (error) {
             console.log('Error modifyng priority in order')
@@ -519,7 +528,7 @@ export const userInfoData= ()=> {
     return async function(dispatch) {
         if(token) {
             try {
-                const userData= await axios.get('https://fullprism.fly.dev/user/userData',
+                const userData= await axios.get(`${url}/user/userData`,
                 {
                     headers: {
                         Authorization: `Bearer ${token}`
@@ -549,7 +558,7 @@ export const dataForBudget= (payload) => {
     console.log(token);
     return async function (dispatch) {
         try{
-            const result= await axios.post('https://fullprism.fly.dev/order/dataForBudget', payload,
+            const result= await axios.post(`${url}/order/dataForBudget`, payload,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -587,7 +596,7 @@ export function setDashboard(payload) {
 export function sendContactEmail(payload){
     return async function () {
         try{
-            const response= await axios.post('https://fullprism.fly.dev/user/sendContactEmail', payload);
+            const response= await axios.post(`${url}/user/sendContactEmail`, payload);
             
             console.log(response.data)
             response.status === 200 && showNotification('Tu consulta fue enviada con éxito!', 'TOP_LEFT')
