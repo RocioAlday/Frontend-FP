@@ -5,10 +5,12 @@ import { LOGIN_USER, LOGOUT_USER, GET_MODELS, MODIFY_ITEM_CART, GET_MODEL_BY_NAM
 import axios from 'axios';
 import { getTokenInCookies, setTokenInCookies, showNotification } from "../utils/functions";
 
+const url = "http://localhost:3000/";
+
 export const registerUser= (user)=> {
     try {
         return async function(){
-            let dataRegister= await axios.post("https://fullprism.fly.dev/user/register" , user);
+            let dataRegister= await axios.post(`${url}/user/register`,user);
             console.log(dataRegister);
             dataRegister.status === 201 && showNotification('Usuario registrado con éxito!', 'BOTTOM_CENTER')
         }
@@ -23,7 +25,7 @@ export const logOut= ()=> {
     const token= getTokenInCookies();
     try{
         return async function(dispatch){
-            let dataLogout= await axios.get("https://fullprism.fly.dev/user/logout" ,{
+            let dataLogout= await axios.get(`${url}/user/logout` ,{
                 headers: {
                     Authorization: `Bearer ${token}`
                 }
