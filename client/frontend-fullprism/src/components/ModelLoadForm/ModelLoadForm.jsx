@@ -1,23 +1,27 @@
 import { useState } from "react";
+import {useDispatch} from "react-redux";
+import { registerModel } from "../../actions/userActions";
 
 const validate = (form, setErrors, errors) => { 
-    if(!form.name) setErrors({...errors, name:"Este cambpo no puede estar vacio."});
+    if(!form.name) setErrors({...errors, name:"Este campo no puede estar vacio."});
     else setErrors ({...errors, name:""});
-    if(!form.material) setErrors({...errors, material:"Este cambpo no puede estar vacio."});
+    if(!form.material) setErrors({...errors, material:"Este campo no puede estar vacio."});
     else setErrors ({...errors, material:""});
     // if(!form.link) setErrors({...errors, link:"Este cambpo no puede estar vacio."});
     // else setErrors ({...errors, link:""});
-    if(!form.price) setErrors({...errors, price:"Este cambpo no puede estar vacio."});
+    if(!form.price) setErrors({...errors, price:"Este campo no puede estar vacio."});
     else setErrors ({...errors, price:""});
-    if(!form.companyName) setErrors({...errors, companyName:"Este cambpo no puede estar vacio."});
+    if(!form.companyName) setErrors({...errors, companyName:"Este campo no puede estar vacio."});
     else setErrors ({...errors, companyName:""});
-    if(!form.image) setErrors({...errors, image:"Este cambpo no puede estar vacio."});
+    if(!form.image) setErrors({...errors, image:"Este campo no puede estar vacio."});
     else setErrors ({...errors, image:""});
     // if(!form.parameters) setErrors({...errors, parameters:"Este cambpo no puede estar vacio."});
     // else setErrors ({...errors, parameters:""});
 }
 
 const ModelLoadForm = () => {
+
+    const dispatch = useDispatch();
 
     const [form, setForm]= useState({
         name:"",
@@ -41,14 +45,14 @@ const ModelLoadForm = () => {
 
     const handleChange = (event) => {
         const property = event.target.name;
-        const value = event.tarjet.value;
+        const value = event.target.value;
 
         setForm ({...form, [property]:value});
         validate({...form, [property]:value}, setErrors, errors);
     }
 
     const submitHandler = (event) => {
-        event.preventDefault();
+       
         dispatch(registerModel(form));
 
     }
